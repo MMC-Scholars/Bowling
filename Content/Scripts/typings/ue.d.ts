@@ -1,5 +1,22 @@
 /// <reference path="_part_0_ue.d.ts">/>
 /// <reference path="_part_1_ue.d.ts">/>
+declare class LeaderboardFlushCallbackProxy extends UObject { 
+	OnSuccess: UnrealEngineMulticastDelegate<(SessionName: string) => void>;
+	OnFailure: UnrealEngineMulticastDelegate<(SessionName: string) => void>;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): LeaderboardFlushCallbackProxy;
+	static Find(Outer: UObject, ResourceName: string): LeaderboardFlushCallbackProxy;
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): LeaderboardFlushCallbackProxy;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): LeaderboardFlushCallbackProxy;
+	static CreateProxyObjectForFlush(PlayerController: PlayerController,SessionName: string): LeaderboardFlushCallbackProxy;
+	static C(Other: UObject): LeaderboardFlushCallbackProxy;
+}
+
 declare class LeaderboardQueryCallbackProxy extends UObject { 
 	OnSuccess: UnrealEngineMulticastDelegate<(LeaderboardValue: number) => void>;
 	OnFailure: UnrealEngineMulticastDelegate<(LeaderboardValue: number) => void>;
@@ -2970,7 +2987,6 @@ declare class FileMediaSource extends MediaSource {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): FileMediaSource;
-	SetFilePath(Path: string): void;
 	static C(Other: UObject): FileMediaSource;
 }
 
@@ -4059,14 +4075,17 @@ declare class JavascriptLibrary extends BlueprintFunctionLibrary {
 	static GetNodeId(UNode: JavascriptProfileNode): number;
 	static GetName(UObject: UObject): string;
 	static GetModel(World: World): Model;
+	static GetMetaData(Field: Field,Key: string): string;
 	static GetLineNumber(UNode: JavascriptProfileNode): number;
 	static GetLevels(World: World): Level[];
 	static GetLevel(Actor: Actor): Level;
 	static GetLastRenderTime(Actor: Actor): number;
 	static GetHitLineCount(UNode: JavascriptProfileNode): number;
 	static GetHitCount(UNode: JavascriptProfileNode): number;
+	static GetFunctionParmsSize(UFunction: UFunction): number;
 	static GetFunctionName(UNode: JavascriptProfileNode): string;
 	static GetFileSize(UObject: UObject,Filename: string): number;
+	static GetFields(UObject: UObject,bIncludeSuper: boolean): Field[];
 	static GetDynamicBinding(Outer: UnrealEngineClass,BindingObjectClass: UnrealEngineClass): DynamicBlueprintBinding;
 	static GetDir(UObject: UObject,WhichDir: string): string;
 	static GetDerivedClasses(ClassToLookFor: UnrealEngineClass,Results?: UnrealEngineClass[],bRecursive?: boolean): {Results: UnrealEngineClass[]};
@@ -4085,6 +4104,7 @@ declare class JavascriptLibrary extends BlueprintFunctionLibrary {
 	static GetBailoutReason(UNode: JavascriptProfileNode): string;
 	static GetArchetypePathName(UObject: UObject): string;
 	static GetAllActorsOfClassAndTags(WorldContextObject: UObject,ActorClass: UnrealEngineClass,Tags_Accept: string[],Tags_Deny: string[],OutActors?: Actor[]): {OutActors: Actor[]};
+	static GenerateNavigation(world: World,NavData: RecastNavMesh): void;
 	static FindPackage(InOuter: UObject,PackageName: string): Package;
 	static FindObjectWithOuter(Outer: UObject,ClassToLookFor: UnrealEngineClass,NameToLookFor: string): UObject;
 	static FileExists(Filename: string): boolean;
@@ -4178,11 +4198,16 @@ declare class JavascriptProcess extends UObject {
 	static SetEnvironmentVar(VarName: string,VarValue: string): void;
 	ReadFromPipe(): string;
 	ReadArrayFromPipe(Array?: number[]): {Array: number[], $: boolean};
+	static Open_PID(ProcessId: number): JavascriptProcess;
+	static Open(ProcName: string): JavascriptProcess;
 	static LaunchURL(URL: string,Parms: string,Error?: string): {Error: string};
 	IsRunning(): boolean;
+	static IsApplicationRunning_PID(ProcessId: number): boolean;
+	static IsApplicationRunning(ProcName: string): boolean;
 	static GetString(Key: string,bFlag: boolean): string;
 	GetReturnCode(ReturnCode?: number): {ReturnCode: number, $: boolean};
 	static GetEnvironmentVar(VarName: string): string;
+	static GetApplicationName(ProcessId: number): string;
 	static Create(URL: string,Parms: string,bLaunchDetached: boolean,bLaunchHidden: boolean,bLaunchReallyHidden: boolean,PriorityModifier: number,OptionalWorkingDirectory: string,bUsePipe: boolean): JavascriptProcess;
 	Close(): void;
 	static CanLaunchURL(URL: string): boolean;
@@ -4350,6 +4375,7 @@ declare class JavascriptUMGLibrary extends BlueprintFunctionLibrary {
 	static Register(StyleSet: JavascriptSlateStyle): void;
 	static GenerateDynamicImageResource(InDynamicBrushName: string): Vector2D;
 	static CreateSlateStyle(InStyleSetName: string): JavascriptSlateStyle;
+	static ComputeDesiredSize(Widget: Widget,LayoutScaleMultiplier: number): Vector2D;
 	static AddWindowAsNativeChild(NewWindow: JavascriptSlateWidget,RootWindow: JavascriptSlateWidget): void;
 	static AddWindow(NewWindow: JavascriptSlateWidget): void;
 	static AddSound(StyleSet: JavascriptSlateStyle,PropertyName: string,Sound: SlateSound): void;
@@ -4906,6 +4932,7 @@ declare class JavascriptUMGBlueprintLibrary extends BlueprintFunctionLibrary {
 
 declare class JavascriptWidget extends UserWidget { 
 	JavascriptContext: JavascriptContext;
+	OnInputActionEvent: UnrealEngineMulticastDelegate<(ActionName: string) => void>;
 	ContentSlot: PanelSlot;
 	constructor();
 	constructor(Outer: UObject);
@@ -6546,6 +6573,8 @@ declare class JavascriptEditorLibrary extends BlueprintFunctionLibrary {
 	static SetActorLabel(Actor: Actor,NewActorLabel: string,bMarkDirty: boolean): void;
 	static Select(USelection: USelection,InObject: UObject): void;
 	static SavePackage(Package: Package,FileName: string): boolean;
+	static RequestEndPlayMapInPIE(): void;
+	static RemoveLevelInstance(World: World): void;
 	static RemoveExtender(Manager: JavascriptExtensibilityManager,Extender: JavascriptExtender): void;
 	static OpenPopupWindow(Widget: Widget,PopupDesiredSize: Vector2D,HeadingText: string): void;
 	static ModifyObject(UObject: UObject,bAlwaysMarkDirty: boolean): void;
@@ -6586,6 +6615,8 @@ declare class JavascriptEditorLibrary extends BlueprintFunctionLibrary {
 	static GetAllTags(AssetData: JavascriptAssetData,OutArray?: string[]): {OutArray: string[]};
 	static GetActorLabel(Actor: Actor): string;
 	static GetActor(Proxy: JavascriptHitProxy): Actor;
+	static FindWorldInPackage(Package: Package): World;
+	static ExportNavigation(InWorld: World,Path: string): string;
 	static EditorDestroyActor(World: World,Actor: Actor,bShouldModifyLevel: boolean): boolean;
 	static EditorAddModalWindow(Widget: JavascriptSlateWidget): void;
 	static DrawWireStar(PDI: JavascriptPDI,Position: Vector,Size: number,Color: LinearColor,DepthPriority: ESceneDepthPriorityGroup): void;
@@ -6613,6 +6644,7 @@ declare class JavascriptEditorLibrary extends BlueprintFunctionLibrary {
 	static DeletePackage(Package: Package): boolean;
 	static csgAdd(DefaultBrush: Brush,PolyFlags: number,BrushType: EBrushType): Brush;
 	static CreatePropertyEditorToolkit(ObjectsForPropertiesMenu: UObject[]): void;
+	static CreateBrushForVolumeActor(NewActor: Volume,BrushBuilder: BrushBuilder): void;
 	static ClearActorLabel(Actor: Actor): void;
 	static Build(Builder: BrushBuilder,InWorld: World,InBrush: Brush): boolean;
 	static BroadcastHotReload(): void;
@@ -6743,6 +6775,23 @@ declare class JavascriptCommandlet extends Commandlet {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): JavascriptCommandlet;
 	static C(Other: UObject): JavascriptCommandlet;
+}
+
+declare class JavascriptEdGraphNode extends EdGraphNode { 
+	ClassData: GraphNodeClassData;
+	NodeInstance: UObject;
+	SubNodes: JavascriptEdGraphNode[];
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): JavascriptEdGraphNode;
+	static Find(Outer: UObject, ResourceName: string): JavascriptEdGraphNode;
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): JavascriptEdGraphNode;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): JavascriptEdGraphNode;
+	static C(Other: UObject): JavascriptEdGraphNode;
 }
 
 declare class JavascriptEditorEngineLibrary extends BlueprintFunctionLibrary { 
@@ -6897,9 +6946,11 @@ declare class JavascriptEditorViewport extends PanelWidget {
 	SetSkyBrightness(SkyBrightness: number): void;
 	SetSimulatePhysics(bShouldSimulatePhysics: boolean): void;
 	SetRealtime(bInRealtime: boolean,bStoreCurrentValue: boolean): void;
+	SetProfileIndex(InProfileIndex: number): void;
 	SetLightDirection(InLightDir: Rotator): void;
 	SetLightColor(LightColor: Color): void;
 	SetLightBrightness(LightBrightness: number): void;
+	SetFloorOffset(InFloorOffset: number): void;
 	SetEngineShowFlags(In: string): boolean;
 	SetCameraSpeedSetting(SpeedSetting: number): void;
 	SetBackgroundColor(BackgroundColor: LinearColor): void;
@@ -6910,7 +6961,11 @@ declare class JavascriptEditorViewport extends PanelWidget {
 	GetWidgetMode(): EJavascriptWidgetMode;
 	GetViewportWorld(): World;
 	GetViewFOV(): number;
+	GetSkyComponent(): StaticMeshComponent;
+	GetFloorMeshComponent(): StaticMeshComponent;
 	GetEngineShowFlags(): string;
+	GetDefaultAssetViewerSettings(): AssetViewerSettings;
+	GetCurrentProfileIndex(): number;
 	GetCameraSpeedSetting(): number;
 	DeprojectScreenToWorld(ScreenPosition: Vector2D,OutRayOrigin?: Vector,OutRayDirection?: Vector): {OutRayOrigin: Vector, OutRayDirection: Vector};
 	static C(Other: UObject): JavascriptEditorViewport;
@@ -7052,6 +7107,46 @@ declare class JavascriptEdMode extends UObject {
 	Unregister(): void;
 	Register(): void;
 	static C(Other: UObject): JavascriptEdMode;
+}
+
+declare class JavascriptGraphAction { 
+	Name: string;
+	Category: string;
+	Resource: UObject;
+	clone() : JavascriptGraphAction;
+	static C(Other: UObject): JavascriptGraphAction;
+}
+
+declare class JavascriptGraphEditor extends Widget { 
+	TitleName: string;
+	Graph: EdGraph;
+	GraphEditorCommands: JavascriptUICommandList;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): JavascriptGraphEditor;
+	static Find(Outer: UObject, ResourceName: string): JavascriptGraphEditor;
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): JavascriptGraphEditor;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): JavascriptGraphEditor;
+	AddActionContext(Action: JavascriptGraphAction): void;
+	static C(Other: UObject): JavascriptGraphEditor;
+}
+
+declare class JavascriptGraphSchema extends EdGraphSchema { 
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): JavascriptGraphSchema;
+	static Find(Outer: UObject, ResourceName: string): JavascriptGraphSchema;
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): JavascriptGraphSchema;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): JavascriptGraphSchema;
+	static C(Other: UObject): JavascriptGraphSchema;
 }
 
 declare class JavascriptNotification extends UObject { 
@@ -7294,34 +7389,6 @@ declare class ORPHANED_DATA_ONLY_DmgTypeBP_Environmental_C_1 {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): ORPHANED_DATA_ONLY_DmgTypeBP_Environmental_C_1;
 	static C(Other: UObject): ORPHANED_DATA_ONLY_DmgTypeBP_Environmental_C_1;
-}
-
-declare class TRASHCLASS_LevelEditorAttract_2 { 
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): TRASHCLASS_LevelEditorAttract_2;
-	static Find(Outer: UObject, ResourceName: string): TRASHCLASS_LevelEditorAttract_2;
-	static StaticClass: any;
-	static GetClassObject(): UClass;
-	static GetDefaultObject(): TRASHCLASS_LevelEditorAttract_2;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TRASHCLASS_LevelEditorAttract_2;
-	static C(Other: UObject): TRASHCLASS_LevelEditorAttract_2;
-}
-
-declare class ORPHANED_DATA_ONLY_LevelEditorAttract_C_3 { 
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
-	static Find(Outer: UObject, ResourceName: string): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
-	static StaticClass: any;
-	static GetClassObject(): UClass;
-	static GetDefaultObject(): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
-	static C(Other: UObject): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
 }
 
 declare var Context : JavascriptContext;

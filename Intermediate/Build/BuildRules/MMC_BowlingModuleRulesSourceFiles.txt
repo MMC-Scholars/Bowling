@@ -1,0 +1,3 @@
+C:\Users\mtrunk\Documents\Unreal Projects\MMC-Bowling\Source\MMC_Bowling\MMC_Bowling.Build.cs
+C:\Users\mtrunk\Documents\Unreal Projects\MMC-Bowling\Source\MMC_Bowling.Target.cs
+C:\Users\mtrunk\Documents\Unreal Projects\MMC-Bowling\Source\MMC_BowlingEditor.Target.cs

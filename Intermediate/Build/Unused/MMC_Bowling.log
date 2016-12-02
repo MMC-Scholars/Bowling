@@ -1,0 +1,12 @@
+﻿  Performing full C++ include scan (no include cache file)
+  Performing 8 actions (4 in parallel)
+  entity_base.cpp
+  bowling_pin.cpp
+  bowling_system.cpp
+  bowling_frame.cpp
+  MMC_Bowling.cpp
+  prop_movelinear.cpp
+  MMC_Bowling.generated.cpp
+  [8/8] Link UE4Editor-MMC_Bowling.dll
+     Creating library C:\Users\mtrunk\Documents\Unreal Projects\MMC-Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.lib and object C:\Users\mtrunk\Documents\Unreal Projects\MMC-Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.exp
+  Total build time: 60.41 seconds

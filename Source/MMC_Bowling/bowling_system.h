@@ -44,6 +44,7 @@ private:
 
 	//we have an array of 12 bowling frames that we'll use to score. The last 2 are only used if possible
 	TArray<bowling_frame, FDefaultAllocator> Frames;
+	#define NUMBER_OF_FRAMES 12 //this is used only to construct the array
 
 	//we can't define references to uninitialized frames
 	//bowling_frame& lastFrame		= Frames[Frames.size() - 1];

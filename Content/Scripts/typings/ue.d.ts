@@ -2987,6 +2987,7 @@ declare class FileMediaSource extends MediaSource {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): FileMediaSource;
+	SetFilePath(Path: string): void;
 	static C(Other: UObject): FileMediaSource;
 }
 
@@ -5144,6 +5145,89 @@ declare class UdpMessagingSettings extends UObject {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): UdpMessagingSettings;
 	static C(Other: UObject): UdpMessagingSettings;
+}
+
+declare class entity_base extends Actor { 
+	initialHealth: number;
+	health: number;
+	isDead: boolean;
+	destroyOnDeath: boolean;
+	deathDelay: number;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): entity_base;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): entity_base;
+	ResetWorldTransform(): void;
+	OnKilled(): void;
+	CalculateHealth(delta: number): void;
+	static C(Other: UObject): entity_base;
+}
+
+declare class bowling_pin extends entity_base { 
+	isInGame: boolean;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): bowling_pin;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): bowling_pin;
+	static C(Other: UObject): bowling_pin;
+}
+
+declare type ScoreType = string | symbol;
+declare var ScoreType = { FirstThrow:'FirstThrow',SecondThrow:'SecondThrow',NativeScore:'NativeScore',AbsoluteNativeScore:'AbsoluteNativeScore',AbsoluteScore:'AbsoluteScore', };
+declare class bowling_system extends Actor { 
+	strikeCount: number;
+	printThrowsToScreen: boolean;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): bowling_system;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): bowling_system;
+	ResetGame(): void;
+	OnStrike(): void;
+	OnSpare(): void;
+	OnGameover(): void;
+	GetStringScoreOfFrame(frameNumber: number,type: ScoreType): string;
+	GetScoreOfFrame(frameNumber: number,type: ScoreType): number;
+	GetNumberOfCurrentFrame(): number;
+	GetAbsoluteScore(): number;
+	CalculateScore(): void;
+	static C(Other: UObject): bowling_system;
+}
+
+declare class prop_movelinear extends Actor { 
+	lerpSpeed: number;
+	bLoop: boolean;
+	StartPosition: Vector;
+	EndPosition: Vector;
+	bStartPaused: boolean;
+	bIsOpen: boolean;
+	bIsClosed: boolean;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): prop_movelinear;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_movelinear;
+	Toggle(): void;
+	SetPosition(newPos: number): void;
+	Open(): void;
+	OnOpened(): void;
+	OnFullyOpened(): void;
+	OnFullyClosed(): void;
+	OnClosed(): void;
+	IAmHere(): void;
+	GetPosition(): number;
+	Close(): void;
+	static C(Other: UObject): prop_movelinear;
 }
 
 declare class FlipbookEditorSettings extends UObject { 

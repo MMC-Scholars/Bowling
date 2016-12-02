@@ -12,8 +12,8 @@ Abowling_system::Abowling_system()
 
 	//initialize frames
 	Frames = TArray<bowling_frame, FDefaultAllocator>();
-	for (int i = 0; i < Frames.Num(); i++)
-		Frames[i] = bowling_frame();
+	for (int i = 0; i < NUMBER_OF_FRAMES; i++)
+		Frames.Emplace(bowling_frame());
 
 	bowling_frame& lastFrame = Frames[Frames.Num() - 1];
 

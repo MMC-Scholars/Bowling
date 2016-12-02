@@ -2,13 +2,13 @@
 	"TargetName" : "MMC_BowlingEditor",
 	"Platform" : "Win64",
 	"Configuration" : "Development",
-	"BuildId" : "9090089d-6f94-4ff5-9797-823fe3b667c6",
+	"BuildId" : "c9cf8fa2-86f8-46fa-adf8-b977f24ff5fe",
 	"Version" : 
 	{
 		"MajorVersion" : 4,
 		"MinorVersion" : 13,
-		"PatchVersion" : 0,
-		"Changelist" : 3106830,
+		"PatchVersion" : 2,
+		"Changelist" : 3172292,
 		"IsLicenseeVersion" : 0,
 		"BranchName" : "++UE4+Release-4.13"
 	},

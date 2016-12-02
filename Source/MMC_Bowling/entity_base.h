@@ -13,6 +13,11 @@ public:
 	//registar of all class instances
 	//static TArray<Aentity_base* const*, FDefaultAllocator> registrar;
 
+	//static mesh component
+	//UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "entity_base")
+	//	TSubobjectPtr<class UStaticMeshComponent> myStaticMeshComponent;
+	//UStaticMesh * myStaticMeshObj;
+
 	//Initial world transform of the entity - set in OnBeginPlay()
 	FVector OriginalLocation;
 	FRotator OriginalRotation;

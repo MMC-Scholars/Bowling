@@ -17093,6 +17093,8 @@
 		<ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Epic Games\4.13\Engine\Plugins\Runtime\GoogleVR\GoogleVRHMD\Source\GoogleVRHMD\Private\GoogleVRHMDRender.cpp" />
 		<ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Epic Games\4.13\Engine\Plugins\Runtime\GoogleVR\GoogleVRHMD\Source\GoogleVRHMD\Private\GoogleVRHMDViewerPreviews.cpp" />
 		<ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Epic Games\4.13\Engine\Plugins\Runtime\GoogleVR\GoogleVRHMD\Source\GoogleVRHMD\Private\GoogleVRHMDViewerPreviews.h" />
+		<ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Epic Games\4.13\Engine\Plugins\Runtime\GoogleVR\GoogleVRHMD\Source\GoogleVRHMD\Private\GoogleVRSplash.cpp" />
+		<ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Epic Games\4.13\Engine\Plugins\Runtime\GoogleVR\GoogleVRHMD\Source\GoogleVRHMD\Private\GoogleVRSplash.h" />
 		<ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Epic Games\4.13\Engine\Plugins\Runtime\GoogleVR\GoogleVRHMD\Source\GoogleVRHMD\Public\IGoogleVRHMDPlugin.h" />
 		<None Include="..\..\..\..\..\..\..\Program Files (x86)\Epic Games\4.13\Engine\Plugins\Runtime\IOSDeviceProfileSelector\Source\IOSDeviceProfileSelector\IOSDeviceProfileSelector.Build.cs" />
 		<ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Epic Games\4.13\Engine\Plugins\Runtime\IOSDeviceProfileSelector\Source\IOSDeviceProfileSelector\Private\IOSDeviceProfileSelectorModule.cpp" />

@@ -52,7 +52,7 @@ public:
 		bool destroyOnDeath = false;
 
 	//Float for time delay before destroying after death
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "entity_base")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_base")
 		float deathDelay = 0;
 
 	//Running clock for checking if we need to destroy this entity

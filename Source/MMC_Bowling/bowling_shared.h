@@ -13,3 +13,9 @@
 
 //couldn't find a define for it somewhere else
 #define PI 3.14159
+
+//shorted function for print to screen
+#define PrintToScreen(a)	{																			\
+								if(GEngine)																\
+								GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT((a));	\
+							}

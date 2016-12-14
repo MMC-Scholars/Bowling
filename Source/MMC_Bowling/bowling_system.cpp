@@ -226,6 +226,9 @@ int Abowling_system::GetScoreOfFrame(int frameNumber, ScoreType type)
 	//we'll let blueprinters start from 1
 	frameNumber--;
 
+	//clamp the frame number to avoid out-of-bounds errors
+	frameNumber = FMath::Clamp(frameNumber, 0, NUMBER_OF_FRAMES - 1);
+
 	if (type == FirstThrow)
 		return Frames[frameNumber].GetThrowScore(1);
 	if (type == SecondThrow)
@@ -243,6 +246,7 @@ int Abowling_system::GetScoreOfFrame(int frameNumber, ScoreType type)
 //Given a frame number and a score type, returns a string representation of the score
 FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type)
 {
+
 	int iScore = GetScoreOfFrame(frameNumber, type);
 
 	FString sScore;
@@ -262,6 +266,30 @@ FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type)
 		sScore = FString(TEXT("-"));
 	else
 		sScore = FString::FromInt(iScore);
+
+	return sScore;
+}
+
+//Returns a string containing the scores of the all the frames
+FString Abowling_system::GetStringScoreOfGame()
+{
+	FString sScore = FString(TEXT(""));
+
+	if (gameover)
+		sScore.Append(TEXT("!"));
+
+	//we start at 1 because the GetScoreOfFrame(...) function decrements the index
+	for (int i = 1; i <= Frames.Num(); i++)
+	{
+		sScore.Append(GetStringScoreOfFrame(i, FirstThrow));
+		sScore.Append(TEXT(" "));
+
+		sScore.Append(GetStringScoreOfFrame(i, SecondThrow));
+		sScore.Append(TEXT(" "));
+
+		sScore.Append(GetStringScoreOfFrame(i, AbsoluteScore));
+		sScore.Append(TEXT("     "));
+	}
 
 	return sScore;
 }
@@ -299,7 +327,7 @@ EndgameType Abowling_system::GsetEndgameType(EndgameType override, const int32 o
 //Returns the number of the current frame, 1-11
 int Abowling_system::GetNumberOfCurrentFrame()
 {
-	return frameIndex - 1;
+	return frameIndex + 1;
 }
 
 

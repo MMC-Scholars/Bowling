@@ -5174,6 +5174,7 @@ declare class bowling_system extends Actor {
 	OnStrike(): void;
 	OnSpare(): void;
 	OnGameover(): void;
+	GetStringScoreOfGame(): string;
 	GetStringScoreOfFrame(frameNumber: number,type: ScoreType): string;
 	GetScoreOfFrame(frameNumber: number,type: ScoreType): number;
 	GetNumberOfCurrentFrame(): number;

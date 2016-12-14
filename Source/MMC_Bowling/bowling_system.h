@@ -44,7 +44,7 @@ private:
 
 	//we have an array of 12 bowling frames that we'll use to score. The last 2 are only used if possible
 	TArray<bowling_frame, FDefaultAllocator> Frames;
-	#define NUMBER_OF_FRAMES 12 //this is used only to construct the array
+	#define NUMBER_OF_FRAMES 12 //this is used only to construct the array and for bounds checking
 
 	//we can't define references to uninitialized frames
 	//bowling_frame& lastFrame		= Frames[Frames.size() - 1];
@@ -97,6 +97,10 @@ public:
 	//Given a frame number and a score type, returns a string representation of the score
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
 		FString GetStringScoreOfFrame(int frameNumber, ScoreType type);
+
+	//Returns a string containing the scores of the all the frames
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		FString GetStringScoreOfGame();
 
 	//Resets all the scores of the game
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")

@@ -7,12 +7,17 @@
 //TArray<Aentity_base* const*, FDefaultAllocator> Aentity_base::registrar = TArray<Aentity_base* const*, FDefaultAllocator>();
 
 
+
+
+
 // Sets default values
 Aentity_base::Aentity_base()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-	//AddEntity(this);
+
+	//Define our root component as our static mesh
+	RootComponent = EntityModel;
 
 };
 

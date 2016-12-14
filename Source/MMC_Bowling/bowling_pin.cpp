@@ -46,6 +46,9 @@ void Abowling_pin::Tick(float DeltaTime)
 			isRaisingAndLowering = false;
 			PrimaryActorTick.bCanEverTick = false;
 			OnEndRaiseAndLower();
+
+			//re-enable physics
+			EntityModel->SetSimulatePhysics(true);
 		}
 	}
 
@@ -60,11 +63,14 @@ void Abowling_pin::Tick(float DeltaTime)
 		//end the process after enough time
 		if (runningTime >= PI / 2)
 		{
-			ResetWorldTransform();
+			//ResetWorldTransform();
 			runningTime = 0;
 			isLowering = false;
 			PrimaryActorTick.bCanEverTick = false;
 			OnEndResetAndLower();
+
+			//re-enable physics
+			EntityModel->SetSimulatePhysics(true);
 		}
 	}
 
@@ -95,6 +101,9 @@ void Abowling_pin::RaiseAndLower()
 	if (isLowering) //don't do this if we're already lowering
 		return;
 
+	//disable physics
+	EntityModel->SetSimulatePhysics(false);
+
 	isRaisingAndLowering = true;
 	PrimaryActorTick.bCanEverTick = true;
 	//these are set back to false from within the tick function
@@ -110,12 +119,15 @@ void Abowling_pin::ResetAndLower()
 		return;
 	if (isRaisingAndLowering) //don't do this if we're already raising and lowering
 		return;
+
 	
+
 	//reset position and teleport up
 	ResetWorldTransform();
 	AddActorLocalOffset(FVector(0.0f, 0.0f, RaiseAndLowerAmplitude));
 
-	OnResetAndLower(); //use this to disable physics
+	OnResetAndLower(); 
+	
 
 	isLowering = true;
 	PrimaryActorTick.bCanEverTick = true;

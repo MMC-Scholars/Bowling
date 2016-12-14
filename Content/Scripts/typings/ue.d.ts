@@ -5120,6 +5120,7 @@ declare class UdpMessagingSettings extends UObject {
 }
 
 declare class entity_base extends Actor { 
+	EntityModel: StaticMeshComponent;
 	initialHealth: number;
 	health: number;
 	isDead: boolean;
@@ -5140,6 +5141,7 @@ declare class entity_base extends Actor {
 
 declare class bowling_pin extends entity_base { 
 	isInGame: boolean;
+	RaiseAndLowerAmplitude: number;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): UClass;
@@ -5147,6 +5149,12 @@ declare class bowling_pin extends entity_base {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): bowling_pin;
+	ResetAndLower(): void;
+	RaiseAndLower(): void;
+	OnResetAndLower(): void;
+	OnRaiseAndLower(): void;
+	OnEndResetAndLower(): void;
+	OnEndRaiseAndLower(): void;
 	static C(Other: UObject): bowling_pin;
 }
 

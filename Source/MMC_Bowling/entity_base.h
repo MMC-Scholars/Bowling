@@ -18,6 +18,9 @@ public:
 	//	TSubobjectPtr<class UStaticMeshComponent> myStaticMeshComponent;
 	//UStaticMesh * myStaticMeshObj;
 
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "entity_base")
+		UStaticMeshComponent* EntityModel = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("EntityModel"));
+
 	//Initial world transform of the entity - set in OnBeginPlay()
 	FVector OriginalLocation;
 	FRotator OriginalRotation;
@@ -33,7 +36,7 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	//Initial Health Property
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "entity_base")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_base")
 		float initialHealth = 100;
 
 	//Health Property

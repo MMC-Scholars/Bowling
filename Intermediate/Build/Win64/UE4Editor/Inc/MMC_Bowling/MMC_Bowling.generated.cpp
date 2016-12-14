@@ -10,11 +10,15 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCode1MMC_Bowling() {}
 FName MMC_BOWLING_OnClosed = FName(TEXT("OnClosed"));
+FName MMC_BOWLING_OnEndRaiseAndLower = FName(TEXT("OnEndRaiseAndLower"));
+FName MMC_BOWLING_OnEndResetAndLower = FName(TEXT("OnEndResetAndLower"));
 FName MMC_BOWLING_OnFullyClosed = FName(TEXT("OnFullyClosed"));
 FName MMC_BOWLING_OnFullyOpened = FName(TEXT("OnFullyOpened"));
 FName MMC_BOWLING_OnGameover = FName(TEXT("OnGameover"));
 FName MMC_BOWLING_OnKilled = FName(TEXT("OnKilled"));
 FName MMC_BOWLING_OnOpened = FName(TEXT("OnOpened"));
+FName MMC_BOWLING_OnRaiseAndLower = FName(TEXT("OnRaiseAndLower"));
+FName MMC_BOWLING_OnResetAndLower = FName(TEXT("OnResetAndLower"));
 FName MMC_BOWLING_OnSpare = FName(TEXT("OnSpare"));
 FName MMC_BOWLING_OnStrike = FName(TEXT("OnStrike"));
 	void Aentity_base::OnKilled()
@@ -26,11 +30,29 @@ FName MMC_BOWLING_OnStrike = FName(TEXT("OnStrike"));
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "CalculateHealth",(Native)&Aentity_base::execCalculateHealth);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "ResetWorldTransform",(Native)&Aentity_base::execResetWorldTransform);
 	}
-	IMPLEMENT_CLASS(Aentity_base, 733640409);
+	IMPLEMENT_CLASS(Aentity_base, 1820818055);
+	void Abowling_pin::OnEndRaiseAndLower()
+	{
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnEndRaiseAndLower),NULL);
+	}
+	void Abowling_pin::OnEndResetAndLower()
+	{
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnEndResetAndLower),NULL);
+	}
+	void Abowling_pin::OnRaiseAndLower()
+	{
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnRaiseAndLower),NULL);
+	}
+	void Abowling_pin::OnResetAndLower()
+	{
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnResetAndLower),NULL);
+	}
 	void Abowling_pin::StaticRegisterNativesAbowling_pin()
 	{
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "RaiseAndLower",(Native)&Abowling_pin::execRaiseAndLower);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "ResetAndLower",(Native)&Abowling_pin::execResetAndLower);
 	}
-	IMPLEMENT_CLASS(Abowling_pin, 802490419);
+	IMPLEMENT_CLASS(Abowling_pin, 2170495084);
 static class UEnum* EndgameType_StaticEnum()
 {
 	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
@@ -106,6 +128,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	ENGINE_API class UClass* Z_Construct_UClass_AActor();
+	ENGINE_API class UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FVector();
 
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_CalculateHealth();
@@ -113,6 +136,12 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_ResetWorldTransform();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_base_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_base();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_OnEndRaiseAndLower();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_OnEndResetAndLower();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_OnRaiseAndLower();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_OnResetAndLower();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_RaiseAndLower();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_ResetAndLower();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_pin_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_pin();
 	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_EndgameType();
@@ -227,7 +256,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(isDead, Aentity_base, bool);
 				UProperty* NewProp_isDead = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("isDead"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(isDead, Aentity_base), 0x0010000000020015, CPP_BOOL_PROPERTY_BITMASK(isDead, Aentity_base), sizeof(bool), true);
 				UProperty* NewProp_health = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("health"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(health, Aentity_base), 0x0010000000000005);
-				UProperty* NewProp_initialHealth = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("initialHealth"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(initialHealth, Aentity_base), 0x0010000000020015);
+				UProperty* NewProp_initialHealth = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("initialHealth"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(initialHealth, Aentity_base), 0x0010000000000005);
+				UProperty* NewProp_EntityModel = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("EntityModel"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(EntityModel, Aentity_base), 0x00100000000a001d, Z_Construct_UClass_UStaticMeshComponent_NoRegister());
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_CalculateHealth(), "CalculateHealth"); // 1065234854
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnKilled(), "OnKilled"); // 4091202877
@@ -252,6 +282,10 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				MetaData->SetValue(NewProp_initialHealth, TEXT("Category"), TEXT("entity_base"));
 				MetaData->SetValue(NewProp_initialHealth, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
 				MetaData->SetValue(NewProp_initialHealth, TEXT("ToolTip"), TEXT("Initial Health Property"));
+				MetaData->SetValue(NewProp_EntityModel, TEXT("Category"), TEXT("entity_base"));
+				MetaData->SetValue(NewProp_EntityModel, TEXT("EditInline"), TEXT("true"));
+				MetaData->SetValue(NewProp_EntityModel, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
+				MetaData->SetValue(NewProp_EntityModel, TEXT("ToolTip"), TEXT("static mesh component\nUPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = \"entity_base\")\n       TSubobjectPtr<class UStaticMeshComponent> myStaticMeshComponent;\nUStaticMesh * myStaticMeshObj;"));
 #endif
 			}
 		}
@@ -260,6 +294,111 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Aentity_base(Z_Construct_UClass_Aentity_base, &Aentity_base::StaticClass, TEXT("Aentity_base"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Aentity_base);
+	UFunction* Z_Construct_UFunction_Abowling_pin_OnEndRaiseAndLower()
+	{
+		UObject* Outer=Z_Construct_UClass_Abowling_pin();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnEndRaiseAndLower"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_pin"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_pin_OnEndResetAndLower()
+	{
+		UObject* Outer=Z_Construct_UClass_Abowling_pin();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnEndResetAndLower"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_pin"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_pin_OnRaiseAndLower()
+	{
+		UObject* Outer=Z_Construct_UClass_Abowling_pin();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnRaiseAndLower"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_pin"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Use these two events to disable physics!"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_pin_OnResetAndLower()
+	{
+		UObject* Outer=Z_Construct_UClass_Abowling_pin();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnResetAndLower"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_pin"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_pin_RaiseAndLower()
+	{
+		UObject* Outer=Z_Construct_UClass_Abowling_pin();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("RaiseAndLower"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_pin"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("raises and then lowers the pins"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_pin_ResetAndLower()
+	{
+		UObject* Outer=Z_Construct_UClass_Abowling_pin();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("ResetAndLower"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_pin"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Teleports the pins to above their starting locations and then lowers them"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UClass* Z_Construct_UClass_Abowling_pin_NoRegister()
 	{
 		return Abowling_pin::StaticClass();
@@ -277,18 +416,34 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UObjectForceRegistration(OuterClass);
 				OuterClass->ClassFlags |= 0x20900080;
 
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_OnEndRaiseAndLower());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_OnEndResetAndLower());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_OnRaiseAndLower());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_OnResetAndLower());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_RaiseAndLower());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_ResetAndLower());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_RaiseAndLowerAmplitude = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("RaiseAndLowerAmplitude"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(RaiseAndLowerAmplitude, Abowling_pin), 0x0010000000000005);
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(isInGame, Abowling_pin, bool);
 				UProperty* NewProp_isInGame = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("isInGame"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(isInGame, Abowling_pin), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(isInGame, Abowling_pin), sizeof(bool), true);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_OnEndRaiseAndLower(), "OnEndRaiseAndLower"); // 3323806831
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_OnEndResetAndLower(), "OnEndResetAndLower"); // 2596535927
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_OnRaiseAndLower(), "OnRaiseAndLower"); // 4084718408
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_OnResetAndLower(), "OnResetAndLower"); // 4281530489
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_RaiseAndLower(), "RaiseAndLower"); // 906249185
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_ResetAndLower(), "ResetAndLower"); // 3737521378
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
 				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("bowling_pin.h"));
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+				MetaData->SetValue(NewProp_RaiseAndLowerAmplitude, TEXT("Category"), TEXT("bowling_pin"));
+				MetaData->SetValue(NewProp_RaiseAndLowerAmplitude, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
 				MetaData->SetValue(NewProp_isInGame, TEXT("Category"), TEXT("bowling_pin"));
 				MetaData->SetValue(NewProp_isInGame, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+				MetaData->SetValue(NewProp_isInGame, TEXT("ToolTip"), TEXT("used for calculating raising and lowering movement"));
 #endif
 			}
 		}
@@ -874,8 +1029,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x7FE95752;
-			Guid.B = 0x6309F5D4;
+			Guid.A = 0xCF157BEE;
+			Guid.B = 0x2460A94A;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

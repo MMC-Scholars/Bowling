@@ -43,7 +43,7 @@ public:
 		void ResetAndLower();
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "bowling_pin")
-		float RaiseAndLowerAmplitude = 20;
+		float RaiseAndLowerAmplitude = 20.0f;
 
 	//Use these two events to disable physics!
 	UFUNCTION(BlueprintImplementableEvent, Category = "bowling_pin")

@@ -8,7 +8,7 @@
 Abowling_pin::Abowling_pin()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 	didFall = false;
 	isRaisingAndLowering = false;
 	isLowering = false;
@@ -44,7 +44,7 @@ void Abowling_pin::Tick(float DeltaTime)
 			ResetWorldTransform(); //make sure we end in the exact initial location
 			runningTime = 0; //reset this to avoid bad math later on
 			isRaisingAndLowering = false;
-			PrimaryActorTick.bCanEverTick = false;
+			//PrimaryActorTick.bCanEverTick = false;
 			OnEndRaiseAndLower();
 
 			//re-enable physics
@@ -63,10 +63,10 @@ void Abowling_pin::Tick(float DeltaTime)
 		//end the process after enough time
 		if (runningTime >= PI / 2)
 		{
-			//ResetWorldTransform();
+			ResetWorldTransform();
 			runningTime = 0;
 			isLowering = false;
-			PrimaryActorTick.bCanEverTick = false;
+			//PrimaryActorTick.bCanEverTick = false;
 			OnEndResetAndLower();
 
 			//re-enable physics
@@ -85,9 +85,9 @@ bool Abowling_pin::CheckForFallen()
 		didFall = false;
 		return false; //never register as falling twice in a row
 	}
-	if (FMath::Abs(GetActorRotation().Roll - OriginalRotation.Roll) > 10)
+	if (FMath::Abs(GetActorRotation().Roll - FMath::Abs(OriginalRotation.Roll)) > 10)
 		didFall = true;
-	if (FMath::Abs(GetActorRotation().Pitch - OriginalRotation.Pitch) > 10)
+	if (FMath::Abs(GetActorRotation().Pitch - FMath::Abs(OriginalRotation.Pitch)) > 10)
 		didFall = true;
 	return didFall;
 }
@@ -100,15 +100,17 @@ void Abowling_pin::RaiseAndLower()
 		return;
 	if (isLowering) //don't do this if we're already lowering
 		return;
+	if (isRaisingAndLowering) //don't do this if we're already doing it
+		return;
 
 	//disable physics
 	EntityModel->SetSimulatePhysics(false);
 
 	isRaisingAndLowering = true;
-	PrimaryActorTick.bCanEverTick = true;
+	//PrimaryActorTick.bCanEverTick = true;
 	//these are set back to false from within the tick function
 
-	OnRaiseAndLower(); //use this to disable physics
+	OnRaiseAndLower(); 
 }
 
 //lowers the pin in a sine-wave fashion, by first teleporting the pin to above its starting location
@@ -119,7 +121,8 @@ void Abowling_pin::ResetAndLower()
 		return;
 	if (isRaisingAndLowering) //don't do this if we're already raising and lowering
 		return;
-
+	if (isLowering) //don't do this if we're already doing it
+		return;
 	
 
 	//reset position and teleport up

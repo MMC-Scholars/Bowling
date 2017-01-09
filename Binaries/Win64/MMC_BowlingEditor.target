@@ -2,7 +2,7 @@
 	"TargetName" : "MMC_BowlingEditor",
 	"Platform" : "Win64",
 	"Configuration" : "Development",
-	"BuildId" : "d6129c55-fa9e-403b-b44a-94d7a0b0e8ea",
+	"BuildId" : "6035b781-97e6-46be-997d-2735a41c6e47",
 	"Version" : 
 	{
 		"MajorVersion" : 4,
@@ -15,15 +15,15 @@
 	"BuildProducts" :
 	[
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-MMC_Bowling-5733.dll",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-MMC_Bowling-3689.dll",
 			"Type" : "DynamicLibrary"
 		},
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-MMC_Bowling-5733.pdb",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-MMC_Bowling-3689.pdb",
 			"Type" : "SymbolFile"
 		},
 		{
-			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-MMC_Bowling-5733.lib",
+			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-MMC_Bowling-3689.lib",
 			"Type" : "ImportLibrary"
 		}
 	],

@@ -165,6 +165,14 @@ void Abowling_system::ReCalculateAbsoluteScores()
 
 }
 
+//Returns true if the game is waiting for the user's first throw in the current frame, false otherwise.
+bool Abowling_system::WaitingForFirstThrow()
+{
+	bowling_frame& curFrame = Frames[frameIndex];
+
+	return ((!gameover) && curFrame.GetThrowScore(1) == NOT_THROWN);
+}
+
 //Counts the fallen bowling pins, and calculates the score for the current frame.
 //calls for the handling of the strike count and strike/spare bonuses
 //calls for the re-counting of absoluteScore's
@@ -215,6 +223,7 @@ void Abowling_system::CalculateScore()
 	//increment the frame index if we need to
 	if ((!gameover) && (curFrame.wasStrike || curFrame.GetThrowScore(2) != NOT_THROWN))
 		frameIndex++;
+	//otherwise, 
 
 	//Re-calculate the absolute scores for each frame
 	ReCalculateAbsoluteScores();
@@ -292,6 +301,34 @@ FString Abowling_system::GetStringScoreOfGame()
 	}
 
 	return sScore;
+}
+
+//Iterates through all of the pins and raises and lowers those which have not fallen
+void Abowling_system::RaiseAndLowerUnfallenPins()
+{
+	for (TActorIterator<Abowling_pin> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (*ActorItr)
+		{
+			Abowling_pin * curPin = *ActorItr;
+			if (curPin->isInGame && !curPin->didFall)
+				curPin->RaiseAndLower();
+		}	
+	}
+}
+
+//Teleports all of the pins above their starting locations and lowers them onto the lane
+void Abowling_system::ResetAndLowerAllPins()
+{
+	for (TActorIterator<Abowling_pin> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (*ActorItr)
+		{
+			Abowling_pin * curPin = *ActorItr;
+			if (curPin->isInGame)
+				curPin->ResetAndLower();
+		}
+	}
 }
 
 //Resets all the scores of the game

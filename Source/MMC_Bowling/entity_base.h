@@ -1,8 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "MMC_Bowling.h"
 #include "GameFramework/Actor.h"
+#include "MMC_Shared.h"
 #include "entity_base.generated.h"
+
 
 UCLASS()
 class MMC_BOWLING_API Aentity_base : public AActor
@@ -62,8 +65,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
 		virtual void CalculateHealth(float delta);
 
-
-	//Step 6: Editor code to make updating values in the editor cleaner
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
@@ -71,21 +72,15 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "entity_base")
 		void OnKilled();
 
+	//Common C++ function for printing message on screen
+	static void PrintToScreen(FString text);
+
 
 
 	//Resets the object to its starting location and starting rotation
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
 		void ResetWorldTransform();
 
-
-	/*
-	UFUNCTION(BlueprintCallable, Category = "entity_registrar")
-	static Aentity_base* const* FindEntityByTag(FName tag);
-
-	//adds an entity to the registrar
-	static void AddEntity(Aentity_base* const* newEntity);
-
-	//removes an entity from the registrar
-	static void RemoveEntity(Aentity_base* const* removeEntity);*/
+	
 
 };

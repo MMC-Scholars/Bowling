@@ -30,6 +30,9 @@ void Abowling_pin::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	//scale the time to change the seed
+	DeltaTime = DeltaTime * RaiseAndLowerTimeScale;
+
 	//Raise and Lower
 	if (isRaisingAndLowering)
 	{

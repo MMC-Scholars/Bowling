@@ -85,6 +85,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "bowling_system")
 		bool printThrowsToScreen;
 
+	//Returns true if the game is waiting for the user's first throw, false otherwise.
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		bool WaitingForFirstThrow();
+
 	//Counts the fallen bowling pins, and calculates the score for the current frame.
 	//handles the strike count and strike/spare bonuses
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
@@ -101,6 +105,14 @@ public:
 	//Returns a string containing the scores of the all the frames
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
 		FString GetStringScoreOfGame();
+
+	//Iterates through all of the pins and raises and lowers those which have not fallen
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		void RaiseAndLowerUnfallenPins();
+
+	//Teleports all of the pins above their starting locations and lowers them onto the lane
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		void ResetAndLowerAllPins();
 
 	//Resets all the scores of the game
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")

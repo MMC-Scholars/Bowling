@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #include "MMC_Bowling.h"
 #include "entity_base.h"
+
 
 //Initialize the entity registrar
 //TArray<Aentity_base* const*, FDefaultAllocator> Aentity_base::registrar = TArray<Aentity_base* const*, FDefaultAllocator>();
@@ -123,8 +125,19 @@ void Aentity_base::PostEditChangeProperty(FPropertyChangedEvent& PropertyChanged
 }
 #endif
 
+//For debuging and testing purposes
+void Aentity_base::PrintToScreen(FString text)
+{															
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, text);
+}
+
+//Stops all movement and teleports object to its orginal position; ignores local offset
 void Aentity_base::ResetWorldTransform()
 {
+	
+	EntityModel->SetPhysicsLinearVelocity(FVector::ZeroVector);
+	EntityModel->SetPhysicsAngularVelocity(FVector::ZeroVector);
 	SetActorLocation(OriginalLocation);
 	SetActorRotation(OriginalRotation);
 }

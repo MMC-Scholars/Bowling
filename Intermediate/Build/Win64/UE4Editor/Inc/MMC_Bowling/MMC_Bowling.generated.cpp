@@ -9,6 +9,7 @@
 #include "MMC_Bowling.generated.dep.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCode1MMC_Bowling() {}
+FName MMC_BOWLING_OnChangePosition = FName(TEXT("OnChangePosition"));
 FName MMC_BOWLING_OnClosed = FName(TEXT("OnClosed"));
 FName MMC_BOWLING_OnEndRaiseAndLower = FName(TEXT("OnEndRaiseAndLower"));
 FName MMC_BOWLING_OnEndResetAndLower = FName(TEXT("OnEndResetAndLower"));
@@ -52,7 +53,7 @@ FName MMC_BOWLING_OnStrike = FName(TEXT("OnStrike"));
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "RaiseAndLower",(Native)&Abowling_pin::execRaiseAndLower);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "ResetAndLower",(Native)&Abowling_pin::execResetAndLower);
 	}
-	IMPLEMENT_CLASS(Abowling_pin, 266714381);
+	IMPLEMENT_CLASS(Abowling_pin, 1222936363);
 static class UEnum* EndgameType_StaticEnum()
 {
 	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
@@ -97,9 +98,18 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetScoreOfFrame",(Native)&Abowling_system::execGetScoreOfFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetStringScoreOfFrame",(Native)&Abowling_system::execGetStringScoreOfFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetStringScoreOfGame",(Native)&Abowling_system::execGetStringScoreOfGame);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "RaiseAndLowerUnfallenPins",(Native)&Abowling_system::execRaiseAndLowerUnfallenPins);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "ResetAndLowerAllPins",(Native)&Abowling_system::execResetAndLowerAllPins);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "ResetGame",(Native)&Abowling_system::execResetGame);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "WaitingForFirstThrow",(Native)&Abowling_system::execWaitingForFirstThrow);
 	}
-	IMPLEMENT_CLASS(Abowling_system, 3881403256);
+	IMPLEMENT_CLASS(Abowling_system, 2788031942);
+	void Aprop_movelinear::OnChangePosition(float deltaLerp)
+	{
+		prop_movelinear_eventOnChangePosition_Parms Parms;
+		Parms.deltaLerp=deltaLerp;
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnChangePosition),&Parms);
+	}
 	void Aprop_movelinear::OnClosed()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnClosed),NULL);
@@ -119,13 +129,20 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	void Aprop_movelinear::StaticRegisterNativesAprop_movelinear()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Close",(Native)&Aprop_movelinear::execClose);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetMovementTime",(Native)&Aprop_movelinear::execGetMovementTime);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetPosition",(Native)&Aprop_movelinear::execGetPosition);
-		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "IAmHere",(Native)&Aprop_movelinear::execIAmHere);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "IsClosed",(Native)&Aprop_movelinear::execIsClosed);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "IsClosing",(Native)&Aprop_movelinear::execIsClosing);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "IsMoving",(Native)&Aprop_movelinear::execIsMoving);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "IsOpen",(Native)&Aprop_movelinear::execIsOpen);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "IsOpening",(Native)&Aprop_movelinear::execIsOpening);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Open",(Native)&Aprop_movelinear::execOpen);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Pause",(Native)&Aprop_movelinear::execPause);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetPosition",(Native)&Aprop_movelinear::execSetPosition);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetSpeed",(Native)&Aprop_movelinear::execSetSpeed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Toggle",(Native)&Aprop_movelinear::execToggle);
 	}
-	IMPLEMENT_CLASS(Aprop_movelinear, 3383105034);
+	IMPLEMENT_CLASS(Aprop_movelinear, 2618875112);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	ENGINE_API class UClass* Z_Construct_UClass_AActor();
@@ -156,18 +173,29 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_OnGameover();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_OnSpare();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_OnStrike();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_RaiseAndLowerUnfallenPins();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_ResetAndLowerAllPins();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_ResetGame();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_Close();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_GetMovementTime();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_GetPosition();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_IAmHere();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_IsClosed();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_IsClosing();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_IsMoving();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_IsOpen();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_IsOpening();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_OnChangePosition();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_OnClosed();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_OnFullyClosed();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_OnFullyOpened();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_OnOpened();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_Open();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_Pause();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_SetPosition();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_SetSpeed();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_movelinear_Toggle();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_movelinear_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_movelinear();
@@ -426,6 +454,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_ResetAndLower());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_RaiseAndLowerTimeScale = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("RaiseAndLowerTimeScale"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(RaiseAndLowerTimeScale, Abowling_pin), 0x0010000000000005);
 				UProperty* NewProp_RaiseAndLowerAmplitude = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("RaiseAndLowerAmplitude"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(RaiseAndLowerAmplitude, Abowling_pin), 0x0010000000000005);
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(isInGame, Abowling_pin, bool);
 				UProperty* NewProp_isInGame = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("isInGame"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(isInGame, Abowling_pin), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(isInGame, Abowling_pin), sizeof(bool), true);
@@ -441,6 +470,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
 				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("bowling_pin.h"));
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+				MetaData->SetValue(NewProp_RaiseAndLowerTimeScale, TEXT("Category"), TEXT("bowling_pin"));
+				MetaData->SetValue(NewProp_RaiseAndLowerTimeScale, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
 				MetaData->SetValue(NewProp_RaiseAndLowerAmplitude, TEXT("Category"), TEXT("bowling_pin"));
 				MetaData->SetValue(NewProp_RaiseAndLowerAmplitude, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
 				MetaData->SetValue(NewProp_isInGame, TEXT("Category"), TEXT("bowling_pin"));
@@ -708,6 +739,42 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		}
 		return ReturnFunction;
 	}
+	UFunction* Z_Construct_UFunction_Abowling_system_RaiseAndLowerUnfallenPins()
+	{
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("RaiseAndLowerUnfallenPins"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Iterates through all of the pins and raises and lowers those which have not fallen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_system_ResetAndLowerAllPins()
+	{
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("ResetAndLowerAllPins"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Teleports all of the pins above their starting locations and lowers them onto the lane"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_Abowling_system_ResetGame()
 	{
 		UObject* Outer=Z_Construct_UClass_Abowling_system();
@@ -722,6 +789,30 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Resets all the scores of the game"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow()
+	{
+		struct bowling_system_eventWaitingForFirstThrow_Parms
+		{
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("WaitingForFirstThrow"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(bowling_system_eventWaitingForFirstThrow_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, bowling_system_eventWaitingForFirstThrow_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, bowling_system_eventWaitingForFirstThrow_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, bowling_system_eventWaitingForFirstThrow_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Returns true if the game is waiting for the user's first throw, false otherwise."));
 #endif
 		}
 		return ReturnFunction;
@@ -752,7 +843,10 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_OnGameover());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_OnSpare());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_OnStrike());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_RaiseAndLowerUnfallenPins());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_ResetAndLowerAllPins());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_ResetGame());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(printThrowsToScreen, Abowling_system, bool);
@@ -768,7 +862,10 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnGameover(), "OnGameover"); // 1342974699
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnSpare(), "OnSpare"); // 221301318
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnStrike(), "OnStrike"); // 1087848634
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_RaiseAndLowerUnfallenPins(), "RaiseAndLowerUnfallenPins"); // 2442404868
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_ResetAndLowerAllPins(), "ResetAndLowerAllPins"); // 2936856938
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_ResetGame(), "ResetGame"); // 3011393608
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow(), "WaitingForFirstThrow"); // 3910171566
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
@@ -792,13 +889,36 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Close"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Close"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_GetMovementTime()
+	{
+		struct prop_movelinear_eventGetMovementTime_Parms
+		{
+			float ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetMovementTime"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventGetMovementTime_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(ReturnValue, prop_movelinear_eventGetMovementTime_Parms), 0x0010000000000580);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Accessor for movement time"));
 #endif
 		}
 		return ReturnFunction;
@@ -813,31 +933,150 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetPosition"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(prop_movelinear_eventGetPosition_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetPosition"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventGetPosition_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(ReturnValue, prop_movelinear_eventGetPosition_Parms), 0x0010000000000580);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Returns the current value of currentLerp"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_IsClosed()
+	{
+		struct prop_movelinear_eventIsClosed_Parms
+		{
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("IsClosed"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventIsClosed_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, prop_movelinear_eventIsClosed_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, prop_movelinear_eventIsClosed_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, prop_movelinear_eventIsClosed_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
 #endif
 		}
 		return ReturnFunction;
 	}
-	UFunction* Z_Construct_UFunction_Aprop_movelinear_IAmHere()
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_IsClosing()
+	{
+		struct prop_movelinear_eventIsClosing_Parms
+		{
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("IsClosing"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventIsClosing_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, prop_movelinear_eventIsClosing_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, prop_movelinear_eventIsClosing_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, prop_movelinear_eventIsClosing_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_IsMoving()
+	{
+		struct prop_movelinear_eventIsMoving_Parms
+		{
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("IsMoving"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventIsMoving_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, prop_movelinear_eventIsMoving_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, prop_movelinear_eventIsMoving_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, prop_movelinear_eventIsMoving_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_IsOpen()
+	{
+		struct prop_movelinear_eventIsOpen_Parms
+		{
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("IsOpen"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventIsOpen_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, prop_movelinear_eventIsOpen_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, prop_movelinear_eventIsOpen_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, prop_movelinear_eventIsOpen_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Accessor functions for booleans"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_IsOpening()
+	{
+		struct prop_movelinear_eventIsOpening_Parms
+		{
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("IsOpening"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventIsOpening_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, prop_movelinear_eventIsOpening_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, prop_movelinear_eventIsOpening_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, prop_movelinear_eventIsOpening_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_OnChangePosition()
 	{
 		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("IAmHere"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnChangePosition"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535, sizeof(prop_movelinear_eventOnChangePosition_Parms));
+			UProperty* NewProp_deltaLerp = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("deltaLerp"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(deltaLerp, prop_movelinear_eventOnChangePosition_Parms), 0x0010000000000080);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("For debugging"));
 #endif
 		}
 		return ReturnFunction;
@@ -853,7 +1092,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
 #endif
 		}
@@ -870,7 +1109,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
 #endif
 		}
@@ -887,7 +1126,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
 #endif
 		}
@@ -904,9 +1143,9 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("implementable events"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Blueprint implementable events"));
 #endif
 		}
 		return ReturnFunction;
@@ -917,13 +1156,32 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Open"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Open"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("public open and close togglers"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_Pause()
+	{
+		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Pause"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Stops the door's current movement"));
 #endif
 		}
 		return ReturnFunction;
@@ -932,21 +1190,44 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	{
 		struct prop_movelinear_eventSetPosition_Parms
 		{
-			float newPos;
+			float lerp;
 		};
 		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("SetPosition"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(prop_movelinear_eventSetPosition_Parms));
-			UProperty* NewProp_newPos = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("newPos"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(newPos, prop_movelinear_eventSetPosition_Parms), 0x0010000000000080);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("SetPosition"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventSetPosition_Parms));
+			UProperty* NewProp_lerp = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("lerp"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(lerp, prop_movelinear_eventSetPosition_Parms), 0x0010000000000080);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Sets the entity's location between StartPosition and EndPosition, when given a lerp\nvalue between 0 and 1"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a 0-1 lerp value, teleports the door between the starting location and the ending location"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aprop_movelinear_SetSpeed()
+	{
+		struct prop_movelinear_eventSetSpeed_Parms
+		{
+			float newSpeed;
+		};
+		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("SetSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventSetSpeed_Parms));
+			UProperty* NewProp_newSpeed = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("newSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(newSpeed, prop_movelinear_eventSetSpeed_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Sets the value of movementSpeed and then recalculates the lerp speed based on the deltaLocation length"));
 #endif
 		}
 		return ReturnFunction;
@@ -957,14 +1238,13 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Toggle"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Toggle"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Prop_Movelinear"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_movelinear"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Toggles the door's opened/closed state"));
 #endif
 		}
 		return ReturnFunction;
@@ -978,7 +1258,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UClass* OuterClass = NULL;
 		if (!OuterClass)
 		{
-			Z_Construct_UClass_AActor();
+			Z_Construct_UClass_Aentity_base();
 			Z_Construct_UPackage__Script_MMC_Bowling();
 			OuterClass = Aprop_movelinear::StaticClass();
 			if (!(OuterClass->ClassFlags & CLASS_Constructed))
@@ -987,59 +1267,58 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->ClassFlags |= 0x20900080;
 
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_Close());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_GetMovementTime());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_GetPosition());
-				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_IAmHere());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_IsClosed());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_IsClosing());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_IsMoving());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_IsOpen());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_IsOpening());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_OnChangePosition());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_OnClosed());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_OnFullyClosed());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_OnFullyOpened());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_OnOpened());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_Open());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_Pause());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_SetPosition());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_SetSpeed());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_movelinear_Toggle());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bIsClosed, Aprop_movelinear, bool);
-				UProperty* NewProp_bIsClosed = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bIsClosed"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bIsClosed, Aprop_movelinear), 0x0010000000020015, CPP_BOOL_PROPERTY_BITMASK(bIsClosed, Aprop_movelinear), sizeof(bool), true);
-				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bIsOpen, Aprop_movelinear, bool);
-				UProperty* NewProp_bIsOpen = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bIsOpen"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bIsOpen, Aprop_movelinear), 0x0010000000020015, CPP_BOOL_PROPERTY_BITMASK(bIsOpen, Aprop_movelinear), sizeof(bool), true);
-				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bStartPaused, Aprop_movelinear, bool);
-				UProperty* NewProp_bStartPaused = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bStartPaused"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bStartPaused, Aprop_movelinear), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bStartPaused, Aprop_movelinear), sizeof(bool), true);
-				UProperty* NewProp_EndPosition = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("EndPosition"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(EndPosition, Aprop_movelinear), 0x0010000000000005, Z_Construct_UScriptStruct_FVector());
-				UProperty* NewProp_StartPosition = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("StartPosition"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(StartPosition, Aprop_movelinear), 0x0010000000020005, Z_Construct_UScriptStruct_FVector());
-				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bLoop, Aprop_movelinear, bool);
-				UProperty* NewProp_bLoop = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bLoop"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bLoop, Aprop_movelinear), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bLoop, Aprop_movelinear), sizeof(bool), true);
-				UProperty* NewProp_lerpSpeed = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("lerpSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(lerpSpeed, Aprop_movelinear), 0x0010000000000005);
+				UProperty* NewProp_delayBeforeReset = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("delayBeforeReset"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(delayBeforeReset, Aprop_movelinear), 0x0010000000000005);
+				UProperty* NewProp_movementSpeed = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("movementSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(movementSpeed, Aprop_movelinear), 0x0010000000000005);
+				UProperty* NewProp_InitialDeltaLocation = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("InitialDeltaLocation"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(InitialDeltaLocation, Aprop_movelinear), 0x0010000000000015, Z_Construct_UScriptStruct_FVector());
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Close(), "Close"); // 286895741
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_GetPosition(), "GetPosition"); // 1457881086
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_IAmHere(), "IAmHere"); // 243967546
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnClosed(), "OnClosed"); // 3072572554
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnFullyClosed(), "OnFullyClosed"); // 2955127501
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnFullyOpened(), "OnFullyOpened"); // 1757960269
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnOpened(), "OnOpened"); // 1651715115
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Open(), "Open"); // 1804569792
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_SetPosition(), "SetPosition"); // 1620823710
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Toggle(), "Toggle"); // 1421841127
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Close(), "Close"); // 1949374995
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_GetMovementTime(), "GetMovementTime"); // 3067511848
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_GetPosition(), "GetPosition"); // 685349801
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_IsClosed(), "IsClosed"); // 2055743016
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_IsClosing(), "IsClosing"); // 1032909774
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_IsMoving(), "IsMoving"); // 3629009431
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_IsOpen(), "IsOpen"); // 1264352748
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_IsOpening(), "IsOpening"); // 2547453610
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnChangePosition(), "OnChangePosition"); // 2811513609
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnClosed(), "OnClosed"); // 21737529
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnFullyClosed(), "OnFullyClosed"); // 105621118
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnFullyOpened(), "OnFullyOpened"); // 3735049470
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_OnOpened(), "OnOpened"); // 2135319086
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Open(), "Open"); // 1904549695
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Pause(), "Pause"); // 3783868138
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_SetPosition(), "SetPosition"); // 1570111537
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_SetSpeed(), "SetSpeed"); // 2568607311
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Toggle(), "Toggle"); // 768108667
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
 				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("prop_movelinear.h"));
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-				MetaData->SetValue(NewProp_bIsClosed, TEXT("Category"), TEXT("prop_movelinear"));
-				MetaData->SetValue(NewProp_bIsClosed, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-				MetaData->SetValue(NewProp_bIsOpen, TEXT("Category"), TEXT("prop_movelinear"));
-				MetaData->SetValue(NewProp_bIsOpen, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-				MetaData->SetValue(NewProp_bStartPaused, TEXT("Category"), TEXT("Prop_Movelinear"));
-				MetaData->SetValue(NewProp_bStartPaused, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-				MetaData->SetValue(NewProp_EndPosition, TEXT("Category"), TEXT("Prop_Movelinear"));
-				MetaData->SetValue(NewProp_EndPosition, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-				MetaData->SetValue(NewProp_EndPosition, TEXT("ToolTip"), TEXT("the vector offset from the starting position to move to"));
-				MetaData->SetValue(NewProp_StartPosition, TEXT("Category"), TEXT("Prop_Movelinear"));
-				MetaData->SetValue(NewProp_StartPosition, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-				MetaData->SetValue(NewProp_bLoop, TEXT("Category"), TEXT("Prop_Movelinear"));
-				MetaData->SetValue(NewProp_bLoop, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
-				MetaData->SetValue(NewProp_lerpSpeed, TEXT("Category"), TEXT("Prop_Movelinear"));
-				MetaData->SetValue(NewProp_lerpSpeed, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+				MetaData->SetValue(NewProp_delayBeforeReset, TEXT("Category"), TEXT("prop_movelinear"));
+				MetaData->SetValue(NewProp_delayBeforeReset, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+				MetaData->SetValue(NewProp_movementSpeed, TEXT("Category"), TEXT("prop_movelinear"));
+				MetaData->SetValue(NewProp_movementSpeed, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
+				MetaData->SetValue(NewProp_InitialDeltaLocation, TEXT("Category"), TEXT("prop_movelinear"));
+				MetaData->SetValue(NewProp_InitialDeltaLocation, TEXT("ModuleRelativePath"), TEXT("prop_movelinear.h"));
 #endif
 			}
 		}
@@ -1056,8 +1335,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x43D43469;
-			Guid.B = 0xAE80AF6B;
+			Guid.A = 0x7A003AA1;
+			Guid.B = 0xCDC325BF;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

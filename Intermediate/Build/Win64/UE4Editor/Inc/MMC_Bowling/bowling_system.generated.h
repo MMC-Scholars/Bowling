@@ -39,6 +39,22 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execResetAndLowerAllPins) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->ResetAndLowerAllPins(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execRaiseAndLowerUnfallenPins) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->RaiseAndLowerUnfallenPins(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execGetStringScoreOfGame) \
 	{ \
 		P_FINISH; \
@@ -72,6 +88,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		this->CalculateScore(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execWaitingForFirstThrow) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=this->WaitingForFirstThrow(); \
 		P_NATIVE_END; \
 	}
 
@@ -102,6 +126,22 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execResetAndLowerAllPins) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->ResetAndLowerAllPins(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execRaiseAndLowerUnfallenPins) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->RaiseAndLowerUnfallenPins(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execGetStringScoreOfGame) \
 	{ \
 		P_FINISH; \
@@ -135,6 +175,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		this->CalculateScore(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execWaitingForFirstThrow) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=this->WaitingForFirstThrow(); \
 		P_NATIVE_END; \
 	}
 

@@ -45,6 +45,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "bowling_pin")
 		float RaiseAndLowerAmplitude = 20.0f;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "bowling_pin")
+		float RaiseAndLowerTimeScale = 1.0f;
+
 	//Use these two events to disable physics!
 	UFUNCTION(BlueprintImplementableEvent, Category = "bowling_pin")
 		void OnRaiseAndLower();

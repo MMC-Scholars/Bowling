@@ -5142,6 +5142,7 @@ declare class entity_base extends Actor {
 declare class bowling_pin extends entity_base { 
 	isInGame: boolean;
 	RaiseAndLowerAmplitude: number;
+	RaiseAndLowerTimeScale: number;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): UClass;
@@ -5170,7 +5171,10 @@ declare class bowling_system extends Actor {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): bowling_system;
+	WaitingForFirstThrow(): boolean;
 	ResetGame(): void;
+	ResetAndLowerAllPins(): void;
+	RaiseAndLowerUnfallenPins(): void;
 	OnStrike(): void;
 	OnSpare(): void;
 	OnGameover(): void;
@@ -5183,14 +5187,10 @@ declare class bowling_system extends Actor {
 	static C(Other: UObject): bowling_system;
 }
 
-declare class prop_movelinear extends Actor { 
-	lerpSpeed: number;
-	bLoop: boolean;
-	StartPosition: Vector;
-	EndPosition: Vector;
-	bStartPaused: boolean;
-	bIsOpen: boolean;
-	bIsClosed: boolean;
+declare class prop_movelinear extends entity_base { 
+	InitialDeltaLocation: Vector;
+	movementSpeed: number;
+	delayBeforeReset: number;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): UClass;
@@ -5199,14 +5199,22 @@ declare class prop_movelinear extends Actor {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_movelinear;
 	Toggle(): void;
-	SetPosition(newPos: number): void;
+	SetSpeed(newSpeed: number): void;
+	SetPosition(lerp: number): void;
+	Pause(): void;
 	Open(): void;
 	OnOpened(): void;
 	OnFullyOpened(): void;
 	OnFullyClosed(): void;
 	OnClosed(): void;
-	IAmHere(): void;
+	OnChangePosition(deltaLerp: number): void;
+	IsOpening(): boolean;
+	IsOpen(): boolean;
+	IsMoving(): boolean;
+	IsClosing(): boolean;
+	IsClosed(): boolean;
 	GetPosition(): number;
+	GetMovementTime(): number;
 	Close(): void;
 	static C(Other: UObject): prop_movelinear;
 }

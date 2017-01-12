@@ -2,25 +2,59 @@
 
 #pragma once
 
-#include "GameFramework/Actor.h"
-#include "Engine.h"
+#include "entity_base.h"
 #include "prop_movelinear.generated.h"
 
-
+/**
+ * 
+ */
 UCLASS()
-class MMC_BOWLING_API Aprop_movelinear : public AActor
+class MMC_BOWLING_API Aprop_movelinear : public Aentity_base
 {
 	GENERATED_BODY()
+	
+	//we'll have private and public copies of this so that we can keep the vector fixed
+public:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "prop_movelinear")
+		FVector InitialDeltaLocation = FVector::ZeroVector;
+private:
+	FVector DeltaLocation;
+
+	//Fractional lerp value for measuring the open/closed status of a still door
+	#define OPENCLOSE_MEASURE_TOLERANCE 0.05f
+	#define OPENCLOSE_MOVING_MEASURE_TOLERANCE 0.001f
+
+	//this keeps track of how long we've been opening/closing
+	float movementTime = 0.0f;
+
+	//this keeps track of how long we've been waiting
+	float waitingTime = 0.0f;
+
+	//booleans for door status
+	bool bIsOpening = false;
+	bool bIsClosing = false;
+	bool bIsWaitingToClose = false;
+
+	//current lerp value of the door
+	float currentLerp = 0.0f;
+	//previous lerp value of the door; used for backtracking one tick if we have to
+	float previousLerp = 0.0f;
+
+	float lerpSpeed;
 
 public:
-	float runningTime;
-	float currentPos;
-	bool bIsPaused = false;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "prop_movelinear")
+		float movementSpeed = 50.0f; //in world units/sec 
 
-	//the actual world position of the end position
-	FVector WorldEndPosition;
+	//Sets the value of movementSpeed and then recalculates the lerp speed based on the deltaLocation length
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		void SetSpeed(float newSpeed);
 
-	// Sets default values for this actor's properties
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "prop_movelinear")
+		float delayBeforeReset = -1.0f; //after opening, the door will automatically close after this amount of time
+
+	
+	//Constructor
 	Aprop_movelinear();
 
 	// Called when the game starts or when spawned
@@ -29,71 +63,68 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
 
-	// Pauses the current movement
-	virtual void Pause();
+private:
+	//opening and closing processors, called from inside the tick function
+	void processOpen(float DeltaSeconds);
+	void processClose(float DeltaSeconds);
+	void processWaitedClose(float DeltaSeconds);
 
-	// Unpauses the current movement
-	virtual void UnPause();
+public:
+	//public open and close togglers
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		void Open();
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		void Close();
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		void Toggle();
 
-	//checks the door's current position, handles boolean values, and calls the implementable events
-	virtual void CheckStatus();
+	//Stops the door's current movement
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		void Pause();
 
-	// Toggles the door's opened/closed state
-	UFUNCTION(BlueprintCallable, Category = "Prop_Movelinear")
-		virtual void Toggle();
+	//TODO override for when the door hits something
+
+	//Given a 0-1 lerp value, teleports the door between the starting location and the ending location
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		void SetPosition(float lerp);
+
+	//Returns the current value of currentLerp
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		float GetPosition();
+
+	//Accessor for movement time
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		float GetMovementTime();
 
 
-	// Sets the entity's location between StartPosition and EndPosition, when given a lerp
-	// value between 0 and 1
-	UFUNCTION(BlueprintCallable, Category = "Prop_Movelinear")
-		virtual void SetPosition(float newPos);
+	//Accessor functions for booleans
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		bool IsOpen();
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		bool IsClosed();
 
-
-	UFUNCTION(BlueprintCallable, Category = "Prop_Movelinear")
-		virtual float GetPosition();
-
-	UFUNCTION(BlueprintCallable, Category = "Prop_Movelinear")
-		virtual void Open();
-
-	UFUNCTION(BlueprintCallable, Category = "Prop_Movelinear")
-		virtual void Close();
-
-	//implementable events
-	UFUNCTION(BlueprintImplementableEvent, Category = "Prop_Movelinear")
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		bool IsOpening();
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		bool IsClosing();
+	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+		bool IsMoving();
+	
+	//Blueprint implementable events
+	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
 		void OnOpened();
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "Prop_Movelinear")
+	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
 		void OnFullyOpened();
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "Prop_Movelinear")
+	
+	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
 		void OnClosed();
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "Prop_Movelinear")
+	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
 		void OnFullyClosed();
 
+	//For debugging
+	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
+		void OnChangePosition(float deltaLerp);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Prop_Movelinear")
-		float lerpSpeed = 0.1f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Prop_Movelinear")
-		bool bLoop = false;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Prop_Movelinear")
-		FVector StartPosition;
-
-	//the vector offset from the starting position to move to
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Prop_Movelinear")
-		FVector EndPosition;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Prop_Movelinear")
-		bool bStartPaused = true;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		bool bIsOpen;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		bool bIsClosed;
-
-	UFUNCTION(BlueprintCallable, Category = "Prop_Movelinear")
-		virtual void IAmHere();
 };

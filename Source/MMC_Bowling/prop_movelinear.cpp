@@ -3,166 +3,192 @@
 #include "MMC_Bowling.h"
 #include "prop_movelinear.h"
 
-
-// Sets default values
+//Constructor - nothing to do here
 Aprop_movelinear::Aprop_movelinear()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	EndPosition = EndPosition.ZeroVector;
-	runningTime = 0.0f;
-	currentPos = 0.0f;
-	bIsClosed = true;
-	bIsOpen = false;
 }
 
 // Called when the game starts or when spawned
 void Aprop_movelinear::BeginPlay()
 {
 	Super::BeginPlay();
-	StartPosition = GetActorLocation();
-	runningTime = 0.0f;
-	currentPos = 0.0f;
 
-	//gets the world position of the end position
-	WorldEndPosition = StartPosition + EndPosition;
+	//copy public UPROP vector to private copy
+	DeltaLocation = InitialDeltaLocation;
 
-	if (bStartPaused) {
-		bIsPaused = true;
-	}
-	else {
-		bIsPaused = false;
-	}
+	//Call SetSpeed(...) to calculate the initial lerp speed
+	SetSpeed(movementSpeed);
 }
 
 // Called every frame
-void Aprop_movelinear::Tick(float DeltaTime)
+void Aprop_movelinear::Tick(float DeltaSeconds)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(DeltaSeconds);
 
-	IAmHere();
-
-	//if (!bIsPaused || bLoop) {
-
-	currentPos += lerpSpeed * DeltaTime;
-	SetPosition(currentPos);
-	runningTime += DeltaTime;
-	//}
-
-	CheckStatus();
-
+	if (bIsOpening)
+		processOpen(DeltaSeconds);
+	else if (bIsClosing)
+		processClose(DeltaSeconds);
+	else if (bIsWaitingToClose)
+		processWaitedClose(DeltaSeconds);
 }
 
-void Aprop_movelinear::IAmHere() {
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("I am ticking!"));
+//Sets the value of movementSpeed and then recalculates the lerp speed based on the deltaLocation length
+
+void Aprop_movelinear::SetSpeed(float newSpeed)
+{
+	movementSpeed = newSpeed;
+
+	lerpSpeed = movementSpeed / DeltaLocation.Size();
 }
 
-
-//checks the door's current position, handles boolean values, and calls the implementable events
-void Aprop_movelinear::CheckStatus()
+//private opening and closing processors, called from inside the tick function
+void Aprop_movelinear::processOpen(float DeltaSeconds)
 {
-
-	if (GetActorLocation().Equals(StartPosition) && bIsOpen) //door was open but just closed 
+	//first check if we've finished opening the door
+	if (IsOpen())
 	{
-		bIsOpen = false;
-		bIsClosed = true;
-		lerpSpeed = -lerpSpeed; //change the movement direction
-		OnFullyClosed();
-		Pause();
-		if (bLoop) //if we're looping, then reopen/close the door
-			Toggle();
-	}
-
-	else if (GetActorLocation().Equals(EndPosition) && bIsClosed) //door was closed but just fully opened
-	{
-		bIsOpen = true;
-		bIsClosed = false;
-		lerpSpeed = -lerpSpeed;
+		bIsOpening = false;
 		OnFullyOpened();
-		Pause();
-		if (bLoop)
-			Toggle();
+		movementTime = 0.0f;
+		return;
 	}
-}
+	//otherwise just process the movement
+	movementTime += DeltaSeconds;
+	float DeltaLerp = lerpSpeed * DeltaSeconds;
+	SetPosition(currentLerp + DeltaLerp);
 
-//These functions pause/unpause the movement
-void Aprop_movelinear::Pause()
-{
-	bIsPaused = true;
 }
-
-void Aprop_movelinear::UnPause()
+void Aprop_movelinear::processClose(float DeltaSeconds)
 {
-	bIsPaused = false;
+	//first check if we've finished closing the door
+	if (IsClosed())
+	{
+		bIsClosing = false;
+		OnFullyClosed();
+		movementTime = 0.0f;
+		return;
+	}
+	//otherwise just process the movement
+	movementTime += DeltaSeconds;
+	float DeltaLerp = -lerpSpeed * DeltaSeconds; //use a negative lerp speed to go backwards
+	SetPosition(currentLerp + DeltaLerp);
 }
-
-//Toggles the door's open/closed state
-void Aprop_movelinear::Toggle()
+void Aprop_movelinear::processWaitedClose(float DeltaSeconds)
 {
-	if (bIsOpen)
+	waitingTime += DeltaSeconds;
+	if (waitingTime >= delayBeforeReset)
 		Close();
-	else
-		Open();
 }
 
-//Open and close - ensures the door will move in the correct direction, then unpauses movement
+
+//Open,close, and toggle - the blueprint functions which manipulate the door
 void Aprop_movelinear::Open()
 {
-	if (lerpSpeed < 0)			//if in closing direction
-		lerpSpeed = -lerpSpeed;	//then put it in opening direction
-	if (!bIsOpen)
-	{
-		OnOpened(); //only open the door if it's not already open
-		UnPause();
-	}
-}
+	//Don't do anything if we're already opening
+	if (bIsOpening)
+		return;
 
+	//Call the implementable event
+	OnOpened();
+
+	//make sure we stop closing and start opening; also start waiting
+	bIsClosing = false;
+	bIsOpening = true;
+	
+	//only start waiting if the time to close again is not -1
+	if (!FMath::IsNearlyEqual(delayBeforeReset, -1.0f))
+		bIsWaitingToClose = true; waitingTime = 0.0f;
+	//the tick function will then call for processOpen(...)
+}
 void Aprop_movelinear::Close()
 {
-	if (lerpSpeed > 0)			//if in opening direction
-		lerpSpeed = -lerpSpeed;	//then put it in closing direction
-	if (!bIsClosed)
-	{
-		OnClosed(); //only close the door if it's not already open
-		UnPause();
-	}
-}
+	//Don't do anything if we're already closing
+	if (bIsClosing)
+		return;
 
-//Given a 0-1 float lerp value, sets the position of the entity
-//between starting position and ending position. Handles clamping
-//and checks for opened/closed status
-void Aprop_movelinear::SetPosition(float newPos)
+	//Call the implementable event
+	OnClosed();
+
+	//make sure we stop opening and start closing; also stop waiting
+	bIsClosing = true;
+	bIsOpening = false;
+	bIsWaitingToClose = false; waitingTime = 0.0f;
+	//the tick function will then call for processClose(...)
+}
+void Aprop_movelinear::Toggle()
 {
-	newPos = FMath::Clamp(newPos, 0.0f, 1.0f);
-
-	FVector newLocation;
-	newLocation.Z = FMath::Lerp(StartPosition.Z, WorldEndPosition.Z, newPos);
-	newLocation.X = FMath::Lerp(StartPosition.X, WorldEndPosition.X, newPos);
-	newLocation.Y = FMath::Lerp(StartPosition.Y, WorldEndPosition.Y, newPos);
-
-	SetActorLocation(newLocation);
-
+	if (IsOpen() || bIsOpening)
+		Close();
+	else
+		Open(); //this defaults the door to opening when in a paused state
 }
 
-//Returns the 0-1 lerp value of the current position
-float Aprop_movelinear::GetPosition() {
-	return currentPos;
+//Stops the door's current movement
+void Aprop_movelinear::Pause()
+{
+	bIsClosing = false;
+	bIsOpening = false;
 }
 
-//Blueprint implementable events
-/**
-void Aprop_movelinear::OnOpened() {
+//Setter function for the lerp - also teleports the door to the appropriate location
+void Aprop_movelinear::SetPosition(float lerp)
+{
+	//first clamp the lerp value
+	lerp = FMath::Clamp(lerp, 0.0f, 1.0f);
+
+	previousLerp = currentLerp;
+	currentLerp = lerp;
+
+	float deltaLerp = currentLerp - previousLerp;
+	//FVector deltaLocation = deltaLerp * InitialDeltaLocation;
+	/*
+	PrintToScreen(FString::FromInt(static_cast<int>(deltaLocation.X)));
+	PrintToScreen(FString::FromInt(static_cast<int>(deltaLocation.Y)));
+	PrintToScreen(FString::FromInt(static_cast<int>(deltaLocation.Z)));
+	*/
+	if (EntityModel)
+		EntityModel->AddLocalOffset(deltaLerp * InitialDeltaLocation);
+	OnChangePosition(deltaLerp);
 }
 
-void Aprop_movelinear::OnFullyOpened() {
+//Getter function for the lerp value
+float Aprop_movelinear::GetPosition()
+{
+	return currentLerp;
 }
 
-void Aprop_movelinear::OnClosed() {
+//Getter function for the timer for which the door has been moving
+float Aprop_movelinear::GetMovementTime()
+{
+	return movementTime;
 }
 
-void Aprop_movelinear::OnFullyClosed() {
-}
-*/
 
+//Accessor bool functions for the door status
+bool Aprop_movelinear::IsOpen()
+{
+	return (FMath::IsNearlyEqual(currentLerp, 1.0f)
+		|| (!IsMoving() && FMath::Abs(1.0 - currentLerp) < OPENCLOSE_MEASURE_TOLERANCE)
+		);
+}
+bool Aprop_movelinear::IsClosed()
+{
+	return (FMath::IsNearlyEqual(currentLerp, 0.0f)
+		|| (!IsMoving() && currentLerp < OPENCLOSE_MEASURE_TOLERANCE)
+		);
+}
+
+bool Aprop_movelinear::IsOpening()
+{
+	return bIsOpening;
+}
+bool Aprop_movelinear::IsClosing()
+{
+	return bIsClosing;
+}
+bool Aprop_movelinear::IsMoving()
+{
+	return (bIsClosing || bIsOpening);
+}

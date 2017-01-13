@@ -125,6 +125,20 @@ void Aentity_base::PostEditChangeProperty(FPropertyChangedEvent& PropertyChanged
 }
 #endif
 
+//All-purpose extensible use function
+void Aentity_base::Use()
+{
+	if (bIgnoreUse)
+		return;
+	OnUse();
+}
+
+//Extensible use event. Called at the end of Use() function
+//void Aentity_base::OnUse()
+//{
+//
+//}
+
 //For debuging and testing purposes
 void Aentity_base::PrintToScreen(FString text)
 {															

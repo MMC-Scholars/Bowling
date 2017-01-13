@@ -406,6 +406,8 @@
     <NMakeOutput>..\..\Binaries\HTML5\MMC_Bowling-HTML5-Shipping.exe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\MMC_Bowling\prop_worldbutton.cpp" />
+    <ClInclude Include="..\..\Source\MMC_Bowling\prop_worldbutton.h" />
     <None Include="..\..\MMC_Bowling.uproject" />
     <None Include="..\..\Source\MMC_Bowling.Target.cs" />
     <None Include="..\..\Source\MMC_BowlingEditor.Target.cs" />

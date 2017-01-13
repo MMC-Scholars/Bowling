@@ -86,6 +86,12 @@ void Aprop_movelinear::processWaitedClose(float DeltaSeconds)
 //Open,close, and toggle - the blueprint functions which manipulate the door
 void Aprop_movelinear::Open()
 {
+	//First check if the door is locked
+	if (bIsLocked)
+	{
+		OnUseLocked();
+		return;
+	}
 	//Don't do anything if we're already opening
 	if (bIsOpening)
 		return;
@@ -104,6 +110,12 @@ void Aprop_movelinear::Open()
 }
 void Aprop_movelinear::Close()
 {
+	//First check if the door is locked
+	if (bIsLocked)
+	{
+		OnUseLocked();
+		return;
+	}
 	//Don't do anything if we're already closing
 	if (bIsClosing)
 		return;
@@ -119,10 +131,24 @@ void Aprop_movelinear::Close()
 }
 void Aprop_movelinear::Toggle()
 {
+	//First check if the door is locked
+	if (bIsLocked)
+	{
+		OnUseLocked();
+		return;
+	}
 	if (IsOpen() || bIsOpening)
 		Close();
 	else
 		Open(); //this defaults the door to opening when in a paused state
+}
+
+//Override for entity_base use - calls for toggling the door
+void Aprop_movelinear::Use()
+{
+	if (!bIgnoreUse)
+		Toggle();
+	OnUse();
 }
 
 //Stops the door's current movement
@@ -142,12 +168,7 @@ void Aprop_movelinear::SetPosition(float lerp)
 	currentLerp = lerp;
 
 	float deltaLerp = currentLerp - previousLerp;
-	//FVector deltaLocation = deltaLerp * InitialDeltaLocation;
-	/*
-	PrintToScreen(FString::FromInt(static_cast<int>(deltaLocation.X)));
-	PrintToScreen(FString::FromInt(static_cast<int>(deltaLocation.Y)));
-	PrintToScreen(FString::FromInt(static_cast<int>(deltaLocation.Z)));
-	*/
+	
 	if (EntityModel)
 		EntityModel->AddLocalOffset(deltaLerp * InitialDeltaLocation);
 	OnChangePosition(deltaLerp);

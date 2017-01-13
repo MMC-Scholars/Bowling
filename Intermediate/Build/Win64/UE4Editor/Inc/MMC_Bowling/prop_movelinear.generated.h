@@ -88,6 +88,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execUse) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->Use(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execToggle) \
 	{ \
 		P_FINISH; \
@@ -197,6 +205,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execUse) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->Use(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execToggle) \
 	{ \
 		P_FINISH; \
@@ -243,6 +259,7 @@ extern MMC_BOWLING_API  FName MMC_BOWLING_OnClosed;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnFullyClosed;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnFullyOpened;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnOpened;
+extern MMC_BOWLING_API  FName MMC_BOWLING_OnUseLocked;
 #define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_14_CALLBACK_WRAPPERS
 #define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_14_INCLASS_NO_PURE_DECLS \
 	private: \

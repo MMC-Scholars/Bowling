@@ -17,3 +17,6 @@
 #ifndef MMC_BOWLING_prop_movelinear_generated_h
 	#include "prop_movelinear.h"
 #endif
+#ifndef MMC_BOWLING_prop_worldbutton_generated_h
+	#include "prop_worldbutton.h"
+#endif

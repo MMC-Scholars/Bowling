@@ -23,6 +23,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execUse) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->Use(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execCalculateHealth) \
 	{ \
 		P_GET_PROPERTY(UFloatProperty,Z_Param_delta); \
@@ -43,6 +51,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execUse) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->Use(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execCalculateHealth) \
 	{ \
 		P_GET_PROPERTY(UFloatProperty,Z_Param_delta); \
@@ -55,6 +71,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 #define MMC_Bowling_Source_MMC_Bowling_entity_base_h_13_EVENT_PARMS
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnKilled;
+extern MMC_BOWLING_API  FName MMC_BOWLING_OnUse;
 #define MMC_Bowling_Source_MMC_Bowling_entity_base_h_13_CALLBACK_WRAPPERS
 #define MMC_Bowling_Source_MMC_Bowling_entity_base_h_13_INCLASS_NO_PURE_DECLS \
 	private: \

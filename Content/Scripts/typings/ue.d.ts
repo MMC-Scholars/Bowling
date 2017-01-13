@@ -5126,6 +5126,7 @@ declare class entity_base extends Actor {
 	isDead: boolean;
 	destroyOnDeath: boolean;
 	deathDelay: number;
+	bIgnoreUse: boolean;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): UClass;
@@ -5133,7 +5134,9 @@ declare class entity_base extends Actor {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): entity_base;
+	Use(): void;
 	ResetWorldTransform(): void;
+	OnUse(): void;
 	OnKilled(): void;
 	CalculateHealth(delta: number): void;
 	static C(Other: UObject): entity_base;
@@ -5189,6 +5192,7 @@ declare class bowling_system extends Actor {
 
 declare class prop_movelinear extends entity_base { 
 	InitialDeltaLocation: Vector;
+	bIsLocked: boolean;
 	movementSpeed: number;
 	delayBeforeReset: number;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
@@ -5198,11 +5202,13 @@ declare class prop_movelinear extends entity_base {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_movelinear;
+	Use(): void;
 	Toggle(): void;
 	SetSpeed(newSpeed: number): void;
 	SetPosition(lerp: number): void;
 	Pause(): void;
 	Open(): void;
+	OnUseLocked(): void;
 	OnOpened(): void;
 	OnFullyOpened(): void;
 	OnFullyClosed(): void;
@@ -5217,6 +5223,20 @@ declare class prop_movelinear extends entity_base {
 	GetMovementTime(): number;
 	Close(): void;
 	static C(Other: UObject): prop_movelinear;
+}
+
+declare class prop_worldbutton extends prop_movelinear { 
+	bDontMoveOnPress: boolean;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): prop_worldbutton;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_worldbutton;
+	Press(): void;
+	OnPressed(): void;
+	static C(Other: UObject): prop_worldbutton;
 }
 
 declare class FlipbookEditorSettings extends UObject { 

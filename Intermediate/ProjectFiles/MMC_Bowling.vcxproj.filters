@@ -82,5 +82,13 @@
     <ClInclude Include="..\..\Source\MMC_Bowling\MMC_Shared.h">
       <Filter>Source\MMC_Bowling</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\prop_worldbutton.h">
+      <Filter>Source\MMC_Bowling</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\MMC_Bowling\prop_worldbutton.cpp">
+      <Filter>Source\MMC_Bowling</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

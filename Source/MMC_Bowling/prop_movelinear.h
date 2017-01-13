@@ -12,10 +12,12 @@ UCLASS()
 class MMC_BOWLING_API Aprop_movelinear : public Aentity_base
 {
 	GENERATED_BODY()
+
+#define sMOVE_LINEAR "prop_movelinear"
 	
 	//we'll have private and public copies of this so that we can keep the vector fixed
 public:
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "prop_movelinear")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = sMOVE_LINEAR)
 		FVector InitialDeltaLocation = FVector::ZeroVector;
 private:
 	FVector DeltaLocation;
@@ -35,6 +37,12 @@ private:
 	bool bIsClosing = false;
 	bool bIsWaitingToClose = false;
 
+public:
+	//boolean for locked/unlocked state
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = sMOVE_LINEAR)
+		bool bIsLocked = false;
+
+private:
 	//current lerp value of the door
 	float currentLerp = 0.0f;
 	//previous lerp value of the door; used for backtracking one tick if we have to
@@ -43,16 +51,15 @@ private:
 	float lerpSpeed;
 
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "prop_movelinear")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = sMOVE_LINEAR)
 		float movementSpeed = 50.0f; //in world units/sec 
 
 	//Sets the value of movementSpeed and then recalculates the lerp speed based on the deltaLocation length
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		void SetSpeed(float newSpeed);
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "prop_movelinear")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = sMOVE_LINEAR)
 		float delayBeforeReset = -1.0f; //after opening, the door will automatically close after this amount of time
-
 	
 	//Constructor
 	Aprop_movelinear();
@@ -71,60 +78,68 @@ private:
 
 public:
 	//public open and close togglers
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
-		void Open();
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
-		void Close();
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
-		void Toggle();
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
+		virtual void Open();
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
+		virtual void Close();
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
+		virtual void Toggle();
+
+	//Override for entity_base use - calls for toggling the door
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
+		virtual void Use();
 
 	//Stops the door's current movement
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		void Pause();
 
 	//TODO override for when the door hits something
 
 	//Given a 0-1 lerp value, teleports the door between the starting location and the ending location
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
-		void SetPosition(float lerp);
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
+		virtual void SetPosition(float lerp);
 
 	//Returns the current value of currentLerp
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		float GetPosition();
 
 	//Accessor for movement time
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		float GetMovementTime();
 
 
 	//Accessor functions for booleans
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		bool IsOpen();
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		bool IsClosed();
 
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		bool IsOpening();
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		bool IsClosing();
-	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
+	UFUNCTION(BlueprintCallable, Category = sMOVE_LINEAR)
 		bool IsMoving();
 	
 	//Blueprint implementable events
-	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
+	UFUNCTION(BlueprintImplementableEvent, Category = sMOVE_LINEAR)
 		void OnOpened();
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
+	UFUNCTION(BlueprintImplementableEvent, Category = sMOVE_LINEAR)
 		void OnFullyOpened();
 	
-	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
+	UFUNCTION(BlueprintImplementableEvent, Category = sMOVE_LINEAR)
 		void OnClosed();
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
+	UFUNCTION(BlueprintImplementableEvent, Category = sMOVE_LINEAR)
 		void OnFullyClosed();
 
+	//Called when the door attempts to open or close, but the door is locked
+	UFUNCTION(BlueprintImplementableEvent, Category = sMOVE_LINEAR)
+		void OnUseLocked();
+
 	//For debugging
-	UFUNCTION(BlueprintImplementableEvent, Category = "prop_movelinear")
+	UFUNCTION(BlueprintImplementableEvent, Category = sMOVE_LINEAR)
 		void OnChangePosition(float deltaLerp);
 
 };

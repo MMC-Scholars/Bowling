@@ -17,21 +17,18 @@ void Aprop_movelinear::BeginPlay()
 	//copy public UPROP vector to private copy
 	DeltaLocation = InitialDeltaLocation;
 
-	//Call SetSpeed(...) to calculate the initial lerp speed
+	//Call SetSpeed(...) to calculate the initial lerp speed or whatever else is defined
 	SetSpeed(movementSpeed);
+
+	//Call SetHalfPeriod(...) to calculate the initial angular speed
+	SetQuarterPeriod(sinusoidalQuarterPeriod);
 }
 
 // Called every frame
 void Aprop_movelinear::Tick(float DeltaSeconds)
 {
+	
 	Super::Tick(DeltaSeconds);
-
-	if (bIsOpening)
-		processOpen(DeltaSeconds);
-	else if (bIsClosing)
-		processClose(DeltaSeconds);
-	else if (bIsWaitingToClose)
-		processWaitedClose(DeltaSeconds);
 }
 
 //Sets the value of movementSpeed and then recalculates the lerp speed based on the deltaLocation length
@@ -56,9 +53,18 @@ void Aprop_movelinear::processOpen(float DeltaSeconds)
 	}
 	//otherwise just process the movement
 	movementTime += DeltaSeconds;
-	float DeltaLerp = lerpSpeed * DeltaSeconds;
-	SetPosition(currentLerp + DeltaLerp);
 
+	float DeltaLerp;
+
+	//Get DeltaLerp for sinusoidal motion
+	if (bMoveAsSinusoidalWave) {
+		DeltaLerp = FMath::Sin(angularSpeed * movementTime) - FMath::Sin(angularSpeed * (movementTime - DeltaSeconds));
+	}
+	else { //Get DeltaLerp for linear motion
+		DeltaLerp = lerpSpeed * DeltaSeconds;
+	}
+	
+	SetPosition(currentLerp + DeltaLerp);
 }
 void Aprop_movelinear::processClose(float DeltaSeconds)
 {
@@ -72,91 +78,26 @@ void Aprop_movelinear::processClose(float DeltaSeconds)
 	}
 	//otherwise just process the movement
 	movementTime += DeltaSeconds;
-	float DeltaLerp = -lerpSpeed * DeltaSeconds; //use a negative lerp speed to go backwards
-	SetPosition(currentLerp + DeltaLerp);
-}
-void Aprop_movelinear::processWaitedClose(float DeltaSeconds)
-{
-	waitingTime += DeltaSeconds;
-	if (waitingTime >= delayBeforeReset)
-		Close();
-}
 
+	float DeltaLerp;
 
-//Open,close, and toggle - the blueprint functions which manipulate the door
-void Aprop_movelinear::Open()
-{
-	//First check if the door is locked
-	if (bIsLocked)
-	{
-		OnUseLocked();
-		return;
+	//Get DeltaLerp for sinusoidal motion
+	if (bMoveAsSinusoidalWave) {
+		DeltaLerp = FMath::Sin(angularSpeed * movementTime) - FMath::Sin(angularSpeed * (movementTime - DeltaSeconds));
 	}
-	//Don't do anything if we're already opening
-	if (bIsOpening)
-		return;
-
-	//Call the implementable event
-	OnOpened();
-
-	//make sure we stop closing and start opening; also start waiting
-	bIsClosing = false;
-	bIsOpening = true;
-	
-	//only start waiting if the time to close again is not -1
-	if (!FMath::IsNearlyEqual(delayBeforeReset, -1.0f))
-		bIsWaitingToClose = true; waitingTime = 0.0f;
-	//the tick function will then call for processOpen(...)
-}
-void Aprop_movelinear::Close()
-{
-	//First check if the door is locked
-	if (bIsLocked)
-	{
-		OnUseLocked();
-		return;
+	else { //Get DeltaLerp for linear motion
+		DeltaLerp = lerpSpeed * DeltaSeconds;
 	}
-	//Don't do anything if we're already closing
-	if (bIsClosing)
-		return;
-
-	//Call the implementable event
-	OnClosed();
-
-	//make sure we stop opening and start closing; also stop waiting
-	bIsClosing = true;
-	bIsOpening = false;
-	bIsWaitingToClose = false; waitingTime = 0.0f;
-	//the tick function will then call for processClose(...)
+	SetPosition(currentLerp - DeltaLerp); //subtract the lerp instead because we're closing the door
 }
-void Aprop_movelinear::Toggle()
-{
-	//First check if the door is locked
-	if (bIsLocked)
-	{
-		OnUseLocked();
-		return;
-	}
-	if (IsOpen() || bIsOpening)
-		Close();
-	else
-		Open(); //this defaults the door to opening when in a paused state
-}
+
 
 //Override for entity_base use - calls for toggling the door
 void Aprop_movelinear::Use()
 {
-	if (!bIgnoreUse)
-		Toggle();
-	OnUse();
+	Super::Use();
 }
 
-//Stops the door's current movement
-void Aprop_movelinear::Pause()
-{
-	bIsClosing = false;
-	bIsOpening = false;
-}
 
 //Setter function for the lerp - also teleports the door to the appropriate location
 void Aprop_movelinear::SetPosition(float lerp)
@@ -174,42 +115,34 @@ void Aprop_movelinear::SetPosition(float lerp)
 	OnChangePosition(deltaLerp);
 }
 
-//Getter function for the lerp value
-float Aprop_movelinear::GetPosition()
+//Sets the half-period and recalculates the angular speed from that
+void Aprop_movelinear::SetQuarterPeriod(float newPeriod)
 {
-	return currentLerp;
-}
-
-//Getter function for the timer for which the door has been moving
-float Aprop_movelinear::GetMovementTime()
-{
-	return movementTime;
+	sinusoidalQuarterPeriod = newPeriod;
+	angularSpeed = PI / (2 * sinusoidalQuarterPeriod); //The math actual works out here
 }
 
 
 //Accessor bool functions for the door status
 bool Aprop_movelinear::IsOpen()
 {
-	return (FMath::IsNearlyEqual(currentLerp, 1.0f)
-		|| (!IsMoving() && FMath::Abs(1.0 - currentLerp) < OPENCLOSE_MEASURE_TOLERANCE)
+	return ((Super::IsOpen())
+		|| (bMoveAsSinusoidalWave && movementTime >= sinusoidalQuarterPeriod) //do an extra check to ensure we don't skip over it
 		);
 }
 bool Aprop_movelinear::IsClosed()
 {
-	return (FMath::IsNearlyEqual(currentLerp, 0.0f)
-		|| (!IsMoving() && currentLerp < OPENCLOSE_MEASURE_TOLERANCE)
+	return (Super::IsClosed()
+		|| (bMoveAsSinusoidalWave && movementTime >= sinusoidalQuarterPeriod) //do an extra check to ensure we don't skip over it
 		);
 }
 
-bool Aprop_movelinear::IsOpening()
+//Accessor for the estimated time of travel if moving in linear motion
+float Aprop_movelinear::GetEstimatedTravelTime()
 {
-	return bIsOpening;
-}
-bool Aprop_movelinear::IsClosing()
-{
-	return bIsClosing;
-}
-bool Aprop_movelinear::IsMoving()
-{
-	return (bIsClosing || bIsOpening);
+	//Return 0 if we're sinusoidal
+	if (bMoveAsSinusoidalWave)
+		return 0;
+
+	return InitialDeltaLocation.Size() / movementSpeed;
 }

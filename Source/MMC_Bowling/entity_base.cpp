@@ -39,6 +39,10 @@ void Aentity_base::BeginPlay()
 	health = initialHealth;
 	deathTime = 0;
 	CalculateHealth(0); //check if we're dead at the start
+
+	//Check if mapper wants us to toggle visibility on start
+	if (bToggleVisibilityOnStart)
+		EntityModel->ToggleVisibility();
 }
 
 // Called every frame

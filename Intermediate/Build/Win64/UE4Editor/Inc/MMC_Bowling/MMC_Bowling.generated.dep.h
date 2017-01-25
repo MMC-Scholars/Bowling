@@ -14,9 +14,21 @@
 #ifndef MMC_BOWLING_bowling_system_generated_h
 	#include "bowling_system.h"
 #endif
+#ifndef MMC_BOWLING_prop_move_base_generated_h
+	#include "prop_move_base.h"
+#endif
 #ifndef MMC_BOWLING_prop_movelinear_generated_h
 	#include "prop_movelinear.h"
 #endif
 #ifndef MMC_BOWLING_prop_worldbutton_generated_h
 	#include "prop_worldbutton.h"
+#endif
+#ifndef MMC_BOWLING_prop_rotator_generated_h
+	#include "prop_rotator.h"
+#endif
+#ifndef MMC_BOWLING_info_target_generated_h
+	#include "info_target.h"
+#endif
+#ifndef MMC_BOWLING_prop_rotator_pivoted_generated_h
+	#include "prop_rotator_pivoted.h"
 #endif

@@ -361,6 +361,11 @@ EndgameType Abowling_system::GsetEndgameType(EndgameType override, const int32 o
 	return endgameType;
 }
 
+//Blueprint-able accesor for the most recently calculated EndgameType
+EndgameType Abowling_system::GetEndgameType() {
+	return endgameType;
+}
+
 //Returns the number of the current frame, 1-11
 int Abowling_system::GetNumberOfCurrentFrame()
 {

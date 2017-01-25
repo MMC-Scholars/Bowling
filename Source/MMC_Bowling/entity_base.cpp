@@ -160,3 +160,35 @@ void Aentity_base::ResetWorldTransform()
 	SetActorRotation(OriginalRotation);
 }
 
+//Given a name, finds the entity in the world. Can return nullptr
+Aentity_base * Aentity_base::FindEntityByName(FName targetName)
+{
+	for (TActorIterator<Aentity_base> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		Aentity_base * curEntity = *ActorItr;
+		if (curEntity && curEntity->GetFName() == targetName)
+			return curEntity;
+	}
+	return nullptr;
+}
+
+//Given an actor, returns the transform from this target to the given actor
+FTransform Aentity_base::GetTransformToActor(AActor *fromActor)
+{
+	if (fromActor)
+	{
+		return FTransform(fromActor->GetActorRotation() - this->GetActorRotation(), fromActor->GetActorLocation() - this->GetActorLocation());
+	}
+	else
+		return (FTransform());
+}
+
+//Given an actor, returns the vector offset from this target to the given actor
+FVector Aentity_base::GetOffsetToActor(AActor *fromActor)
+{
+	if (fromActor)
+		return (fromActor->GetActorLocation()) - (this->GetActorLocation());
+	else
+		return (FVector::ZeroVector);
+}
+

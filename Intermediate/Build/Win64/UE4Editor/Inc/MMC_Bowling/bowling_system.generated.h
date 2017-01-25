@@ -23,6 +23,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execGetEndgameType) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(TEnumAsByte<EndgameType>*)Z_Param__Result=this->GetEndgameType(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execGetAbsoluteScore) \
 	{ \
 		P_FINISH; \
@@ -107,6 +115,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		*(int32*)Z_Param__Result=this->GetNumberOfCurrentFrame(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetEndgameType) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(TEnumAsByte<EndgameType>*)Z_Param__Result=this->GetEndgameType(); \
 		P_NATIVE_END; \
 	} \
  \

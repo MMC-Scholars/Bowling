@@ -126,6 +126,10 @@ public:
 	//UFUNCTION(BlueprintCallable, Category = "bowling_system")
 	EndgameType GsetEndgameType(EndgameType override = Undetermined, const int32 overrideType = OVERRIDE_TYPE_NULL);
 
+	//Blueprint-able accesor for the most recently calculated EndgameType
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		EndgameType GetEndgameType();
+
 	//Returns the number of the current frame, 1-12
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
 		int GetNumberOfCurrentFrame();

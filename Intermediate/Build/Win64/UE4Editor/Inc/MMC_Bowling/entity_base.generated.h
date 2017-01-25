@@ -8,12 +8,43 @@
 #include "ObjectBase.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
+struct FVector;
+struct FTransform;
+class Aentity_base;
 #ifdef MMC_BOWLING_entity_base_generated_h
 #error "entity_base.generated.h already included, missing '#pragma once' in entity_base.h"
 #endif
 #define MMC_BOWLING_entity_base_generated_h
 
 #define MMC_Bowling_Source_MMC_Bowling_entity_base_h_13_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execGetOffsetToActor) \
+	{ \
+		P_GET_OBJECT(AActor,Z_Param_fromActor); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FVector*)Z_Param__Result=this->GetOffsetToActor(Z_Param_fromActor); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetTransformToActor) \
+	{ \
+		P_GET_OBJECT(AActor,Z_Param_fromActor); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FTransform*)Z_Param__Result=this->GetTransformToActor(Z_Param_fromActor); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execFindEntityByName) \
+	{ \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(Aentity_base**)Z_Param__Result=this->FindEntityByName(Z_Param_targetName); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execResetWorldTransform) \
 	{ \
@@ -42,6 +73,33 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 
 #define MMC_Bowling_Source_MMC_Bowling_entity_base_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execGetOffsetToActor) \
+	{ \
+		P_GET_OBJECT(AActor,Z_Param_fromActor); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FVector*)Z_Param__Result=this->GetOffsetToActor(Z_Param_fromActor); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetTransformToActor) \
+	{ \
+		P_GET_OBJECT(AActor,Z_Param_fromActor); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FTransform*)Z_Param__Result=this->GetTransformToActor(Z_Param_fromActor); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execFindEntityByName) \
+	{ \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(Aentity_base**)Z_Param__Result=this->FindEntityByName(Z_Param_targetName); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execResetWorldTransform) \
 	{ \

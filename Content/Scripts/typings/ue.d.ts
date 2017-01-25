@@ -5121,6 +5121,7 @@ declare class UdpMessagingSettings extends UObject {
 
 declare class entity_base extends Actor { 
 	EntityModel: StaticMeshComponent;
+	bToggleVisibilityOnStart: boolean;
 	initialHealth: number;
 	health: number;
 	isDead: boolean;
@@ -5138,6 +5139,9 @@ declare class entity_base extends Actor {
 	ResetWorldTransform(): void;
 	OnUse(): void;
 	OnKilled(): void;
+	GetTransformToActor(fromActor: Actor): Transform;
+	GetOffsetToActor(fromActor: Actor): Vector;
+	FindEntityByName(targetName: string): entity_base;
 	CalculateHealth(delta: number): void;
 	static C(Other: UObject): entity_base;
 }
@@ -5164,6 +5168,8 @@ declare class bowling_pin extends entity_base {
 
 declare type ScoreType = string | symbol;
 declare var ScoreType = { FirstThrow:'FirstThrow',SecondThrow:'SecondThrow',NativeScore:'NativeScore',AbsoluteNativeScore:'AbsoluteNativeScore',AbsoluteScore:'AbsoluteScore', };
+declare type EndgameType = string | symbol;
+declare var EndgameType = { Undetermined:'Undetermined',DefaultEnding:'DefaultEnding',SpareEnding:'SpareEnding',StrikeEnding:'StrikeEnding', };
 declare class bowling_system extends Actor { 
 	strikeCount: number;
 	printThrowsToScreen: boolean;
@@ -5185,23 +5191,23 @@ declare class bowling_system extends Actor {
 	GetStringScoreOfFrame(frameNumber: number,type: ScoreType): string;
 	GetScoreOfFrame(frameNumber: number,type: ScoreType): number;
 	GetNumberOfCurrentFrame(): number;
+	GetEndgameType(): EndgameType;
 	GetAbsoluteScore(): number;
 	CalculateScore(): void;
 	static C(Other: UObject): bowling_system;
 }
 
-declare class prop_movelinear extends entity_base { 
-	InitialDeltaLocation: Vector;
+declare class prop_move_base extends entity_base { 
 	bIsLocked: boolean;
 	movementSpeed: number;
 	delayBeforeReset: number;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): UClass;
-	static GetDefaultObject(): prop_movelinear;
+	static GetDefaultObject(): prop_move_base;
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_movelinear;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_move_base;
 	Use(): void;
 	Toggle(): void;
 	SetSpeed(newSpeed: number): void;
@@ -5222,6 +5228,27 @@ declare class prop_movelinear extends entity_base {
 	GetPosition(): number;
 	GetMovementTime(): number;
 	Close(): void;
+	static C(Other: UObject): prop_move_base;
+}
+
+declare class prop_movelinear extends prop_move_base { 
+	InitialDeltaLocation: Vector;
+	bMoveAsSinusoidalWave: boolean;
+	sinusoidalQuarterPeriod: number;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): prop_movelinear;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_movelinear;
+	Use(): void;
+	SetSpeed(newSpeed: number): void;
+	SetQuarterPeriod(newPeriod: number): void;
+	SetPosition(lerp: number): void;
+	IsOpen(): boolean;
+	IsClosed(): boolean;
+	GetEstimatedTravelTime(): number;
 	static C(Other: UObject): prop_movelinear;
 }
 
@@ -5237,6 +5264,59 @@ declare class prop_worldbutton extends prop_movelinear {
 	Press(): void;
 	OnPressed(): void;
 	static C(Other: UObject): prop_worldbutton;
+}
+
+declare class prop_rotator extends prop_move_base { 
+	bRotateForever: boolean;
+	bStartOn: boolean;
+	InitialDeltaRotation: Rotator;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): prop_rotator;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_rotator;
+	SetSpeed(newSpeed: number): void;
+	SetPosition(lerp: number): void;
+	SetPeriod(newPeriod: number): void;
+	IsOpen(): boolean;
+	IsClosed(): boolean;
+	static C(Other: UObject): prop_rotator;
+}
+
+declare class info_target extends Actor { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): info_target;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): info_target;
+	GetTransformToActor(fromActor: Actor): Transform;
+	static GetTargetAtOrigin(WorldContextObject: UObject): info_target;
+	GetOffsetToActor(fromActor: Actor): Vector;
+	static FindTargetByName(targetName?: string,WorldContextObject?: UObject): {targetName: string, $: info_target};
+	static C(Other: UObject): info_target;
+}
+
+declare class prop_rotator_pivoted extends prop_rotator { 
+	targetName: string;
+	bParentToTarget: boolean;
+	bApplyTargetRotation: boolean;
+	bApplyTargetPosition: boolean;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): prop_rotator_pivoted;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_rotator_pivoted;
+	SetTargetByName(newTargetName?: string): {newTargetName: string};
+	SetTarget(newTarget: info_target): void;
+	SetPosition(lerp: number): void;
+	GetTarget(): info_target;
+	static C(Other: UObject): prop_rotator_pivoted;
 }
 
 declare class FlipbookEditorSettings extends UObject { 

@@ -91,12 +91,21 @@ public:
 	//Common C++ function for printing message on screen
 	static void PrintToScreen(FString text);
 
-
-
 	//Resets the object to its starting location and starting rotation
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
 		void ResetWorldTransform();
 
+	//Given a name, finds the entity in the world. Can return nullptr so don't use without checking.
+	UFUNCTION(BlueprintCallable, Category = "entity_base")
+		Aentity_base *FindEntityByName(FName targetName);
+
+	//Given an actor, returns the transform from this target to the given actor
+	UFUNCTION(BlueprintCallable, Category = "entity_base")
+		FTransform GetTransformToActor(AActor *fromActor);
+
+	//Given an actor, returns the vector offset from this target to the given actor
+	UFUNCTION(BlueprintCallable, Category = "entity_base")
+		FVector GetOffsetToActor(AActor *fromActor);
 	
 
 };

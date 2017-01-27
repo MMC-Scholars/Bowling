@@ -3,9 +3,9 @@
 #pragma once
 #include "MMC_Bowling.h"
 #include "GameFramework/Actor.h"
+#include "info_target.h"
 #include "MMC_Shared.h"
 #include "entity_base.generated.h"
-
 
 UCLASS()
 class MMC_BOWLING_API Aentity_base : public AActor
@@ -42,12 +42,16 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
 
+	//If specified, spawns the entity_base at this target instead of here
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "entity_base")
+		FName spawnTargetName = TEXT("");
+
 	//Initial Health Property
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_base")
 		float initialHealth = 100;
 
 	//Health Property
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_base")
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "entity_base")
 		float health = 100;
 
 	//isDead Property
@@ -94,6 +98,10 @@ public:
 	//Resets the object to its starting location and starting rotation
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
 		void ResetWorldTransform();
+
+	//Given a name, finds the actor in the world. Can return nullptr
+	UFUNCTION(BlueprintCallable, Category = "entity_base")
+		static AActor *FindActorByName(FName targetName, UObject* WorldContextObject);
 
 	//Given a name, finds the entity in the world. Can return nullptr so don't use without checking.
 	UFUNCTION(BlueprintCallable, Category = "entity_base")

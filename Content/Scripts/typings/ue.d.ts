@@ -5119,9 +5119,25 @@ declare class UdpMessagingSettings extends UObject {
 	static C(Other: UObject): UdpMessagingSettings;
 }
 
+declare class info_target extends Actor { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): info_target;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): info_target;
+	GetTransformToActor(fromActor: Actor): Transform;
+	static GetTargetAtOrigin(WorldContextObject: UObject): info_target;
+	GetOffsetToActor(fromActor: Actor): Vector;
+	static FindTargetByName(targetName?: string,WorldContextObject?: UObject): {targetName: string, $: info_target};
+	static C(Other: UObject): info_target;
+}
+
 declare class entity_base extends Actor { 
 	EntityModel: StaticMeshComponent;
 	bToggleVisibilityOnStart: boolean;
+	spawnTargetName: string;
 	initialHealth: number;
 	health: number;
 	isDead: boolean;
@@ -5142,6 +5158,7 @@ declare class entity_base extends Actor {
 	GetTransformToActor(fromActor: Actor): Transform;
 	GetOffsetToActor(fromActor: Actor): Vector;
 	FindEntityByName(targetName: string): entity_base;
+	static FindActorByName(targetName: string,WorldContextObject: UObject): Actor;
 	CalculateHealth(delta: number): void;
 	static C(Other: UObject): entity_base;
 }
@@ -5283,21 +5300,6 @@ declare class prop_rotator extends prop_move_base {
 	IsOpen(): boolean;
 	IsClosed(): boolean;
 	static C(Other: UObject): prop_rotator;
-}
-
-declare class info_target extends Actor { 
-	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
-	static StaticClass: any;
-	static GetClassObject(): UClass;
-	static GetDefaultObject(): info_target;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): info_target;
-	GetTransformToActor(fromActor: Actor): Transform;
-	static GetTargetAtOrigin(WorldContextObject: UObject): info_target;
-	GetOffsetToActor(fromActor: Actor): Vector;
-	static FindTargetByName(targetName?: string,WorldContextObject?: UObject): {targetName: string, $: info_target};
-	static C(Other: UObject): info_target;
 }
 
 declare class prop_rotator_pivoted extends prop_rotator { 

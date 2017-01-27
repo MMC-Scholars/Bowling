@@ -25,6 +25,14 @@ FName MMC_BOWLING_OnSpare = FName(TEXT("OnSpare"));
 FName MMC_BOWLING_OnStrike = FName(TEXT("OnStrike"));
 FName MMC_BOWLING_OnUse = FName(TEXT("OnUse"));
 FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
+	void Ainfo_target::StaticRegisterNativesAinfo_target()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "FindTargetByName",(Native)&Ainfo_target::execFindTargetByName);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetOffsetToActor",(Native)&Ainfo_target::execGetOffsetToActor);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTargetAtOrigin",(Native)&Ainfo_target::execGetTargetAtOrigin);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTransformToActor",(Native)&Ainfo_target::execGetTransformToActor);
+	}
+	IMPLEMENT_CLASS(Ainfo_target, 1960245805);
 	void Aentity_base::OnKilled()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnKilled),NULL);
@@ -36,13 +44,14 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 	void Aentity_base::StaticRegisterNativesAentity_base()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "CalculateHealth",(Native)&Aentity_base::execCalculateHealth);
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "FindActorByName",(Native)&Aentity_base::execFindActorByName);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "FindEntityByName",(Native)&Aentity_base::execFindEntityByName);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "GetOffsetToActor",(Native)&Aentity_base::execGetOffsetToActor);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "GetTransformToActor",(Native)&Aentity_base::execGetTransformToActor);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "ResetWorldTransform",(Native)&Aentity_base::execResetWorldTransform);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "Use",(Native)&Aentity_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_base, 3124351472);
+	IMPLEMENT_CLASS(Aentity_base, 408073235);
 	void Abowling_pin::OnEndRaiseAndLower()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnEndRaiseAndLower),NULL);
@@ -64,7 +73,7 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "RaiseAndLower",(Native)&Abowling_pin::execRaiseAndLower);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "ResetAndLower",(Native)&Abowling_pin::execResetAndLower);
 	}
-	IMPLEMENT_CLASS(Abowling_pin, 1038726554);
+	IMPLEMENT_CLASS(Abowling_pin, 1063809695);
 static class UEnum* EndgameType_StaticEnum()
 {
 	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
@@ -159,7 +168,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Toggle",(Native)&Aprop_move_base::execToggle);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Use",(Native)&Aprop_move_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_move_base, 159604240);
+	IMPLEMENT_CLASS(Aprop_move_base, 254814360);
 	void Aprop_movelinear::StaticRegisterNativesAprop_movelinear()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_movelinear::execGetEstimatedTravelTime);
@@ -170,7 +179,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetSpeed",(Native)&Aprop_movelinear::execSetSpeed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Use",(Native)&Aprop_movelinear::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_movelinear, 2110246217);
+	IMPLEMENT_CLASS(Aprop_movelinear, 18819565);
 	void Aprop_worldbutton::OnPressed()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnPressed),NULL);
@@ -179,7 +188,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_worldbutton::StaticClass(), "Press",(Native)&Aprop_worldbutton::execPress);
 	}
-	IMPLEMENT_CLASS(Aprop_worldbutton, 1933954379);
+	IMPLEMENT_CLASS(Aprop_worldbutton, 1291318632);
 	void Aprop_rotator::StaticRegisterNativesAprop_rotator()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "IsClosed",(Native)&Aprop_rotator::execIsClosed);
@@ -188,15 +197,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetPosition",(Native)&Aprop_rotator::execSetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetSpeed",(Native)&Aprop_rotator::execSetSpeed);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator, 1411854720);
-	void Ainfo_target::StaticRegisterNativesAinfo_target()
-	{
-		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "FindTargetByName",(Native)&Ainfo_target::execFindTargetByName);
-		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetOffsetToActor",(Native)&Ainfo_target::execGetOffsetToActor);
-		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTargetAtOrigin",(Native)&Ainfo_target::execGetTargetAtOrigin);
-		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTransformToActor",(Native)&Ainfo_target::execGetTransformToActor);
-	}
-	IMPLEMENT_CLASS(Ainfo_target, 1960245805);
+	IMPLEMENT_CLASS(Aprop_rotator, 687854884);
 	void Aprop_rotator_pivoted::StaticRegisterNativesAprop_rotator_pivoted()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "GetTarget",(Native)&Aprop_rotator_pivoted::execGetTarget);
@@ -204,18 +205,25 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTarget",(Native)&Aprop_rotator_pivoted::execSetTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 4221050147);
+	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 944589604);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
+	COREUOBJECT_API class UClass* Z_Construct_UClass_UObject_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FVector();
 	ENGINE_API class UClass* Z_Construct_UClass_AActor_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FTransform();
 	ENGINE_API class UClass* Z_Construct_UClass_AActor();
 	ENGINE_API class UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FRotator();
-	COREUOBJECT_API class UClass* Z_Construct_UClass_UObject_NoRegister();
 
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetOffsetToActor();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTransformToActor();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_CalculateHealth();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_FindActorByName();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_FindEntityByName();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_GetOffsetToActor();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_GetTransformToActor();
@@ -293,12 +301,6 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_rotator_SetSpeed();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetOffsetToActor();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTransformToActor();
-	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target_NoRegister();
-	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_rotator_pivoted_GetTarget();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_rotator_pivoted_SetPosition();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_rotator_pivoted_SetTarget();
@@ -306,6 +308,147 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted();
 	MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
+	UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName()
+	{
+		struct info_target_eventFindTargetByName_Parms
+		{
+			FName targetName;
+			UObject* WorldContextObject;
+			Ainfo_target* ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_target();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindTargetByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04422401, 65535, sizeof(info_target_eventFindTargetByName_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventFindTargetByName_Parms), 0x0010000000000580, Z_Construct_UClass_Ainfo_target_NoRegister());
+			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, info_target_eventFindTargetByName_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, info_target_eventFindTargetByName_Parms), 0x0010000008000180);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a name, finds the target in the world."));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Ainfo_target_GetOffsetToActor()
+	{
+		struct info_target_eventGetOffsetToActor_Parms
+		{
+			AActor* fromActor;
+			FVector ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_target();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetOffsetToActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04820401, 65535, sizeof(info_target_eventGetOffsetToActor_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventGetOffsetToActor_Parms), 0x0010000000000580, Z_Construct_UScriptStruct_FVector());
+			UProperty* NewProp_fromActor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("fromActor"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(fromActor, info_target_eventGetOffsetToActor_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given an actor, returns the vector offset from this target to the given actor"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin()
+	{
+		struct info_target_eventGetTargetAtOrigin_Parms
+		{
+			UObject* WorldContextObject;
+			Ainfo_target* ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_target();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetTargetAtOrigin"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(info_target_eventGetTargetAtOrigin_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventGetTargetAtOrigin_Parms), 0x0010000000000580, Z_Construct_UClass_Ainfo_target_NoRegister());
+			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, info_target_eventGetTargetAtOrigin_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Returns the static target located at the origin"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Ainfo_target_GetTransformToActor()
+	{
+		struct info_target_eventGetTransformToActor_Parms
+		{
+			AActor* fromActor;
+			FTransform ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_target();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetTransformToActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04820401, 65535, sizeof(info_target_eventGetTransformToActor_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventGetTransformToActor_Parms), 0x0010000000000580, Z_Construct_UScriptStruct_FTransform());
+			UProperty* NewProp_fromActor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("fromActor"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(fromActor, info_target_eventGetTransformToActor_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given an actor, returns the transform from this target to the given actor"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Ainfo_target_NoRegister()
+	{
+		return Ainfo_target::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Ainfo_target()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_AActor();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Ainfo_target::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_FindTargetByName());
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetOffsetToActor());
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin());
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetTransformToActor());
+
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_FindTargetByName(), "FindTargetByName"); // 2072071650
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetOffsetToActor(), "GetOffsetToActor"); // 4083334231
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin(), "GetTargetAtOrigin"); // 3003452946
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetTransformToActor(), "GetTransformToActor"); // 3792080477
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("info_target.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Ainfo_target(Z_Construct_UClass_Ainfo_target, &Ainfo_target::StaticClass, TEXT("Ainfo_target"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Ainfo_target);
 	UFunction* Z_Construct_UFunction_Aentity_base_CalculateHealth()
 	{
 		struct entity_base_eventCalculateHealth_Parms
@@ -325,6 +468,33 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_base"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Function for modifying health"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_base_FindActorByName()
+	{
+		struct entity_base_eventFindActorByName_Parms
+		{
+			FName targetName;
+			UObject* WorldContextObject;
+			AActor* ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aentity_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindActorByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(entity_base_eventFindActorByName_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, entity_base_eventFindActorByName_Parms), 0x0010000000000580, Z_Construct_UClass_AActor_NoRegister());
+			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, entity_base_eventFindActorByName_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, entity_base_eventFindActorByName_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a name, finds the actor in the world. Can return nullptr"));
 #endif
 		}
 		return ReturnFunction;
@@ -493,6 +663,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 				OuterClass->ClassFlags |= 0x20900080;
 
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_CalculateHealth());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_FindActorByName());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_FindEntityByName());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_GetOffsetToActor());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_GetTransformToActor());
@@ -509,13 +680,15 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_destroyOnDeath = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("destroyOnDeath"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(destroyOnDeath, Aentity_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(destroyOnDeath, Aentity_base), sizeof(bool), true);
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(isDead, Aentity_base, bool);
 				UProperty* NewProp_isDead = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("isDead"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(isDead, Aentity_base), 0x0010000000020015, CPP_BOOL_PROPERTY_BITMASK(isDead, Aentity_base), sizeof(bool), true);
-				UProperty* NewProp_health = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("health"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(health, Aentity_base), 0x0010000000000005);
+				UProperty* NewProp_health = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("health"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(health, Aentity_base), 0x0010000000020015);
 				UProperty* NewProp_initialHealth = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("initialHealth"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(initialHealth, Aentity_base), 0x0010000000000005);
+				UProperty* NewProp_spawnTargetName = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("spawnTargetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(spawnTargetName, Aentity_base), 0x0010000000000015);
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bToggleVisibilityOnStart, Aentity_base, bool);
 				UProperty* NewProp_bToggleVisibilityOnStart = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bToggleVisibilityOnStart"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bToggleVisibilityOnStart, Aentity_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bToggleVisibilityOnStart, Aentity_base), sizeof(bool), true);
 				UProperty* NewProp_EntityModel = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("EntityModel"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(EntityModel, Aentity_base), 0x00100000000a001d, Z_Construct_UClass_UStaticMeshComponent_NoRegister());
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_CalculateHealth(), "CalculateHealth"); // 1065234854
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_FindActorByName(), "FindActorByName"); // 2157352796
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_FindEntityByName(), "FindEntityByName"); // 208547384
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_GetOffsetToActor(), "GetOffsetToActor"); // 375072237
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_GetTransformToActor(), "GetTransformToActor"); // 930593073
@@ -546,6 +719,9 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				MetaData->SetValue(NewProp_initialHealth, TEXT("Category"), TEXT("entity_base"));
 				MetaData->SetValue(NewProp_initialHealth, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
 				MetaData->SetValue(NewProp_initialHealth, TEXT("ToolTip"), TEXT("Initial Health Property"));
+				MetaData->SetValue(NewProp_spawnTargetName, TEXT("Category"), TEXT("entity_base"));
+				MetaData->SetValue(NewProp_spawnTargetName, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
+				MetaData->SetValue(NewProp_spawnTargetName, TEXT("ToolTip"), TEXT("If specified, spawns the entity_base at this target instead of here"));
 				MetaData->SetValue(NewProp_bToggleVisibilityOnStart, TEXT("Category"), TEXT("entity_base"));
 				MetaData->SetValue(NewProp_bToggleVisibilityOnStart, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
 				MetaData->SetValue(NewProp_bToggleVisibilityOnStart, TEXT("ToolTip"), TEXT("Whether or not to toggle model visibility on BeginPlay"));
@@ -2097,147 +2273,6 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Aprop_rotator(Z_Construct_UClass_Aprop_rotator, &Aprop_rotator::StaticClass, TEXT("Aprop_rotator"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Aprop_rotator);
-	UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName()
-	{
-		struct info_target_eventFindTargetByName_Parms
-		{
-			FName targetName;
-			UObject* WorldContextObject;
-			Ainfo_target* ReturnValue;
-		};
-		UObject* Outer=Z_Construct_UClass_Ainfo_target();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindTargetByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04422401, 65535, sizeof(info_target_eventFindTargetByName_Parms));
-			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventFindTargetByName_Parms), 0x0010000000000580, Z_Construct_UClass_Ainfo_target_NoRegister());
-			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, info_target_eventFindTargetByName_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
-			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, info_target_eventFindTargetByName_Parms), 0x0010000008000180);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a name, finds the target in the world."));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Ainfo_target_GetOffsetToActor()
-	{
-		struct info_target_eventGetOffsetToActor_Parms
-		{
-			AActor* fromActor;
-			FVector ReturnValue;
-		};
-		UObject* Outer=Z_Construct_UClass_Ainfo_target();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetOffsetToActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04820401, 65535, sizeof(info_target_eventGetOffsetToActor_Parms));
-			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventGetOffsetToActor_Parms), 0x0010000000000580, Z_Construct_UScriptStruct_FVector());
-			UProperty* NewProp_fromActor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("fromActor"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(fromActor, info_target_eventGetOffsetToActor_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given an actor, returns the vector offset from this target to the given actor"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin()
-	{
-		struct info_target_eventGetTargetAtOrigin_Parms
-		{
-			UObject* WorldContextObject;
-			Ainfo_target* ReturnValue;
-		};
-		UObject* Outer=Z_Construct_UClass_Ainfo_target();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetTargetAtOrigin"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(info_target_eventGetTargetAtOrigin_Parms));
-			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventGetTargetAtOrigin_Parms), 0x0010000000000580, Z_Construct_UClass_Ainfo_target_NoRegister());
-			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, info_target_eventGetTargetAtOrigin_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Returns the static target located at the origin"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Ainfo_target_GetTransformToActor()
-	{
-		struct info_target_eventGetTransformToActor_Parms
-		{
-			AActor* fromActor;
-			FTransform ReturnValue;
-		};
-		UObject* Outer=Z_Construct_UClass_Ainfo_target();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetTransformToActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04820401, 65535, sizeof(info_target_eventGetTransformToActor_Parms));
-			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventGetTransformToActor_Parms), 0x0010000000000580, Z_Construct_UScriptStruct_FTransform());
-			UProperty* NewProp_fromActor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("fromActor"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(fromActor, info_target_eventGetTransformToActor_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given an actor, returns the transform from this target to the given actor"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UClass* Z_Construct_UClass_Ainfo_target_NoRegister()
-	{
-		return Ainfo_target::StaticClass();
-	}
-	UClass* Z_Construct_UClass_Ainfo_target()
-	{
-		static UClass* OuterClass = NULL;
-		if (!OuterClass)
-		{
-			Z_Construct_UClass_AActor();
-			Z_Construct_UPackage__Script_MMC_Bowling();
-			OuterClass = Ainfo_target::StaticClass();
-			if (!(OuterClass->ClassFlags & CLASS_Constructed))
-			{
-				UObjectForceRegistration(OuterClass);
-				OuterClass->ClassFlags |= 0x20900080;
-
-				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_FindTargetByName());
-				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetOffsetToActor());
-				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin());
-				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetTransformToActor());
-
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_FindTargetByName(), "FindTargetByName"); // 2072071650
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetOffsetToActor(), "GetOffsetToActor"); // 4083334231
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin(), "GetTargetAtOrigin"); // 3003452946
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetTransformToActor(), "GetTransformToActor"); // 3792080477
-				OuterClass->StaticLink();
-#if WITH_METADATA
-				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
-				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("info_target.h"));
-				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
-#endif
-			}
-		}
-		check(OuterClass->GetClass());
-		return OuterClass;
-	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_Ainfo_target(Z_Construct_UClass_Ainfo_target, &Ainfo_target::StaticClass, TEXT("Ainfo_target"), false, nullptr, nullptr, nullptr);
-	DEFINE_VTABLE_PTR_HELPER_CTOR(Ainfo_target);
 	UFunction* Z_Construct_UFunction_Aprop_rotator_pivoted_GetTarget()
 	{
 		struct prop_rotator_pivoted_eventGetTarget_Parms
@@ -2398,8 +2433,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x1A06FD78;
-			Guid.B = 0x04CE4AF9;
+			Guid.A = 0x38E4C9C4;
+			Guid.B = 0x6E1CB8CF;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

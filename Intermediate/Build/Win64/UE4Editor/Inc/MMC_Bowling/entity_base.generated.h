@@ -12,6 +12,7 @@ class AActor;
 struct FVector;
 struct FTransform;
 class Aentity_base;
+class UObject;
 #ifdef MMC_BOWLING_entity_base_generated_h
 #error "entity_base.generated.h already included, missing '#pragma once' in entity_base.h"
 #endif
@@ -43,6 +44,16 @@ class Aentity_base;
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		*(Aentity_base**)Z_Param__Result=this->FindEntityByName(Z_Param_targetName); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execFindActorByName) \
+	{ \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(AActor**)Z_Param__Result=Aentity_base::FindActorByName(Z_Param_targetName,Z_Param_WorldContextObject); \
 		P_NATIVE_END; \
 	} \
  \
@@ -98,6 +109,16 @@ class Aentity_base;
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		*(Aentity_base**)Z_Param__Result=this->FindEntityByName(Z_Param_targetName); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execFindActorByName) \
+	{ \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(AActor**)Z_Param__Result=Aentity_base::FindActorByName(Z_Param_targetName,Z_Param_WorldContextObject); \
 		P_NATIVE_END; \
 	} \
  \

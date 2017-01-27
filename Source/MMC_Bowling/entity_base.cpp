@@ -5,13 +5,6 @@
 #include "entity_base.h"
 
 
-//Initialize the entity registrar
-//TArray<Aentity_base* const*, FDefaultAllocator> Aentity_base::registrar = TArray<Aentity_base* const*, FDefaultAllocator>();
-
-
-
-
-
 // Sets default values
 Aentity_base::Aentity_base()
 {
@@ -34,6 +27,14 @@ RemoveEntity(this);
 void Aentity_base::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//first see if we need to teleport to the spawnTargetName
+	Ainfo_target * spawnTarget = Ainfo_target::FindTargetByName(spawnTargetName, this);
+	if (spawnTarget)
+	{
+		SetActorLocation(spawnTarget->GetActorLocation());
+	}
+
 	OriginalLocation = this->GetActorLocation();
 	OriginalRotation = this->GetActorRotation();
 	health = initialHealth;
@@ -61,36 +62,6 @@ void Aentity_base::Tick(float DeltaTime)
 	}
 }
 
-
-
-//Returns reference to the base entity with the given tag
-/*Aentity_base* const* Aentity_base::FindEntityByTag(FName tag)
-{
-for (int i = 0; i < registrar.Num(); i++)
-{
-if (registrar[i] && (registrar[i])->ActorHasTag(tag))
-return registrar[i];
-}
-return registrar[0];
-}
-*/
-//adds an entity to the registrar
-/*
-void Aentity_base::AddEntity(Aentity_base* const* newEntity)
-{
-registrar.Add(newEntity);
-}
-
-//removes an entity from the registrar
-void Aentity_base::RemoveEntity(Aentity_base* const* removeEntity)
-{
-for (int i = 0; i < registrar.Num(); i++)
-{
-if (registrar.Contains(removeEntity))
-registrar.Remove(removeEntity);
-}
-}
-*/
 void Aentity_base::CalculateHealth(float delta)
 {
 	//Don't ever process health for objects who start with 0 health
@@ -137,12 +108,6 @@ void Aentity_base::Use()
 	OnUse();
 }
 
-//Extensible use event. Called at the end of Use() function
-//void Aentity_base::OnUse()
-//{
-//
-//}
-
 //For debuging and testing purposes
 void Aentity_base::PrintToScreen(FString text)
 {															
@@ -158,6 +123,19 @@ void Aentity_base::ResetWorldTransform()
 	EntityModel->SetPhysicsAngularVelocity(FVector::ZeroVector);
 	SetActorLocation(OriginalLocation);
 	SetActorRotation(OriginalRotation);
+}
+
+//Given a name, finds the actor in the world. Can return nullptr
+AActor * Aentity_base::FindActorByName(FName targetName, UObject * WorldContextObject)
+{
+	UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject);
+	for (TActorIterator<AActor> ActorItr(World); ActorItr; ++ActorItr)
+	{
+		AActor * curActor = *ActorItr;
+		if (curActor && curActor->GetFName() == targetName)
+			return curActor;
+	}
+	return nullptr;
 }
 
 //Given a name, finds the entity in the world. Can return nullptr

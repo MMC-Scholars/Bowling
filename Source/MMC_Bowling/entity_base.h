@@ -45,6 +45,12 @@ public:
 	//If specified, spawns the entity_base at this target instead of here
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "entity_base")
 		FName spawnTargetName = TEXT("");
+	//If specified, entity will teleport to this target on TeleportToTarget(...)
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "entity_base")
+		FName teleportTargetName = TEXT("");
+
+	UFUNCTION(BlueprintCallable, Category = "entity_base")
+		void TeleportToTarget();
 
 	//Initial Health Property
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_base")

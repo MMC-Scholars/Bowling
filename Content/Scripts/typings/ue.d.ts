@@ -5138,6 +5138,7 @@ declare class entity_base extends Actor {
 	EntityModel: StaticMeshComponent;
 	bToggleVisibilityOnStart: boolean;
 	spawnTargetName: string;
+	teleportTargetName: string;
 	initialHealth: number;
 	health: number;
 	isDead: boolean;
@@ -5152,6 +5153,7 @@ declare class entity_base extends Actor {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): entity_base;
 	Use(): void;
+	TeleportToTarget(): void;
 	ResetWorldTransform(): void;
 	OnUse(): void;
 	OnKilled(): void;

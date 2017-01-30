@@ -80,6 +80,14 @@ class UObject;
 		P_NATIVE_BEGIN; \
 		this->CalculateHealth(Z_Param_delta); \
 		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execTeleportToTarget) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->TeleportToTarget(); \
+		P_NATIVE_END; \
 	}
 
 
@@ -144,6 +152,14 @@ class UObject;
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		this->CalculateHealth(Z_Param_delta); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execTeleportToTarget) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->TeleportToTarget(); \
 		P_NATIVE_END; \
 	}
 

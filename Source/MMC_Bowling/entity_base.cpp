@@ -62,6 +62,15 @@ void Aentity_base::Tick(float DeltaTime)
 	}
 }
 
+void Aentity_base::TeleportToTarget()
+{
+	Ainfo_target * teleportTarget = Ainfo_target::FindTargetByName(teleportTargetName, this);
+	if (teleportTarget)
+	{
+		SetActorTransform(teleportTarget->GetActorTransform());
+	}
+}
+
 void Aentity_base::CalculateHealth(float delta)
 {
 	//Don't ever process health for objects who start with 0 health
@@ -118,9 +127,9 @@ void Aentity_base::PrintToScreen(FString text)
 //Stops all movement and teleports object to its orginal position; ignores local offset
 void Aentity_base::ResetWorldTransform()
 {
-	
 	EntityModel->SetPhysicsLinearVelocity(FVector::ZeroVector);
 	EntityModel->SetPhysicsAngularVelocity(FVector::ZeroVector);
+
 	SetActorLocation(OriginalLocation);
 	SetActorRotation(OriginalRotation);
 }

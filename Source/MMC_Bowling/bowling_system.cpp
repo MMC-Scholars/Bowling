@@ -320,6 +320,17 @@ void Abowling_system::RaiseAndLowerUnfallenPins()
 //Teleports all of the pins above their starting locations and lowers them onto the lane
 void Abowling_system::ResetAndLowerAllPins()
 {
+	//First teleport each of them to a border world
+	for (TActorIterator<Abowling_pin> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (*ActorItr)
+		{
+			Abowling_pin * curPin = *ActorItr;
+			if (curPin->isInGame)
+				curPin->TeleportToTarget();
+		}
+	}
+	//THEN we teleport them back and reset them
 	for (TActorIterator<Abowling_pin> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
 		if (*ActorItr)

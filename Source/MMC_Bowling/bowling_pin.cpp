@@ -127,6 +127,8 @@ void Abowling_pin::ResetAndLower()
 	if (isLowering) //don't do this if we're already doing it
 		return;
 	
+	//disable physics
+	EntityModel->SetSimulatePhysics(false);
 
 	//reset position and teleport up
 	ResetWorldTransform();
@@ -136,7 +138,6 @@ void Abowling_pin::ResetAndLower()
 	
 
 	isLowering = true;
-	PrimaryActorTick.bCanEverTick = true;
 	//these are set back to false from within the tick function
 }
 

@@ -49,9 +49,10 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "GetOffsetToActor",(Native)&Aentity_base::execGetOffsetToActor);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "GetTransformToActor",(Native)&Aentity_base::execGetTransformToActor);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "ResetWorldTransform",(Native)&Aentity_base::execResetWorldTransform);
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "TeleportToTarget",(Native)&Aentity_base::execTeleportToTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "Use",(Native)&Aentity_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_base, 408073235);
+	IMPLEMENT_CLASS(Aentity_base, 3207899053);
 	void Abowling_pin::OnEndRaiseAndLower()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnEndRaiseAndLower),NULL);
@@ -73,7 +74,7 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "RaiseAndLower",(Native)&Abowling_pin::execRaiseAndLower);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "ResetAndLower",(Native)&Abowling_pin::execResetAndLower);
 	}
-	IMPLEMENT_CLASS(Abowling_pin, 1063809695);
+	IMPLEMENT_CLASS(Abowling_pin, 1586119874);
 static class UEnum* EndgameType_StaticEnum()
 {
 	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
@@ -168,7 +169,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Toggle",(Native)&Aprop_move_base::execToggle);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Use",(Native)&Aprop_move_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_move_base, 254814360);
+	IMPLEMENT_CLASS(Aprop_move_base, 1793109832);
 	void Aprop_movelinear::StaticRegisterNativesAprop_movelinear()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_movelinear::execGetEstimatedTravelTime);
@@ -179,7 +180,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetSpeed",(Native)&Aprop_movelinear::execSetSpeed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Use",(Native)&Aprop_movelinear::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_movelinear, 18819565);
+	IMPLEMENT_CLASS(Aprop_movelinear, 1940071729);
 	void Aprop_worldbutton::OnPressed()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnPressed),NULL);
@@ -188,7 +189,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_worldbutton::StaticClass(), "Press",(Native)&Aprop_worldbutton::execPress);
 	}
-	IMPLEMENT_CLASS(Aprop_worldbutton, 1291318632);
+	IMPLEMENT_CLASS(Aprop_worldbutton, 1718778189);
 	void Aprop_rotator::StaticRegisterNativesAprop_rotator()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "IsClosed",(Native)&Aprop_rotator::execIsClosed);
@@ -197,7 +198,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetPosition",(Native)&Aprop_rotator::execSetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetSpeed",(Native)&Aprop_rotator::execSetSpeed);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator, 687854884);
+	IMPLEMENT_CLASS(Aprop_rotator, 842119136);
 	void Aprop_rotator_pivoted::StaticRegisterNativesAprop_rotator_pivoted()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "GetTarget",(Native)&Aprop_rotator_pivoted::execGetTarget);
@@ -205,7 +206,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTarget",(Native)&Aprop_rotator_pivoted::execSetTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 944589604);
+	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 2484590944);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	COREUOBJECT_API class UClass* Z_Construct_UClass_UObject_NoRegister();
@@ -230,6 +231,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_OnKilled();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_OnUse();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_ResetWorldTransform();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_TeleportToTarget();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_Use();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_base_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_base();
@@ -627,6 +629,23 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		}
 		return ReturnFunction;
 	}
+	UFunction* Z_Construct_UFunction_Aentity_base_TeleportToTarget()
+	{
+		UObject* Outer=Z_Construct_UClass_Aentity_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("TeleportToTarget"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_Aentity_base_Use()
 	{
 		UObject* Outer=Z_Construct_UClass_Aentity_base();
@@ -670,6 +689,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_OnKilled());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_OnUse());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_ResetWorldTransform());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_TeleportToTarget());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_Use());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
@@ -682,6 +702,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_isDead = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("isDead"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(isDead, Aentity_base), 0x0010000000020015, CPP_BOOL_PROPERTY_BITMASK(isDead, Aentity_base), sizeof(bool), true);
 				UProperty* NewProp_health = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("health"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(health, Aentity_base), 0x0010000000020015);
 				UProperty* NewProp_initialHealth = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("initialHealth"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(initialHealth, Aentity_base), 0x0010000000000005);
+				UProperty* NewProp_teleportTargetName = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("teleportTargetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(teleportTargetName, Aentity_base), 0x0010000000000015);
 				UProperty* NewProp_spawnTargetName = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("spawnTargetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(spawnTargetName, Aentity_base), 0x0010000000000015);
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bToggleVisibilityOnStart, Aentity_base, bool);
 				UProperty* NewProp_bToggleVisibilityOnStart = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bToggleVisibilityOnStart"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bToggleVisibilityOnStart, Aentity_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bToggleVisibilityOnStart, Aentity_base), sizeof(bool), true);
@@ -695,6 +716,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnKilled(), "OnKilled"); // 4091202877
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnUse(), "OnUse"); // 2646314901
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_ResetWorldTransform(), "ResetWorldTransform"); // 718441037
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_TeleportToTarget(), "TeleportToTarget"); // 1571348077
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_Use(), "Use"); // 1225976626
 				OuterClass->StaticLink();
 #if WITH_METADATA
@@ -719,6 +741,9 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				MetaData->SetValue(NewProp_initialHealth, TEXT("Category"), TEXT("entity_base"));
 				MetaData->SetValue(NewProp_initialHealth, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
 				MetaData->SetValue(NewProp_initialHealth, TEXT("ToolTip"), TEXT("Initial Health Property"));
+				MetaData->SetValue(NewProp_teleportTargetName, TEXT("Category"), TEXT("entity_base"));
+				MetaData->SetValue(NewProp_teleportTargetName, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
+				MetaData->SetValue(NewProp_teleportTargetName, TEXT("ToolTip"), TEXT("If specified, entity will teleport to this target on TeleportToTarget(...)"));
 				MetaData->SetValue(NewProp_spawnTargetName, TEXT("Category"), TEXT("entity_base"));
 				MetaData->SetValue(NewProp_spawnTargetName, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
 				MetaData->SetValue(NewProp_spawnTargetName, TEXT("ToolTip"), TEXT("If specified, spawns the entity_base at this target instead of here"));
@@ -2433,8 +2458,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x38E4C9C4;
-			Guid.B = 0x6E1CB8CF;
+			Guid.A = 0x09FE29D8;
+			Guid.B = 0x74F83885;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

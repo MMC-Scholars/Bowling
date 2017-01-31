@@ -126,6 +126,10 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "WaitingForFirstThrow",(Native)&Abowling_system::execWaitingForFirstThrow);
 	}
 	IMPLEMENT_CLASS(Abowling_system, 3155380383);
+	void Aentity_launcher::StaticRegisterNativesAentity_launcher()
+	{
+	}
+	IMPLEMENT_CLASS(Aentity_launcher, 901475672);
 	void Aprop_move_base::OnChangePosition(float deltaLerp)
 	{
 		prop_move_base_eventOnChangePosition_Parms Parms;
@@ -261,6 +265,8 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_launcher_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_launcher();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_Close();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_GetMovementTime();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_GetPosition();
@@ -1346,6 +1352,37 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Abowling_system(Z_Construct_UClass_Abowling_system, &Abowling_system::StaticClass, TEXT("Abowling_system"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Abowling_system);
+	UClass* Z_Construct_UClass_Aentity_launcher_NoRegister()
+	{
+		return Aentity_launcher::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Aentity_launcher()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_Aentity_base();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Aentity_launcher::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Aentity_launcher(Z_Construct_UClass_Aentity_launcher, &Aentity_launcher::StaticClass, TEXT("Aentity_launcher"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Aentity_launcher);
 	UFunction* Z_Construct_UFunction_Aprop_move_base_Close()
 	{
 		UObject* Outer=Z_Construct_UClass_Aprop_move_base();
@@ -2458,8 +2495,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x09FE29D8;
-			Guid.B = 0x74F83885;
+			Guid.A = 0x6C3B3CAD;
+			Guid.B = 0x97D34A34;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

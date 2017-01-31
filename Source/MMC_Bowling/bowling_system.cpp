@@ -233,7 +233,7 @@ void Abowling_system::CalculateScore()
 int Abowling_system::GetScoreOfFrame(int frameNumber, ScoreType type)
 {
 	//we'll let blueprinters start from 1
-	frameNumber--;
+	//frameNumber--;
 
 	//clamp the frame number to avoid out-of-bounds errors
 	frameNumber = FMath::Clamp(frameNumber, 0, NUMBER_OF_FRAMES - 1);
@@ -287,8 +287,8 @@ FString Abowling_system::GetStringScoreOfGame()
 	if (gameover)
 		sScore.Append(TEXT("!"));
 
-	//we start at 1 because the GetScoreOfFrame(...) function decrements the index
-	for (int i = 1; i <= Frames.Num(); i++)
+	//we start at 0 because the GetScoreOfFrame(...) function does NOT decrement the index - used to start at 1
+	for (int i = 0; i < Frames.Num(); i++)
 	{
 		sScore.Append(GetStringScoreOfFrame(i, FirstThrow));
 		sScore.Append(TEXT(" "));

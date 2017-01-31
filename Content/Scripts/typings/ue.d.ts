@@ -5216,6 +5216,17 @@ declare class bowling_system extends Actor {
 	static C(Other: UObject): bowling_system;
 }
 
+declare class entity_launcher extends entity_base { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): entity_launcher;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): entity_launcher;
+	static C(Other: UObject): entity_launcher;
+}
+
 declare class prop_move_base extends entity_base { 
 	bIsLocked: boolean;
 	movementSpeed: number;

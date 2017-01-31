@@ -17,6 +17,9 @@
 #ifndef MMC_BOWLING_bowling_system_generated_h
 	#include "bowling_system.h"
 #endif
+#ifndef MMC_BOWLING_entity_launcher_generated_h
+	#include "entity_launcher.h"
+#endif
 #ifndef MMC_BOWLING_prop_move_base_generated_h
 	#include "prop_move_base.h"
 #endif

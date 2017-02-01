@@ -88,9 +88,9 @@ bool Abowling_pin::CheckForFallen()
 		didFall = false;
 		return false; //never register as falling twice in a row
 	}
-	if (FMath::Abs(GetActorRotation().Roll - FMath::Abs(OriginalRotation.Roll)) > 10)
+	if (FMath::Abs(GetActorRotation().Roll - FMath::Abs(OriginalRotation.Roll)) > 5)
 		didFall = true;
-	if (FMath::Abs(GetActorRotation().Pitch - FMath::Abs(OriginalRotation.Pitch)) > 10)
+	if (FMath::Abs(GetActorRotation().Pitch - FMath::Abs(OriginalRotation.Pitch)) > 5)
 		didFall = true;
 	return didFall;
 }

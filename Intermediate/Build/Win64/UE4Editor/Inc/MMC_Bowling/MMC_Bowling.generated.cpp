@@ -17,6 +17,7 @@ FName MMC_BOWLING_OnFullyClosed = FName(TEXT("OnFullyClosed"));
 FName MMC_BOWLING_OnFullyOpened = FName(TEXT("OnFullyOpened"));
 FName MMC_BOWLING_OnGameover = FName(TEXT("OnGameover"));
 FName MMC_BOWLING_OnKilled = FName(TEXT("OnKilled"));
+FName MMC_BOWLING_OnLaunch = FName(TEXT("OnLaunch"));
 FName MMC_BOWLING_OnOpened = FName(TEXT("OnOpened"));
 FName MMC_BOWLING_OnPressed = FName(TEXT("OnPressed"));
 FName MMC_BOWLING_OnRaiseAndLower = FName(TEXT("OnRaiseAndLower"));
@@ -126,10 +127,21 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "WaitingForFirstThrow",(Native)&Abowling_system::execWaitingForFirstThrow);
 	}
 	IMPLEMENT_CLASS(Abowling_system, 3155380383);
+	void Aentity_launcher::OnLaunch(FVector newVelocity)
+	{
+		entity_launcher_eventOnLaunch_Parms Parms;
+		Parms.newVelocity=newVelocity;
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnLaunch),&Parms);
+	}
 	void Aentity_launcher::StaticRegisterNativesAentity_launcher()
 	{
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "launchProjectile",(Native)&Aentity_launcher::execlaunchProjectile);
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setLaunchDirection",(Native)&Aentity_launcher::execsetLaunchDirection);
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setLaunchDirectionTarget",(Native)&Aentity_launcher::execsetLaunchDirectionTarget);
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setProjectile",(Native)&Aentity_launcher::execsetProjectile);
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "Use",(Native)&Aentity_launcher::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_launcher, 901475672);
+	IMPLEMENT_CLASS(Aentity_launcher, 2216255083);
 	void Aprop_move_base::OnChangePosition(float deltaLerp)
 	{
 		prop_move_base_eventOnChangePosition_Parms Parms;
@@ -211,6 +223,14 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
 	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 2484590944);
+	void Autil_debug::StaticRegisterNativesAutil_debug()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintBlurp",(Native)&Autil_debug::execPrintBlurp);
+		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintFatal",(Native)&Autil_debug::execPrintFatal);
+		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintMessage",(Native)&Autil_debug::execPrintMessage);
+		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintWarning",(Native)&Autil_debug::execPrintWarning);
+	}
+	IMPLEMENT_CLASS(Autil_debug, 3573796949);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	COREUOBJECT_API class UClass* Z_Construct_UClass_UObject_NoRegister();
@@ -265,6 +285,12 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_launchProjectile();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_OnLaunch();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_setLaunchDirection();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_setLaunchDirectionTarget();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_setProjectile();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_Use();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_launcher_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_launcher();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_Close();
@@ -315,6 +341,12 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_rotator_pivoted_SetTargetByName();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug();
 	MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
 	UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName()
 	{
@@ -1352,6 +1384,139 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Abowling_system(Z_Construct_UClass_Abowling_system, &Abowling_system::StaticClass, TEXT("Abowling_system"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Abowling_system);
+	UFunction* Z_Construct_UFunction_Aentity_launcher_launchProjectile()
+	{
+		struct entity_launcher_eventlaunchProjectile_Parms
+		{
+			bool teleportBeforeLaunch;
+			bool addToCurrentVelocity;
+		};
+		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("launchProjectile"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(entity_launcher_eventlaunchProjectile_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(addToCurrentVelocity, entity_launcher_eventlaunchProjectile_Parms, bool);
+			UProperty* NewProp_addToCurrentVelocity = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("addToCurrentVelocity"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(addToCurrentVelocity, entity_launcher_eventlaunchProjectile_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(addToCurrentVelocity, entity_launcher_eventlaunchProjectile_Parms), sizeof(bool), true);
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(teleportBeforeLaunch, entity_launcher_eventlaunchProjectile_Parms, bool);
+			UProperty* NewProp_teleportBeforeLaunch = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("teleportBeforeLaunch"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(teleportBeforeLaunch, entity_launcher_eventlaunchProjectile_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(teleportBeforeLaunch, entity_launcher_eventlaunchProjectile_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Launches the projectile"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_launcher_OnLaunch()
+	{
+		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnLaunch"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08820800, 65535, sizeof(entity_launcher_eventOnLaunch_Parms));
+			UProperty* NewProp_newVelocity = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("newVelocity"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(newVelocity, entity_launcher_eventOnLaunch_Parms), 0x0010000000000080, Z_Construct_UScriptStruct_FVector());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Implementable event for when the projectile is launched"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_launcher_setLaunchDirection()
+	{
+		struct entity_launcher_eventsetLaunchDirection_Parms
+		{
+			FVector newDirection;
+		};
+		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("setLaunchDirection"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04820401, 65535, sizeof(entity_launcher_eventsetLaunchDirection_Parms));
+			UProperty* NewProp_newDirection = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("newDirection"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(newDirection, entity_launcher_eventsetLaunchDirection_Parms), 0x0010000000000080, Z_Construct_UScriptStruct_FVector());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a vector, sets the launch direction. If bMakeLaunchDirectionUnit is true, converts input into unit vector"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_launcher_setLaunchDirectionTarget()
+	{
+		struct entity_launcher_eventsetLaunchDirectionTarget_Parms
+		{
+			FName nameOfNewTarget;
+		};
+		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("setLaunchDirectionTarget"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(entity_launcher_eventsetLaunchDirectionTarget_Parms));
+			UProperty* NewProp_nameOfNewTarget = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("nameOfNewTarget"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(nameOfNewTarget, entity_launcher_eventsetLaunchDirectionTarget_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given the name of a new info_target, sets the new target for the entity_launcher"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_launcher_setProjectile()
+	{
+		struct entity_launcher_eventsetProjectile_Parms
+		{
+			FName newProjectileName;
+		};
+		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("setProjectile"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(entity_launcher_eventsetProjectile_Parms));
+			UProperty* NewProp_newProjectileName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("newProjectileName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(newProjectileName, entity_launcher_eventsetProjectile_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given the name of an entity_base, sets it as projectile"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_launcher_Use()
+	{
+		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Override for this entity_base is used - will launch the projectile, teleporting without old velocity"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UClass* Z_Construct_UClass_Aentity_launcher_NoRegister()
 	{
 		return Aentity_launcher::StaticClass();
@@ -1369,12 +1534,52 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UObjectForceRegistration(OuterClass);
 				OuterClass->ClassFlags |= 0x20900080;
 
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_launchProjectile());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_OnLaunch());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_setLaunchDirection());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_setLaunchDirectionTarget());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_setProjectile());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_Use());
 
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_projectileName = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("projectileName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(projectileName, Aentity_launcher), 0x0010000000000015);
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bLaunchOnStart, Aentity_launcher, bool);
+				UProperty* NewProp_bLaunchOnStart = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bLaunchOnStart"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bLaunchOnStart, Aentity_launcher), 0x0010000000000015, CPP_BOOL_PROPERTY_BITMASK(bLaunchOnStart, Aentity_launcher), sizeof(bool), true);
+				UProperty* NewProp_launchSpeed = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("launchSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(launchSpeed, Aentity_launcher), 0x0010000000000005);
+				UProperty* NewProp_launchTargetName = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("launchTargetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(launchTargetName, Aentity_launcher), 0x0010000000000015);
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bMakeLaunchDirectionUnit, Aentity_launcher, bool);
+				UProperty* NewProp_bMakeLaunchDirectionUnit = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bMakeLaunchDirectionUnit"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bMakeLaunchDirectionUnit, Aentity_launcher), 0x0010000000000015, CPP_BOOL_PROPERTY_BITMASK(bMakeLaunchDirectionUnit, Aentity_launcher), sizeof(bool), true);
+				UProperty* NewProp_launchDirection = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("launchDirection"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(launchDirection, Aentity_launcher), 0x0010000000000015, Z_Construct_UScriptStruct_FVector());
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectile(), "launchProjectile"); // 456005682
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_OnLaunch(), "OnLaunch"); // 3842619658
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_setLaunchDirection(), "setLaunchDirection"); // 2814116322
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_setLaunchDirectionTarget(), "setLaunchDirectionTarget"); // 84901878
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_setProjectile(), "setProjectile"); // 2985890431
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_Use(), "Use"); // 3625434670
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
 				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("entity_launcher.h"));
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_projectileName, TEXT("Category"), TEXT("entity_launcher"));
+				MetaData->SetValue(NewProp_projectileName, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_projectileName, TEXT("ToolTip"), TEXT("Name of the entity_base to launch"));
+				MetaData->SetValue(NewProp_bLaunchOnStart, TEXT("Category"), TEXT("entity_launcher"));
+				MetaData->SetValue(NewProp_bLaunchOnStart, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_bLaunchOnStart, TEXT("ToolTip"), TEXT("Whether or not to immediately launch the projectile on BeginPlay"));
+				MetaData->SetValue(NewProp_launchSpeed, TEXT("Category"), TEXT("entity_launcher"));
+				MetaData->SetValue(NewProp_launchSpeed, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_launchSpeed, TEXT("ToolTip"), TEXT("In world units/second"));
+				MetaData->SetValue(NewProp_launchTargetName, TEXT("Category"), TEXT("entity_launcher"));
+				MetaData->SetValue(NewProp_launchTargetName, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_launchTargetName, TEXT("ToolTip"), TEXT("If specified, the launch will always point towards this info_target instead of using launchDirection"));
+				MetaData->SetValue(NewProp_bMakeLaunchDirectionUnit, TEXT("Category"), TEXT("entity_launcher"));
+				MetaData->SetValue(NewProp_bMakeLaunchDirectionUnit, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_bMakeLaunchDirectionUnit, TEXT("ToolTip"), TEXT("Whether or not to force the launch direction to be unit"));
+				MetaData->SetValue(NewProp_launchDirection, TEXT("Category"), TEXT("entity_launcher"));
+				MetaData->SetValue(NewProp_launchDirection, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_launchDirection, TEXT("ToolTip"), TEXT("Direction to launch the ball in. Also acts as scalar for the launch velocity"));
 #endif
 			}
 		}
@@ -2487,6 +2692,137 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Aprop_rotator_pivoted(Z_Construct_UClass_Aprop_rotator_pivoted, &Aprop_rotator_pivoted::StaticClass, TEXT("Aprop_rotator_pivoted"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Aprop_rotator_pivoted);
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp()
+	{
+		struct util_debug_eventPrintBlurp_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintBlurp"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintBlurp_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintBlurp_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a message for a very short amount of time - ideal for frame-by-frame"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal()
+	{
+		struct util_debug_eventPrintFatal_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintFatal"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintFatal_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintFatal_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a eye-catching long-lasting red error message to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage()
+	{
+		struct util_debug_eventPrintMessage_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintMessage"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintMessage_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintMessage_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a generic message to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning()
+	{
+		struct util_debug_eventPrintWarning_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintWarning"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintWarning_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintWarning_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a warning to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Autil_debug_NoRegister()
+	{
+		return Autil_debug::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Autil_debug()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_AActor();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Autil_debug::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintBlurp());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintFatal());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintMessage());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintWarning());
+
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintBlurp(), "PrintBlurp"); // 2777870075
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintFatal(), "PrintFatal"); // 2564934558
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintMessage(), "PrintMessage"); // 3716680404
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintWarning(), "PrintWarning"); // 2247278385
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("util_debug.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Autil_debug(Z_Construct_UClass_Autil_debug, &Autil_debug::StaticClass, TEXT("Autil_debug"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Autil_debug);
 	UPackage* Z_Construct_UPackage__Script_MMC_Bowling()
 	{
 		static UPackage* ReturnPackage = NULL;
@@ -2495,8 +2831,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x6C3B3CAD;
-			Guid.B = 0x97D34A34;
+			Guid.A = 0x777CCD0D;
+			Guid.B = 0xBC4BEFAE;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

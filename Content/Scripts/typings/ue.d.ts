@@ -5217,6 +5217,12 @@ declare class bowling_system extends Actor {
 }
 
 declare class entity_launcher extends entity_base { 
+	launchDirection: Vector;
+	bMakeLaunchDirectionUnit: boolean;
+	launchTargetName: string;
+	launchSpeed: number;
+	bLaunchOnStart: boolean;
+	projectileName: string;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): UClass;
@@ -5224,6 +5230,12 @@ declare class entity_launcher extends entity_base {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): entity_launcher;
+	Use(): void;
+	setProjectile(newProjectileName: string): void;
+	setLaunchDirectionTarget(nameOfNewTarget: string): void;
+	setLaunchDirection(newDirection: Vector): void;
+	OnLaunch(newVelocity: Vector): void;
+	launchProjectile(teleportBeforeLaunch: boolean,addToCurrentVelocity: boolean): void;
 	static C(Other: UObject): entity_launcher;
 }
 

@@ -35,3 +35,6 @@
 #ifndef MMC_BOWLING_prop_rotator_pivoted_generated_h
 	#include "prop_rotator_pivoted.h"
 #endif
+#ifndef MMC_BOWLING_util_debug_generated_h
+	#include "util_debug.h"
+#endif

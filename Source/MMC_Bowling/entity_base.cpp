@@ -150,12 +150,20 @@ AActor * Aentity_base::FindActorByName(FName targetName, UObject * WorldContextO
 //Given a name, finds the entity in the world. Can return nullptr
 Aentity_base * Aentity_base::FindEntityByName(FName targetName)
 {
+	if (targetName == FName("None"))
+		return nullptr;
+	PrintToScreen("Starting search for entity named " + targetName.ToString());
 	for (TActorIterator<Aentity_base> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
 		Aentity_base * curEntity = *ActorItr;
 		if (curEntity && curEntity->GetFName() == targetName)
+		{
+			PrintToScreen(this->GetFName().ToString() + " has found " + targetName.ToString());
 			return curEntity;
+		}
+			
 	}
+	PrintToScreen("Failed to find entity " + targetName.ToString());
 	return nullptr;
 }
 

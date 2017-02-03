@@ -8,6 +8,9 @@
 #ifndef MMC_BOWLING_info_target_generated_h
 	#include "info_target.h"
 #endif
+#ifndef MMC_BOWLING_util_debug_generated_h
+	#include "util_debug.h"
+#endif
 #ifndef MMC_BOWLING_entity_base_generated_h
 	#include "entity_base.h"
 #endif
@@ -34,7 +37,4 @@
 #endif
 #ifndef MMC_BOWLING_prop_rotator_pivoted_generated_h
 	#include "prop_rotator_pivoted.h"
-#endif
-#ifndef MMC_BOWLING_util_debug_generated_h
-	#include "util_debug.h"
 #endif

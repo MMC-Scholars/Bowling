@@ -55,11 +55,11 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
-	DECLARE_FUNCTION(execGetMovementTime) \
+	DECLARE_FUNCTION(execGetEstimatedTravelTime) \
 	{ \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		*(float*)Z_Param__Result=this->GetMovementTime(); \
+		*(float*)Z_Param__Result=this->GetEstimatedTravelTime(); \
 		P_NATIVE_END; \
 	} \
  \
@@ -172,11 +172,11 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
-	DECLARE_FUNCTION(execGetMovementTime) \
+	DECLARE_FUNCTION(execGetEstimatedTravelTime) \
 	{ \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		*(float*)Z_Param__Result=this->GetMovementTime(); \
+		*(float*)Z_Param__Result=this->GetEstimatedTravelTime(); \
 		P_NATIVE_END; \
 	} \
  \

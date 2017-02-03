@@ -80,7 +80,7 @@ public:
 
 	//Accessor for the estimated time of travel if moving in linear motion
 	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
-		float GetEstimatedTravelTime();
+		float GetEstimatedTravelTime() const override;
 	
 
 

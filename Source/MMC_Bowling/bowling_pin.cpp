@@ -120,8 +120,9 @@ void Abowling_pin::RaiseAndLower()
 //and then enabling a portion of the tick function
 void Abowling_pin::ResetAndLower()
 {
-	if (didFall) //don't do this if the pin has fallen
-		return;
+	//We're reseting the pin, so make sure that we reset didFall
+	didFall = false;
+
 	if (isRaisingAndLowering) //don't do this if we're already raising and lowering
 		return;
 	if (isLowering) //don't do this if we're already doing it

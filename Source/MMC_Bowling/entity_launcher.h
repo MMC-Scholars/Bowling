@@ -53,6 +53,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_launcher")
 		float launchSpeed = 10.0f;
 
+	//Linear interpolation between old velocity and new velocity on launch. Old is 0, new is 1
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_launcher")
+		float launchLerp = 1.0f;
+
 	//Whether or not to immediately launch the projectile on BeginPlay
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "entity_launcher")
 		bool bLaunchOnStart = false;
@@ -65,9 +69,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "entity_launcher")
 		void setProjectile(FName newProjectileName);
 
-	//Launches the projectile
+	//Launches the projectile in the given linear direction
 	UFUNCTION(BlueprintCallable, Category = "entity_launcher")
-		void launchProjectile(bool teleportBeforeLaunch, bool addToCurrentVelocity);
+		void launchProjectileLinear(bool teleportBeforeLaunch, bool addToCurrentVelocity);
 
 	//Implementable event for when the projectile is launched
 	UFUNCTION(BlueprintImplementableEvent, Category = "entity_launcher")
@@ -76,6 +80,32 @@ public:
 	//Override for this entity_base is used - will launch the projectile, teleporting without old velocity
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
 		virtual void Use() override;
+
+
+	/*
+	Optional angular launching - sets the projectile's angular velocity
+	*/
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_launcher_angular")
+		FVector angularLaunchSpeed = FVector::ZeroVector;
+
+	//Linear interpolation between old and new angular velocities on launch. Old is 0, new is 1
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_launcher_angular")
+		float angularLaunchLerp = 1.0f;
+
+	//If true, the new angular velocity will rotate around the LaunchDirection on launch-time
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_launcher_angular")
+		bool bRotateToLaunchDirection = false;
+
+	//Launches the projectile into the angular velocity
+	UFUNCTION(BlueprintCallable, Category = "entity_launcher_angular")
+		void launchProjectileAngular(bool teleportBeforeLaunch, bool addToCurrentVelocity);
+
+
+	
+
+	//Launches the projectile both linearly and angularly
+	UFUNCTION(BlueprintCallable, Category = "entity_launcher_angular")
+		void launchProjectile(bool teleportBeforeLaunch, bool addToCurrent);
 
 
 

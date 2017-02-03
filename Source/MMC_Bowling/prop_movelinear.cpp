@@ -138,7 +138,7 @@ bool Aprop_movelinear::IsClosed()
 }
 
 //Accessor for the estimated time of travel if moving in linear motion
-float Aprop_movelinear::GetEstimatedTravelTime()
+float Aprop_movelinear::GetEstimatedTravelTime() const
 {
 	//Return 0 if we're sinusoidal
 	if (bMoveAsSinusoidalWave)

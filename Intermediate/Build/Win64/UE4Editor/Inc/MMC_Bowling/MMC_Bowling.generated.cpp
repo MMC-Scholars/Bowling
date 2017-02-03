@@ -34,6 +34,14 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTransformToActor",(Native)&Ainfo_target::execGetTransformToActor);
 	}
 	IMPLEMENT_CLASS(Ainfo_target, 1960245805);
+	void Autil_debug::StaticRegisterNativesAutil_debug()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintBlurp",(Native)&Autil_debug::execPrintBlurp);
+		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintFatal",(Native)&Autil_debug::execPrintFatal);
+		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintMessage",(Native)&Autil_debug::execPrintMessage);
+		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintWarning",(Native)&Autil_debug::execPrintWarning);
+	}
+	IMPLEMENT_CLASS(Autil_debug, 3573796949);
 	void Aentity_base::OnKilled()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnKilled),NULL);
@@ -136,12 +144,14 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	void Aentity_launcher::StaticRegisterNativesAentity_launcher()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "launchProjectile",(Native)&Aentity_launcher::execlaunchProjectile);
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "launchProjectileAngular",(Native)&Aentity_launcher::execlaunchProjectileAngular);
+		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "launchProjectileLinear",(Native)&Aentity_launcher::execlaunchProjectileLinear);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setLaunchDirection",(Native)&Aentity_launcher::execsetLaunchDirection);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setLaunchDirectionTarget",(Native)&Aentity_launcher::execsetLaunchDirectionTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setProjectile",(Native)&Aentity_launcher::execsetProjectile);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "Use",(Native)&Aentity_launcher::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_launcher, 2216255083);
+	IMPLEMENT_CLASS(Aentity_launcher, 1711781764);
 	void Aprop_move_base::OnChangePosition(float deltaLerp)
 	{
 		prop_move_base_eventOnChangePosition_Parms Parms;
@@ -171,7 +181,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	void Aprop_move_base::StaticRegisterNativesAprop_move_base()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Close",(Native)&Aprop_move_base::execClose);
-		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "GetMovementTime",(Native)&Aprop_move_base::execGetMovementTime);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_move_base::execGetEstimatedTravelTime);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "GetPosition",(Native)&Aprop_move_base::execGetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "IsClosed",(Native)&Aprop_move_base::execIsClosed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "IsClosing",(Native)&Aprop_move_base::execIsClosing);
@@ -185,7 +195,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Toggle",(Native)&Aprop_move_base::execToggle);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Use",(Native)&Aprop_move_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_move_base, 1793109832);
+	IMPLEMENT_CLASS(Aprop_move_base, 1447709686);
 	void Aprop_movelinear::StaticRegisterNativesAprop_movelinear()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_movelinear::execGetEstimatedTravelTime);
@@ -196,7 +206,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetSpeed",(Native)&Aprop_movelinear::execSetSpeed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Use",(Native)&Aprop_movelinear::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_movelinear, 1940071729);
+	IMPLEMENT_CLASS(Aprop_movelinear, 2934379585);
 	void Aprop_worldbutton::OnPressed()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnPressed),NULL);
@@ -205,7 +215,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_worldbutton::StaticClass(), "Press",(Native)&Aprop_worldbutton::execPress);
 	}
-	IMPLEMENT_CLASS(Aprop_worldbutton, 1718778189);
+	IMPLEMENT_CLASS(Aprop_worldbutton, 1095466906);
 	void Aprop_rotator::StaticRegisterNativesAprop_rotator()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "IsClosed",(Native)&Aprop_rotator::execIsClosed);
@@ -214,7 +224,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetPosition",(Native)&Aprop_rotator::execSetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetSpeed",(Native)&Aprop_rotator::execSetSpeed);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator, 842119136);
+	IMPLEMENT_CLASS(Aprop_rotator, 1344088960);
 	void Aprop_rotator_pivoted::StaticRegisterNativesAprop_rotator_pivoted()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "GetTarget",(Native)&Aprop_rotator_pivoted::execGetTarget);
@@ -222,15 +232,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTarget",(Native)&Aprop_rotator_pivoted::execSetTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 2484590944);
-	void Autil_debug::StaticRegisterNativesAutil_debug()
-	{
-		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintBlurp",(Native)&Autil_debug::execPrintBlurp);
-		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintFatal",(Native)&Autil_debug::execPrintFatal);
-		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintMessage",(Native)&Autil_debug::execPrintMessage);
-		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintWarning",(Native)&Autil_debug::execPrintWarning);
-	}
-	IMPLEMENT_CLASS(Autil_debug, 3573796949);
+	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 55086999);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	COREUOBJECT_API class UClass* Z_Construct_UClass_UObject_NoRegister();
@@ -247,6 +249,12 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTransformToActor();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_CalculateHealth();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_FindActorByName();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_FindEntityByName();
@@ -286,6 +294,8 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_launchProjectile();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_launchProjectileAngular();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_launchProjectileLinear();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_OnLaunch();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_setLaunchDirection();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_launcher_setLaunchDirectionTarget();
@@ -294,7 +304,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_launcher_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_launcher();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_Close();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_GetMovementTime();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_GetEstimatedTravelTime();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_GetPosition();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_IsClosed();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_IsClosing();
@@ -341,12 +351,6 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_rotator_pivoted_SetTargetByName();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning();
-	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug_NoRegister();
-	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug();
 	MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
 	UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName()
 	{
@@ -489,6 +493,137 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Ainfo_target(Z_Construct_UClass_Ainfo_target, &Ainfo_target::StaticClass, TEXT("Ainfo_target"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Ainfo_target);
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp()
+	{
+		struct util_debug_eventPrintBlurp_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintBlurp"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintBlurp_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintBlurp_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a message for a very short amount of time - ideal for frame-by-frame"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal()
+	{
+		struct util_debug_eventPrintFatal_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintFatal"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintFatal_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintFatal_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a eye-catching long-lasting red error message to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage()
+	{
+		struct util_debug_eventPrintMessage_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintMessage"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintMessage_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintMessage_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a generic message to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning()
+	{
+		struct util_debug_eventPrintWarning_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintWarning"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintWarning_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintWarning_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a warning to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Autil_debug_NoRegister()
+	{
+		return Autil_debug::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Autil_debug()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_AActor();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Autil_debug::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintBlurp());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintFatal());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintMessage());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintWarning());
+
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintBlurp(), "PrintBlurp"); // 2777870075
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintFatal(), "PrintFatal"); // 2564934558
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintMessage(), "PrintMessage"); // 3716680404
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintWarning(), "PrintWarning"); // 2247278385
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("util_debug.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Autil_debug(Z_Construct_UClass_Autil_debug, &Autil_debug::StaticClass, TEXT("Autil_debug"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Autil_debug);
 	UFunction* Z_Construct_UFunction_Aentity_base_CalculateHealth()
 	{
 		struct entity_base_eventCalculateHealth_Parms
@@ -1389,24 +1524,78 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		struct entity_launcher_eventlaunchProjectile_Parms
 		{
 			bool teleportBeforeLaunch;
-			bool addToCurrentVelocity;
+			bool addToCurrent;
 		};
 		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
 			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("launchProjectile"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(entity_launcher_eventlaunchProjectile_Parms));
-			CPP_BOOL_PROPERTY_BITMASK_STRUCT(addToCurrentVelocity, entity_launcher_eventlaunchProjectile_Parms, bool);
-			UProperty* NewProp_addToCurrentVelocity = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("addToCurrentVelocity"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(addToCurrentVelocity, entity_launcher_eventlaunchProjectile_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(addToCurrentVelocity, entity_launcher_eventlaunchProjectile_Parms), sizeof(bool), true);
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(addToCurrent, entity_launcher_eventlaunchProjectile_Parms, bool);
+			UProperty* NewProp_addToCurrent = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("addToCurrent"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(addToCurrent, entity_launcher_eventlaunchProjectile_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(addToCurrent, entity_launcher_eventlaunchProjectile_Parms), sizeof(bool), true);
 			CPP_BOOL_PROPERTY_BITMASK_STRUCT(teleportBeforeLaunch, entity_launcher_eventlaunchProjectile_Parms, bool);
 			UProperty* NewProp_teleportBeforeLaunch = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("teleportBeforeLaunch"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(teleportBeforeLaunch, entity_launcher_eventlaunchProjectile_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(teleportBeforeLaunch, entity_launcher_eventlaunchProjectile_Parms), sizeof(bool), true);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher_angular"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Launches the projectile both linearly and angularly"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_launcher_launchProjectileAngular()
+	{
+		struct entity_launcher_eventlaunchProjectileAngular_Parms
+		{
+			bool teleportBeforeLaunch;
+			bool addToCurrentVelocity;
+		};
+		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("launchProjectileAngular"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(entity_launcher_eventlaunchProjectileAngular_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(addToCurrentVelocity, entity_launcher_eventlaunchProjectileAngular_Parms, bool);
+			UProperty* NewProp_addToCurrentVelocity = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("addToCurrentVelocity"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(addToCurrentVelocity, entity_launcher_eventlaunchProjectileAngular_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(addToCurrentVelocity, entity_launcher_eventlaunchProjectileAngular_Parms), sizeof(bool), true);
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(teleportBeforeLaunch, entity_launcher_eventlaunchProjectileAngular_Parms, bool);
+			UProperty* NewProp_teleportBeforeLaunch = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("teleportBeforeLaunch"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(teleportBeforeLaunch, entity_launcher_eventlaunchProjectileAngular_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(teleportBeforeLaunch, entity_launcher_eventlaunchProjectileAngular_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher_angular"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Launches the projectile into the angular velocity"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_launcher_launchProjectileLinear()
+	{
+		struct entity_launcher_eventlaunchProjectileLinear_Parms
+		{
+			bool teleportBeforeLaunch;
+			bool addToCurrentVelocity;
+		};
+		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("launchProjectileLinear"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(entity_launcher_eventlaunchProjectileLinear_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(addToCurrentVelocity, entity_launcher_eventlaunchProjectileLinear_Parms, bool);
+			UProperty* NewProp_addToCurrentVelocity = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("addToCurrentVelocity"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(addToCurrentVelocity, entity_launcher_eventlaunchProjectileLinear_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(addToCurrentVelocity, entity_launcher_eventlaunchProjectileLinear_Parms), sizeof(bool), true);
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(teleportBeforeLaunch, entity_launcher_eventlaunchProjectileLinear_Parms, bool);
+			UProperty* NewProp_teleportBeforeLaunch = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("teleportBeforeLaunch"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(teleportBeforeLaunch, entity_launcher_eventlaunchProjectileLinear_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(teleportBeforeLaunch, entity_launcher_eventlaunchProjectileLinear_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Launches the projectile"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Launches the projectile in the given linear direction"));
 #endif
 		}
 		return ReturnFunction;
@@ -1535,6 +1724,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->ClassFlags |= 0x20900080;
 
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_launchProjectile());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_launchProjectileAngular());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_launchProjectileLinear());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_OnLaunch());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_setLaunchDirection());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_setLaunchDirectionTarget());
@@ -1542,16 +1733,23 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_launcher_Use());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bRotateToLaunchDirection, Aentity_launcher, bool);
+				UProperty* NewProp_bRotateToLaunchDirection = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bRotateToLaunchDirection"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bRotateToLaunchDirection, Aentity_launcher), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bRotateToLaunchDirection, Aentity_launcher), sizeof(bool), true);
+				UProperty* NewProp_angularLaunchLerp = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("angularLaunchLerp"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(angularLaunchLerp, Aentity_launcher), 0x0010000000000005);
+				UProperty* NewProp_angularLaunchSpeed = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("angularLaunchSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(angularLaunchSpeed, Aentity_launcher), 0x0010000000000005, Z_Construct_UScriptStruct_FVector());
 				UProperty* NewProp_projectileName = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("projectileName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(projectileName, Aentity_launcher), 0x0010000000000015);
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bLaunchOnStart, Aentity_launcher, bool);
 				UProperty* NewProp_bLaunchOnStart = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bLaunchOnStart"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bLaunchOnStart, Aentity_launcher), 0x0010000000000015, CPP_BOOL_PROPERTY_BITMASK(bLaunchOnStart, Aentity_launcher), sizeof(bool), true);
+				UProperty* NewProp_launchLerp = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("launchLerp"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(launchLerp, Aentity_launcher), 0x0010000000000005);
 				UProperty* NewProp_launchSpeed = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("launchSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(launchSpeed, Aentity_launcher), 0x0010000000000005);
 				UProperty* NewProp_launchTargetName = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("launchTargetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(launchTargetName, Aentity_launcher), 0x0010000000000015);
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bMakeLaunchDirectionUnit, Aentity_launcher, bool);
 				UProperty* NewProp_bMakeLaunchDirectionUnit = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bMakeLaunchDirectionUnit"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bMakeLaunchDirectionUnit, Aentity_launcher), 0x0010000000000015, CPP_BOOL_PROPERTY_BITMASK(bMakeLaunchDirectionUnit, Aentity_launcher), sizeof(bool), true);
 				UProperty* NewProp_launchDirection = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("launchDirection"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(launchDirection, Aentity_launcher), 0x0010000000000015, Z_Construct_UScriptStruct_FVector());
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectile(), "launchProjectile"); // 456005682
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectile(), "launchProjectile"); // 3835698297
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectileAngular(), "launchProjectileAngular"); // 524290148
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectileLinear(), "launchProjectileLinear"); // 3799855463
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_OnLaunch(), "OnLaunch"); // 3842619658
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_setLaunchDirection(), "setLaunchDirection"); // 2814116322
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_setLaunchDirectionTarget(), "setLaunchDirectionTarget"); // 84901878
@@ -1562,12 +1760,24 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
 				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("entity_launcher.h"));
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_bRotateToLaunchDirection, TEXT("Category"), TEXT("entity_launcher_angular"));
+				MetaData->SetValue(NewProp_bRotateToLaunchDirection, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_bRotateToLaunchDirection, TEXT("ToolTip"), TEXT("If true, the new angular velocity will rotate around the LaunchDirection on launch-time"));
+				MetaData->SetValue(NewProp_angularLaunchLerp, TEXT("Category"), TEXT("entity_launcher_angular"));
+				MetaData->SetValue(NewProp_angularLaunchLerp, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_angularLaunchLerp, TEXT("ToolTip"), TEXT("Linear interpolation between old and new angular velocities on launch. Old is 0, new is 1"));
+				MetaData->SetValue(NewProp_angularLaunchSpeed, TEXT("Category"), TEXT("entity_launcher_angular"));
+				MetaData->SetValue(NewProp_angularLaunchSpeed, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_angularLaunchSpeed, TEXT("ToolTip"), TEXT("Optional angular launching - sets the projectile's angular velocity"));
 				MetaData->SetValue(NewProp_projectileName, TEXT("Category"), TEXT("entity_launcher"));
 				MetaData->SetValue(NewProp_projectileName, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
 				MetaData->SetValue(NewProp_projectileName, TEXT("ToolTip"), TEXT("Name of the entity_base to launch"));
 				MetaData->SetValue(NewProp_bLaunchOnStart, TEXT("Category"), TEXT("entity_launcher"));
 				MetaData->SetValue(NewProp_bLaunchOnStart, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
 				MetaData->SetValue(NewProp_bLaunchOnStart, TEXT("ToolTip"), TEXT("Whether or not to immediately launch the projectile on BeginPlay"));
+				MetaData->SetValue(NewProp_launchLerp, TEXT("Category"), TEXT("entity_launcher"));
+				MetaData->SetValue(NewProp_launchLerp, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
+				MetaData->SetValue(NewProp_launchLerp, TEXT("ToolTip"), TEXT("Linear interpolation between old velocity and new velocity on launch. Old is 0, new is 1"));
 				MetaData->SetValue(NewProp_launchSpeed, TEXT("Category"), TEXT("entity_launcher"));
 				MetaData->SetValue(NewProp_launchSpeed, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
 				MetaData->SetValue(NewProp_launchSpeed, TEXT("ToolTip"), TEXT("In world units/second"));
@@ -1605,9 +1815,9 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		}
 		return ReturnFunction;
 	}
-	UFunction* Z_Construct_UFunction_Aprop_move_base_GetMovementTime()
+	UFunction* Z_Construct_UFunction_Aprop_move_base_GetEstimatedTravelTime()
 	{
-		struct prop_move_base_eventGetMovementTime_Parms
+		struct prop_move_base_eventGetEstimatedTravelTime_Parms
 		{
 			float ReturnValue;
 		};
@@ -1615,8 +1825,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetMovementTime"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020400, 65535, sizeof(prop_move_base_eventGetMovementTime_Parms));
-			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(ReturnValue, prop_move_base_eventGetMovementTime_Parms), 0x0010000000000580);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetEstimatedTravelTime"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020400, 65535, sizeof(prop_move_base_eventGetEstimatedTravelTime_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(ReturnValue, prop_move_base_eventGetEstimatedTravelTime_Parms), 0x0010000000000580);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
@@ -2008,7 +2218,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->ClassFlags |= 0x20900080;
 
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_Close());
-				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_GetMovementTime());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_GetEstimatedTravelTime());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_GetPosition());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_IsClosed());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_IsClosing());
@@ -2035,7 +2245,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_bIsLocked = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bIsLocked"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bIsLocked, Aprop_move_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bIsLocked, Aprop_move_base), sizeof(bool), true);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_Close(), "Close"); // 2947266904
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_GetMovementTime(), "GetMovementTime"); // 340761679
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_GetEstimatedTravelTime(), "GetEstimatedTravelTime"); // 1033403312
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_GetPosition(), "GetPosition"); // 1368212732
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_IsClosed(), "IsClosed"); // 2756519875
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_IsClosing(), "IsClosing"); // 779805281
@@ -2084,7 +2294,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetEstimatedTravelTime"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(prop_movelinear_eventGetEstimatedTravelTime_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetEstimatedTravelTime"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(prop_movelinear_eventGetEstimatedTravelTime_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(ReturnValue, prop_movelinear_eventGetEstimatedTravelTime_Parms), 0x0010000000000580);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
@@ -2262,7 +2472,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_bMoveAsSinusoidalWave = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bMoveAsSinusoidalWave"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bMoveAsSinusoidalWave, Aprop_movelinear), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bMoveAsSinusoidalWave, Aprop_movelinear), sizeof(bool), true);
 				UProperty* NewProp_InitialDeltaLocation = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("InitialDeltaLocation"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(InitialDeltaLocation, Aprop_movelinear), 0x0010000000000015, Z_Construct_UScriptStruct_FVector());
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_GetEstimatedTravelTime(), "GetEstimatedTravelTime"); // 2178979607
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_GetEstimatedTravelTime(), "GetEstimatedTravelTime"); // 815813609
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_IsClosed(), "IsClosed"); // 2055743016
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_IsOpen(), "IsOpen"); // 1264352748
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_SetPosition(), "SetPosition"); // 105577727
@@ -2692,137 +2902,6 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Aprop_rotator_pivoted(Z_Construct_UClass_Aprop_rotator_pivoted, &Aprop_rotator_pivoted::StaticClass, TEXT("Aprop_rotator_pivoted"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Aprop_rotator_pivoted);
-	UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp()
-	{
-		struct util_debug_eventPrintBlurp_Parms
-		{
-			FString message;
-		};
-		UObject* Outer=Z_Construct_UClass_Autil_debug();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintBlurp"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintBlurp_Parms));
-			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintBlurp_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a message for a very short amount of time - ideal for frame-by-frame"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal()
-	{
-		struct util_debug_eventPrintFatal_Parms
-		{
-			FString message;
-		};
-		UObject* Outer=Z_Construct_UClass_Autil_debug();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintFatal"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintFatal_Parms));
-			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintFatal_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a eye-catching long-lasting red error message to the screen"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage()
-	{
-		struct util_debug_eventPrintMessage_Parms
-		{
-			FString message;
-		};
-		UObject* Outer=Z_Construct_UClass_Autil_debug();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintMessage"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintMessage_Parms));
-			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintMessage_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a generic message to the screen"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning()
-	{
-		struct util_debug_eventPrintWarning_Parms
-		{
-			FString message;
-		};
-		UObject* Outer=Z_Construct_UClass_Autil_debug();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintWarning"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintWarning_Parms));
-			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintWarning_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a warning to the screen"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UClass* Z_Construct_UClass_Autil_debug_NoRegister()
-	{
-		return Autil_debug::StaticClass();
-	}
-	UClass* Z_Construct_UClass_Autil_debug()
-	{
-		static UClass* OuterClass = NULL;
-		if (!OuterClass)
-		{
-			Z_Construct_UClass_AActor();
-			Z_Construct_UPackage__Script_MMC_Bowling();
-			OuterClass = Autil_debug::StaticClass();
-			if (!(OuterClass->ClassFlags & CLASS_Constructed))
-			{
-				UObjectForceRegistration(OuterClass);
-				OuterClass->ClassFlags |= 0x20900080;
-
-				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintBlurp());
-				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintFatal());
-				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintMessage());
-				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintWarning());
-
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintBlurp(), "PrintBlurp"); // 2777870075
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintFatal(), "PrintFatal"); // 2564934558
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintMessage(), "PrintMessage"); // 3716680404
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintWarning(), "PrintWarning"); // 2247278385
-				OuterClass->StaticLink();
-#if WITH_METADATA
-				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
-				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("util_debug.h"));
-				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-#endif
-			}
-		}
-		check(OuterClass->GetClass());
-		return OuterClass;
-	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_Autil_debug(Z_Construct_UClass_Autil_debug, &Autil_debug::StaticClass, TEXT("Autil_debug"), false, nullptr, nullptr, nullptr);
-	DEFINE_VTABLE_PTR_HELPER_CTOR(Autil_debug);
 	UPackage* Z_Construct_UPackage__Script_MMC_Bowling()
 	{
 		static UPackage* ReturnPackage = NULL;
@@ -2831,8 +2910,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x777CCD0D;
-			Guid.B = 0xBC4BEFAE;
+			Guid.A = 0x8CD7B597;
+			Guid.B = 0x31E42D5B;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

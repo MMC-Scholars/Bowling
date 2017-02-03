@@ -97,7 +97,7 @@ public:
 
 	//Accessor for movement time
 	UFUNCTION(BlueprintCallable, Category = "prop_move_base")
-		virtual float GetMovementTime() const;
+		virtual float GetEstimatedTravelTime() const;
 
 
 

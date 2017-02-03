@@ -142,7 +142,7 @@ float Aprop_move_base::GetPosition() const
 	return currentLerp;
 }
 
-float Aprop_move_base::GetMovementTime() const
+float Aprop_move_base::GetEstimatedTravelTime() const
 {
 	return movementTime;
 }

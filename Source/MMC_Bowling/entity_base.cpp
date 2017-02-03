@@ -62,6 +62,7 @@ void Aentity_base::Tick(float DeltaTime)
 	}
 }
 
+//Teleports the entity to the info_target named in the object settings
 void Aentity_base::TeleportToTarget()
 {
 	Ainfo_target * teleportTarget = Ainfo_target::FindTargetByName(teleportTargetName, this);

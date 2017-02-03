@@ -14,6 +14,7 @@ private:
 	// Private constructor so that this class can never be instantiated
 	Autil_debug();
 
+
 	//Static const colors - there are given values in the cpp
 	static const FColor BLURP_COLOR;
 	static const FColor MESSAGE_COLOR;
@@ -40,5 +41,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Debug")
 		static void PrintFatal(FString message);
 
-	
+
 };
+

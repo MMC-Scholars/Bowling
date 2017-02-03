@@ -5134,6 +5134,21 @@ declare class info_target extends Actor {
 	static C(Other: UObject): info_target;
 }
 
+declare class util_debug extends Actor { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): util_debug;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): util_debug;
+	static PrintWarning(message: string): void;
+	static PrintMessage(message: string): void;
+	static PrintFatal(message: string): void;
+	static PrintBlurp(message: string): void;
+	static C(Other: UObject): util_debug;
+}
+
 declare class entity_base extends Actor { 
 	EntityModel: StaticMeshComponent;
 	bToggleVisibilityOnStart: boolean;
@@ -5221,8 +5236,12 @@ declare class entity_launcher extends entity_base {
 	bMakeLaunchDirectionUnit: boolean;
 	launchTargetName: string;
 	launchSpeed: number;
+	launchLerp: number;
 	bLaunchOnStart: boolean;
 	projectileName: string;
+	angularLaunchSpeed: Vector;
+	angularLaunchLerp: number;
+	bRotateToLaunchDirection: boolean;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): UClass;
@@ -5235,7 +5254,9 @@ declare class entity_launcher extends entity_base {
 	setLaunchDirectionTarget(nameOfNewTarget: string): void;
 	setLaunchDirection(newDirection: Vector): void;
 	OnLaunch(newVelocity: Vector): void;
-	launchProjectile(teleportBeforeLaunch: boolean,addToCurrentVelocity: boolean): void;
+	launchProjectileLinear(teleportBeforeLaunch: boolean,addToCurrentVelocity: boolean): void;
+	launchProjectileAngular(teleportBeforeLaunch: boolean,addToCurrentVelocity: boolean): void;
+	launchProjectile(teleportBeforeLaunch: boolean,addToCurrent: boolean): void;
 	static C(Other: UObject): entity_launcher;
 }
 
@@ -5268,7 +5289,7 @@ declare class prop_move_base extends entity_base {
 	IsClosing(): boolean;
 	IsClosed(): boolean;
 	GetPosition(): number;
-	GetMovementTime(): number;
+	GetEstimatedTravelTime(): number;
 	Close(): void;
 	static C(Other: UObject): prop_move_base;
 }

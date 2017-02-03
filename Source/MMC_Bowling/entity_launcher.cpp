@@ -63,27 +63,35 @@ void Aentity_launcher::setProjectile(FName newProjectileName)
 }
 
 //Launches the projectile
-void Aentity_launcher::launchProjectile(bool teleportBeforeLaunch, bool addToCurrentVelocity)
+void Aentity_launcher::launchProjectileLinear(bool teleportBeforeLaunch, bool addToCurrentVelocity)
 {
 	//Don't do anything if our pointer to our projectile is bad
 	if (!projectile)
 		return;
 
 	//Teleport the object if we need to
-	if (teleportBeforeLaunch)
+	if (teleportBeforeLaunch) {
 		projectile->SetActorLocation(this->GetActorLocation());
-
+		projectile->SetActorRotation(launchDirection.Rotation());
+	}
 	//Then update the launch direction, in case the target has moved
 	if (launchTarget)
 	{
 		setLaunchDirection(GetOffsetToActor(launchTarget));
 	}
 
+	//Get value of the old velocity
+	FVector oldVelocity = projectile->GetVelocity();
+
 	//Velocity is a speed with a direction - Physics 101
 	FVector newVelocity = launchSpeed * launchDirection;
 	//then add the original velocity back in if we need to
 	if (addToCurrentVelocity)
-		newVelocity += projectile->GetVelocity();
+		newVelocity += oldVelocity;
+
+	//Then the final new velocity is a linear interpolation between oldVelocity and newVelocity
+	launchLerp = FMath::Clamp(launchLerp, 0.0f, 1.0f); //clamp the lerp first
+	newVelocity = FMath::LerpStable(oldVelocity, newVelocity, launchLerp);
 
 	//Finally actually launch the darn projectile
 	if (projectile->EntityModel)
@@ -99,4 +107,52 @@ void Aentity_launcher::Use()
 	if (!bIgnoreUse)
 		launchProjectile(true, false);//teleports and does not keep old velocity
 	OnUse();
+}
+
+void Aentity_launcher::launchProjectileAngular(bool teleportBeforeLaunch, bool addToCurrentVelocity)
+{
+	//Don't do anything if our pointer to our projectile is bad
+	if (!projectile)
+		return;
+
+	//Teleport the object if we need to
+	if (teleportBeforeLaunch) {
+		projectile->SetActorLocation(this->GetActorLocation());
+		projectile->SetActorRotation(launchDirection.Rotation());
+	}
+	//Then update the launch direction, in case the target has moved
+	if (launchTarget)
+	{
+		setLaunchDirection(GetOffsetToActor(launchTarget));
+	}
+
+	//Get value of the old angular velocity
+	FVector oldVelocity = projectile->EntityModel->GetPhysicsAngularVelocity();
+
+	//New angular velocity is as given
+	FVector newVelocity = angularLaunchSpeed;
+	//see if we need to rotate it to launchDirection
+	//I've done the vector math for this
+	if (bRotateToLaunchDirection) {
+		newVelocity = launchDirection.Rotation().RotateVector(newVelocity);
+	}
+		
+	//then add the original velocity back in if we need to
+	if (addToCurrentVelocity)
+		newVelocity += oldVelocity;
+
+	//Then the final new velocity is a linear interpolation between oldVelocity and newVelocity
+	angularLaunchLerp = FMath::Clamp(angularLaunchLerp, 0.0f, 1.0f); //clamp the lerp first
+	newVelocity = FMath::LerpStable(oldVelocity, newVelocity, angularLaunchLerp);
+
+	//Finally actually launch the darn projectile
+	if (projectile->EntityModel)
+		projectile->EntityModel->SetPhysicsAngularVelocity(newVelocity);
+}
+
+//Launches the projectile both linearly and angularly
+void Aentity_launcher::launchProjectile(bool teleportBeforeLaunch, bool addToCurrent)
+{
+	launchProjectileAngular(teleportBeforeLaunch, addToCurrent);
+	launchProjectileLinear(false/*never teleport twice*/, addToCurrent);
 }

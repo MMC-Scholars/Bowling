@@ -4,6 +4,7 @@
 #include "MMC_Bowling.h"
 #include "GameFramework/Actor.h"
 #include "info_target.h"
+#include "util_debug.h"
 #include "MMC_Shared.h"
 #include "entity_base.generated.h"
 
@@ -45,6 +46,7 @@ public:
 	//If specified, spawns the entity_base at this target instead of here
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "entity_base")
 		FName spawnTargetName = TEXT("");
+
 	//If specified, entity will teleport to this target on TeleportToTarget(...)
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "entity_base")
 		FName teleportTargetName = TEXT("");

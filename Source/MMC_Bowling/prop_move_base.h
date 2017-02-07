@@ -1,5 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: a virtual entity-derived base class for anything that opens or closes like a door
+	Contains opening and closing logic
+	Outlines virtual functions for processing movement over time.
 
+@author Michael Trunk
+*/
 #pragma once
 
 #include "entity_base.h"

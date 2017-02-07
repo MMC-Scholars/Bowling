@@ -1,4 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: a prop_move_base derived class which acts like a rotating door.
+	Also contains options for rotating forever and starting on.
+
+@author Michael Trunk
+*/
 
 #pragma once
 

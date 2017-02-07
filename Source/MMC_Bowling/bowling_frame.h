@@ -1,4 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: non-spawnable class which represents and handles a single frame of a bowling game.
+	cannot directly interact with the world.
+	
+@author Michael Trunk
+*/
+
+
+
 #include "bowling_shared.h"
 #include "MMC_Shared.h"
 #pragma once

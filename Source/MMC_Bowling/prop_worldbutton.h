@@ -1,4 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: extends prop_movelinear to provide a sliding button.
+	Contains additional Press() and OnPressed function and event, respectively.
+
+@author Michael Trunk
+*/
 
 #pragma once
 

@@ -1,5 +1,14 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: a base class which extends the actor class to provide more basic functionalities that the actor class doesn't have:
+	Use() and OnUse() function and event, respectively
+	Teleportation back to spawn
+	Spawn relocation
+	Health/death system
+	Iterating functions for finding other actors and entities by name via info_target
+	RootComponent is a StaticMeshComponent
 
+@author Michael Trunk
+*/
 #pragma once
 #include "MMC_Bowling.h"
 #include "GameFramework/Actor.h"
@@ -14,13 +23,6 @@ class MMC_BOWLING_API Aentity_base : public AActor
 	GENERATED_BODY()
 
 public:
-	//registar of all class instances
-	//static TArray<Aentity_base* const*, FDefaultAllocator> registrar;
-
-	//static mesh component
-	//UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "entity_base")
-	//	TSubobjectPtr<class UStaticMeshComponent> myStaticMeshComponent;
-	//UStaticMesh * myStaticMeshObj;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "entity_base")
 		UStaticMeshComponent* EntityModel = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("EntityModel"));
@@ -99,9 +101,6 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "entity_base")
 		void OnKilled();
-
-	//Common C++ function for printing message on screen
-	static void PrintToScreen(FString text);
 
 	//Resets the object to its starting location and starting rotation
 	UFUNCTION(BlueprintCallable, Category = "entity_base")

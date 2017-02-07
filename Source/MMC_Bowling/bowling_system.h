@@ -1,4 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: spawnable utility class which handles all of the calculations and interactions to score a bowling game.
+	Also contains helper functions for interacting with the pins.
+	Contains functions for getting string representations of the scores.
+	Uses TArray of class bowling_frame to keep track of the scores.
+
+@author Michael Trunk
+*/
 
 #pragma once
 

@@ -1,5 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: an invisible point entity which can on command set the motion of a named entity_base projectile
+	Can control both linear and angular velocities
+	Has several options for teleporting and maintaining the old velocities
 
+@author Michael Trunk
+*/
 #pragma once
 
 #include "entity_base.h"
@@ -104,7 +109,7 @@ public:
 	
 
 	//Launches the projectile both linearly and angularly
-	UFUNCTION(BlueprintCallable, Category = "entity_launcher_angular")
+	UFUNCTION(BlueprintCallable, Category = "entity_launcher")
 		void launchProjectile(bool teleportBeforeLaunch, bool addToCurrent);
 
 

@@ -15,19 +15,6 @@ Ainfo_target::Ainfo_target()
 	//RootComponent = TargetSprite;
 }
 
-// Called when the game starts or when spawned
-void Ainfo_target::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
-// Called every frame
-void Ainfo_target::Tick( float DeltaTime )
-{
-	Super::Tick( DeltaTime );
-
-}
-
 //This line is necessary to avoid compiler errors
 Ainfo_target * Ainfo_target::originTarget;
 

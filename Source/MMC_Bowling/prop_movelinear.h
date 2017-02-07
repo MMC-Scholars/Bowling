@@ -1,4 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: extends prop_move_base to provide a sliding door of sorts that moves along a linear direction
+	also contains options for sinusoidal movement
+
+@author Michael Trunk
+*/
 
 #pragma once
 

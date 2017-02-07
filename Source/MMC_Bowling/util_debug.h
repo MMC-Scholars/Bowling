@@ -1,4 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: non-instantiable utility class which contains helper debuging functions.
+	Contains functions for printing out different kinds of messages to the screen.
+
+@author Michael Trunk
+*/
 
 #pragma once
 

@@ -1,5 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: entity-derived class which contains additional local methods for representing a bowling pin
+	ex. Checking if it has fallen down, moving up and down as if being picked up or reset down
 
+@author Michael Trunk
+*/
 #pragma once
 
 #include "entity_base.h"
@@ -12,15 +16,14 @@ class MMC_BOWLING_API Abowling_pin : public Aentity_base
 
 public:
 
-	
-
 	bool didFall;
 	bool isRaisingAndLowering;
 	bool isLowering;
 	float runningTime; //used for calculating raising and lowering movement
 
+	//Whether or not to have this bowling pin interact with the bowling_system in counting the score
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "bowling_pin")
-		bool isInGame;
+		bool isInGame = false;
 
 	// Sets default values for this actor's properties
 	Abowling_pin();

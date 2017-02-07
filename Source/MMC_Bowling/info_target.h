@@ -1,5 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: a simple actor-derived classes which essentially gives a name to a point in the world.
+	BP extension has a sprite component.
+	Contains static method for finding any info_target, given the name
 
+@author Michael Trunk
+*/
 #pragma once
 
 #include "GameFramework/Actor.h"
@@ -18,12 +23,6 @@ public:
 	*/
 	// Sets default values for this actor's properties
 	Ainfo_target();
-
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
 
 	//Static pointer to target at the world origin
 	static Ainfo_target *originTarget;

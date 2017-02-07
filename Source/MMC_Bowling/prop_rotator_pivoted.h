@@ -1,4 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+Purpose: THIS CLASS IS NOT FINISHED
+	Derives from prop_rotator to provide a rotating door which can rotate around an arbitrary pivot point.
+	TODO implement functions for processing movement around the pivot info_target
+	TODO research if there is already a built-in function for changing the pivot point of an actor
+
+@author Michael Trunk
+*/
 
 #pragma once
 

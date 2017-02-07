@@ -16,13 +16,6 @@ Aentity_base::Aentity_base()
 
 };
 
-/*
-Aentity_base::~Aentity_base()
-{
-RemoveEntity(this);
-};
-*/
-
 // Called when the game starts or when spawned
 void Aentity_base::BeginPlay()
 {
@@ -116,13 +109,6 @@ void Aentity_base::Use()
 	if (bIgnoreUse)
 		return;
 	OnUse();
-}
-
-//For debuging and testing purposes
-void Aentity_base::PrintToScreen(FString text)
-{															
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, text);
 }
 
 //Stops all movement and teleports object to its orginal position; ignores local offset

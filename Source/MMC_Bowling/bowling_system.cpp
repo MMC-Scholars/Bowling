@@ -260,7 +260,7 @@ FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type)
 
 	FString sScore;
 
-	if (iScore == NOT_THROWN || Frames[frameNumber].scoreIsPending)
+	if (type == AbsoluteScore && Frames[frameNumber].scoreIsPending)
 		sScore = FString(TEXT(" "));
 
 	else if (Frames[frameNumber].wasSpare && type == SecondThrow)
@@ -273,6 +273,8 @@ FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type)
 		sScore = FString(TEXT("--"));
 	else if (iScore == 0)
 		sScore = FString(TEXT("-"));
+	else if (iScore == NOT_THROWN)
+		sScore = FString(TEXT(" "));
 	else
 		sScore = FString::FromInt(iScore);
 

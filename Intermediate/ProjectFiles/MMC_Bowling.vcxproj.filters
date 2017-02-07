@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<None Include="..\..\MMC_Bowling.uproject" />
 		<Filter Include="Source">
-			<UniqueIdentifier>{A2E977A3-8ECA-445F-8ACD-3DFB6856D4C7}</UniqueIdentifier>
+			<UniqueIdentifier>{9655A698-1395-4335-BC2E-D4A8A8AE0E08}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\MMC_Bowling.Target.cs">
 			<Filter>Source</Filter>
@@ -13,7 +13,7 @@
 			<Filter>Source</Filter>
 		</None >
 		<Filter Include="Config">
-			<UniqueIdentifier>{7DD1F719-528D-48F2-A668-EBBB849C1498}</UniqueIdentifier>
+			<UniqueIdentifier>{361933B9-004F-4DFA-8D8D-BA3B763F8E2A}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Config\DefaultEditor.ini">
 			<Filter>Config</Filter>
@@ -34,7 +34,7 @@
 			<Filter>Config</Filter>
 		</None >
 		<Filter Include="Source\MMC_Bowling">
-			<UniqueIdentifier>{DEDA4BB6-84B1-4002-ADE2-0402CA76243A}</UniqueIdentifier>
+			<UniqueIdentifier>{BC676979-353A-4D81-BFAE-FF29A49D6C24}</UniqueIdentifier>
 		</Filter>
 		<ClCompile Include="..\..\Source\MMC_Bowling\bowling_frame.cpp">
 			<Filter>Source\MMC_Bowling</Filter>

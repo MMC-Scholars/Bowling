@@ -89,9 +89,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "bowling_system")
 		int strikeCount;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "bowling_system")
-		bool printThrowsToScreen;
-
 	//Returns true if the game is waiting for the user's first throw, false otherwise.
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
 		bool WaitingForFirstThrow();
@@ -149,6 +146,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "bowling_system")
 		void OnGameover();
+
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		bool GameIsOver() const { return gameover; }
 
 
 

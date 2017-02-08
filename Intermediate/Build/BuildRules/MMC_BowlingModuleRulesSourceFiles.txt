@@ -1,3 +1,3 @@
-C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\MMC_Bowling.Build.cs
-C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling.Target.cs
-C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_BowlingEditor.Target.cs
+C:\Users\jfrees\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\MMC_Bowling.Build.cs
+C:\Users\jfrees\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling.Target.cs
+C:\Users\jfrees\Documents\Unreal Projects\MMC_Bowling\Source\MMC_BowlingEditor.Target.cs

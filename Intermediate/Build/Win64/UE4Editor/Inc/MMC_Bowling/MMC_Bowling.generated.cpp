@@ -61,7 +61,7 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "TeleportToTarget",(Native)&Aentity_base::execTeleportToTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "Use",(Native)&Aentity_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_base, 3207899053);
+	IMPLEMENT_CLASS(Aentity_base, 3363322174);
 	void Abowling_pin::OnEndRaiseAndLower()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnEndRaiseAndLower),NULL);
@@ -83,7 +83,7 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "RaiseAndLower",(Native)&Abowling_pin::execRaiseAndLower);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "ResetAndLower",(Native)&Abowling_pin::execResetAndLower);
 	}
-	IMPLEMENT_CLASS(Abowling_pin, 1586119874);
+	IMPLEMENT_CLASS(Abowling_pin, 1197030189);
 static class UEnum* EndgameType_StaticEnum()
 {
 	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
@@ -123,6 +123,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	void Abowling_system::StaticRegisterNativesAbowling_system()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "CalculateScore",(Native)&Abowling_system::execCalculateScore);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GameIsOver",(Native)&Abowling_system::execGameIsOver);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetAbsoluteScore",(Native)&Abowling_system::execGetAbsoluteScore);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetEndgameType",(Native)&Abowling_system::execGetEndgameType);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetNumberOfCurrentFrame",(Native)&Abowling_system::execGetNumberOfCurrentFrame);
@@ -134,7 +135,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "ResetGame",(Native)&Abowling_system::execResetGame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "WaitingForFirstThrow",(Native)&Abowling_system::execWaitingForFirstThrow);
 	}
-	IMPLEMENT_CLASS(Abowling_system, 3155380383);
+	IMPLEMENT_CLASS(Abowling_system, 2438728010);
 	void Aentity_launcher::OnLaunch(FVector newVelocity)
 	{
 		entity_launcher_eventOnLaunch_Parms Parms;
@@ -151,7 +152,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setProjectile",(Native)&Aentity_launcher::execsetProjectile);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "Use",(Native)&Aentity_launcher::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_launcher, 1711781764);
+	IMPLEMENT_CLASS(Aentity_launcher, 1423844586);
 	void Aprop_move_base::OnChangePosition(float deltaLerp)
 	{
 		prop_move_base_eventOnChangePosition_Parms Parms;
@@ -195,7 +196,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Toggle",(Native)&Aprop_move_base::execToggle);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Use",(Native)&Aprop_move_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_move_base, 1447709686);
+	IMPLEMENT_CLASS(Aprop_move_base, 4237260955);
 	void Aprop_movelinear::StaticRegisterNativesAprop_movelinear()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_movelinear::execGetEstimatedTravelTime);
@@ -206,7 +207,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetSpeed",(Native)&Aprop_movelinear::execSetSpeed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Use",(Native)&Aprop_movelinear::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_movelinear, 2934379585);
+	IMPLEMENT_CLASS(Aprop_movelinear, 3926802408);
 	void Aprop_worldbutton::OnPressed()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnPressed),NULL);
@@ -215,7 +216,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_worldbutton::StaticClass(), "Press",(Native)&Aprop_worldbutton::execPress);
 	}
-	IMPLEMENT_CLASS(Aprop_worldbutton, 1095466906);
+	IMPLEMENT_CLASS(Aprop_worldbutton, 3427247638);
 	void Aprop_rotator::StaticRegisterNativesAprop_rotator()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "IsClosed",(Native)&Aprop_rotator::execIsClosed);
@@ -224,7 +225,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetPosition",(Native)&Aprop_rotator::execSetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetSpeed",(Native)&Aprop_rotator::execSetSpeed);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator, 1344088960);
+	IMPLEMENT_CLASS(Aprop_rotator, 351535145);
 	void Aprop_rotator_pivoted::StaticRegisterNativesAprop_rotator_pivoted()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "GetTarget",(Native)&Aprop_rotator_pivoted::execGetTarget);
@@ -232,7 +233,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTarget",(Native)&Aprop_rotator_pivoted::execSetTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 55086999);
+	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 3026682505);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	COREUOBJECT_API class UClass* Z_Construct_UClass_UObject_NoRegister();
@@ -278,6 +279,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_EndgameType();
 	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_ScoreType();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_CalculateScore();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GameIsOver();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetAbsoluteScore();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetEndgameType();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame();
@@ -926,7 +928,6 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				MetaData->SetValue(NewProp_EntityModel, TEXT("Category"), TEXT("entity_base"));
 				MetaData->SetValue(NewProp_EntityModel, TEXT("EditInline"), TEXT("true"));
 				MetaData->SetValue(NewProp_EntityModel, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
-				MetaData->SetValue(NewProp_EntityModel, TEXT("ToolTip"), TEXT("static mesh component\nUPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = \"entity_base\")\n       TSubobjectPtr<class UStaticMeshComponent> myStaticMeshComponent;\nUStaticMesh * myStaticMeshObj;"));
 #endif
 			}
 		}
@@ -1087,7 +1088,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				MetaData->SetValue(NewProp_RaiseAndLowerAmplitude, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
 				MetaData->SetValue(NewProp_isInGame, TEXT("Category"), TEXT("bowling_pin"));
 				MetaData->SetValue(NewProp_isInGame, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
-				MetaData->SetValue(NewProp_isInGame, TEXT("ToolTip"), TEXT("used for calculating raising and lowering movement"));
+				MetaData->SetValue(NewProp_isInGame, TEXT("ToolTip"), TEXT("Whether or not to have this bowling pin interact with the bowling_system in counting the score"));
 #endif
 			}
 		}
@@ -1172,6 +1173,29 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Counts the fallen bowling pins, and calculates the score for the current frame.\nhandles the strike count and strike/spare bonuses"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_system_GameIsOver()
+	{
+		struct bowling_system_eventGameIsOver_Parms
+		{
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GameIsOver"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(bowling_system_eventGameIsOver_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, bowling_system_eventGameIsOver_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, bowling_system_eventGameIsOver_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, bowling_system_eventGameIsOver_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
 #endif
 		}
 		return ReturnFunction;
@@ -1469,6 +1493,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->ClassFlags |= 0x20900080;
 
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_CalculateScore());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GameIsOver());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetAbsoluteScore());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetEndgameType());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame());
@@ -1484,11 +1509,10 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-				CPP_BOOL_PROPERTY_BITMASK_STRUCT(printThrowsToScreen, Abowling_system, bool);
-				UProperty* NewProp_printThrowsToScreen = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("printThrowsToScreen"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(printThrowsToScreen, Abowling_system), 0x0010000000020015, CPP_BOOL_PROPERTY_BITMASK(printThrowsToScreen, Abowling_system), sizeof(bool), true);
 				UProperty* NewProp_strikeCount = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("strikeCount"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(strikeCount, Abowling_system), 0x0010000000020015);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_CalculateScore(), "CalculateScore"); // 4293280036
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GameIsOver(), "GameIsOver"); // 12576064
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetAbsoluteScore(), "GetAbsoluteScore"); // 590655694
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetEndgameType(), "GetEndgameType"); // 2538102629
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame(), "GetNumberOfCurrentFrame"); // 2100713436
@@ -1507,8 +1531,6 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
 				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("bowling_system.h"));
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
-				MetaData->SetValue(NewProp_printThrowsToScreen, TEXT("Category"), TEXT("bowling_system"));
-				MetaData->SetValue(NewProp_printThrowsToScreen, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
 				MetaData->SetValue(NewProp_strikeCount, TEXT("Category"), TEXT("bowling_system"));
 				MetaData->SetValue(NewProp_strikeCount, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
 #endif
@@ -1539,7 +1561,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
 			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher_angular"));
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_launcher"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_launcher.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Launches the projectile both linearly and angularly"));
 #endif
@@ -1747,7 +1769,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_bMakeLaunchDirectionUnit = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bMakeLaunchDirectionUnit"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bMakeLaunchDirectionUnit, Aentity_launcher), 0x0010000000000015, CPP_BOOL_PROPERTY_BITMASK(bMakeLaunchDirectionUnit, Aentity_launcher), sizeof(bool), true);
 				UProperty* NewProp_launchDirection = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("launchDirection"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(launchDirection, Aentity_launcher), 0x0010000000000015, Z_Construct_UScriptStruct_FVector());
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectile(), "launchProjectile"); // 3835698297
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectile(), "launchProjectile"); // 4188146506
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectileAngular(), "launchProjectileAngular"); // 524290148
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_launchProjectileLinear(), "launchProjectileLinear"); // 3799855463
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_OnLaunch(), "OnLaunch"); // 3842619658
@@ -2910,8 +2932,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x8CD7B597;
-			Guid.B = 0x31E42D5B;
+			Guid.A = 0x1ED7F284;
+			Guid.B = 0x38A6B7DC;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

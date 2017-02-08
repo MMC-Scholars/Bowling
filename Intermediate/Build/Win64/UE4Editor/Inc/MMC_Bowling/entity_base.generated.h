@@ -18,7 +18,7 @@ class UObject;
 #endif
 #define MMC_BOWLING_entity_base_generated_h
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_RPC_WRAPPERS \
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execGetOffsetToActor) \
 	{ \
@@ -91,7 +91,7 @@ class UObject;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execGetOffsetToActor) \
 	{ \
@@ -164,11 +164,11 @@ class UObject;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_EVENT_PARMS
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_EVENT_PARMS
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnKilled;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnUse;
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_CALLBACK_WRAPPERS
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_INCLASS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_CALLBACK_WRAPPERS
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_INCLASS_NO_PURE_DECLS \
 	private: \
 	static void StaticRegisterNativesAentity_base(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_base(); \
@@ -179,7 +179,7 @@ extern MMC_BOWLING_API  FName MMC_BOWLING_OnUse;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_INCLASS \
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_INCLASS \
 	private: \
 	static void StaticRegisterNativesAentity_base(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_base(); \
@@ -190,7 +190,7 @@ extern MMC_BOWLING_API  FName MMC_BOWLING_OnUse;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_STANDARD_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API Aentity_base(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(Aentity_base) \
@@ -203,7 +203,7 @@ private: \
 public:
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_ENHANCED_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API Aentity_base(Aentity_base&&); \
@@ -214,28 +214,28 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(Aentity_base); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(Aentity_base)
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_11_PROLOG \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_EVENT_PARMS
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_20_PROLOG \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_EVENT_PARMS
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_GENERATED_BODY_LEGACY \
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_RPC_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_CALLBACK_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_INCLASS \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_STANDARD_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_RPC_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_CALLBACK_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_INCLASS \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_GENERATED_BODY \
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_CALLBACK_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_INCLASS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_entity_base_h_14_ENHANCED_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_CALLBACK_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_INCLASS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

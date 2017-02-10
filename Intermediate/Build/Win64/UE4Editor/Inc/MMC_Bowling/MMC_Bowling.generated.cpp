@@ -234,6 +234,13 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
 	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 3026682505);
+	void Ainfo_hudhint::StaticRegisterNativesAinfo_hudhint()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_hudhint::StaticClass(), "displayHintByName",(Native)&Ainfo_hudhint::execdisplayHintByName);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_hudhint::StaticClass(), "displayMessage",(Native)&Ainfo_hudhint::execdisplayMessage);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_hudhint::StaticClass(), "setColor",(Native)&Ainfo_hudhint::execsetColor);
+	}
+	IMPLEMENT_CLASS(Ainfo_hudhint, 1160347698);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	COREUOBJECT_API class UClass* Z_Construct_UClass_UObject_NoRegister();
@@ -243,6 +250,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	ENGINE_API class UClass* Z_Construct_UClass_AActor();
 	ENGINE_API class UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FRotator();
+	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FColor();
 
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetOffsetToActor();
@@ -353,6 +361,11 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_rotator_pivoted_SetTargetByName();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_hudhint_displayHintByName();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_hudhint_displayMessage();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_hudhint_setColor();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_hudhint_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_hudhint();
 	MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
 	UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName()
 	{
@@ -2924,6 +2937,124 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Aprop_rotator_pivoted(Z_Construct_UClass_Aprop_rotator_pivoted, &Aprop_rotator_pivoted::StaticClass, TEXT("Aprop_rotator_pivoted"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Aprop_rotator_pivoted);
+	UFunction* Z_Construct_UFunction_Ainfo_hudhint_displayHintByName()
+	{
+		struct info_hudhint_eventdisplayHintByName_Parms
+		{
+			FName hintName;
+			UObject* WorldContextObject;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_hudhint();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("displayHintByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(info_hudhint_eventdisplayHintByName_Parms));
+			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, info_hudhint_eventdisplayHintByName_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_hintName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("hintName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(hintName, info_hudhint_eventdisplayHintByName_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_hudhint"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_hudhint.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Static function for printing any info_hudhint onto the screen, given its name"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Ainfo_hudhint_displayMessage()
+	{
+		UObject* Outer=Z_Construct_UClass_Ainfo_hudhint();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("displayMessage"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x44020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_hudhint"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_hudhint.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints the message onto the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Ainfo_hudhint_setColor()
+	{
+		struct info_hudhint_eventsetColor_Parms
+		{
+			FColor newColor;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_hudhint();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("setColor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04820401, 65535, sizeof(info_hudhint_eventsetColor_Parms));
+			UProperty* NewProp_newColor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("newColor"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(newColor, info_hudhint_eventsetColor_Parms), 0x0010000000000080, Z_Construct_UScriptStruct_FColor());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_hudhint"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_hudhint.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Ainfo_hudhint_NoRegister()
+	{
+		return Ainfo_hudhint::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Ainfo_hudhint()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_AActor();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Ainfo_hudhint::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_hudhint_displayHintByName());
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_hudhint_displayMessage());
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_hudhint_setColor());
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_displayColor = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("displayColor"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(displayColor, Ainfo_hudhint), 0x0010000000000015, Z_Construct_UScriptStruct_FColor());
+				UProperty* NewProp_displayTime = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("displayTime"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(displayTime, Ainfo_hudhint), 0x0010000000000005);
+				UProperty* NewProp_onScreenMessage = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("onScreenMessage"), RF_Public|RF_Transient|RF_MarkAsNative) UTextProperty(CPP_PROPERTY_BASE(onScreenMessage, Ainfo_hudhint), 0x0010000000000005);
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_hudhint_displayHintByName(), "displayHintByName"); // 4068806020
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_hudhint_displayMessage(), "displayMessage"); // 3506723947
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_hudhint_setColor(), "setColor"); // 1896042484
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("info_hudhint.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("info_hudhint.h"));
+				MetaData->SetValue(NewProp_displayColor, TEXT("Category"), TEXT("info_hudhint"));
+				MetaData->SetValue(NewProp_displayColor, TEXT("ModuleRelativePath"), TEXT("info_hudhint.h"));
+				MetaData->SetValue(NewProp_displayColor, TEXT("ToolTip"), TEXT("Color of the message"));
+				MetaData->SetValue(NewProp_displayTime, TEXT("Category"), TEXT("info_hudhint"));
+				MetaData->SetValue(NewProp_displayTime, TEXT("ModuleRelativePath"), TEXT("info_hudhint.h"));
+				MetaData->SetValue(NewProp_displayTime, TEXT("ToolTip"), TEXT("How long to display the message for, in seconds"));
+				MetaData->SetValue(NewProp_displayTime, TEXT("UIMax"), TEXT("9999.0"));
+				MetaData->SetValue(NewProp_displayTime, TEXT("UIMin"), TEXT("0.0"));
+				MetaData->SetValue(NewProp_onScreenMessage, TEXT("Category"), TEXT("info_hudhint"));
+				MetaData->SetValue(NewProp_onScreenMessage, TEXT("ModuleRelativePath"), TEXT("info_hudhint.h"));
+				MetaData->SetValue(NewProp_onScreenMessage, TEXT("ToolTip"), TEXT("What message to display on screen"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Ainfo_hudhint(Z_Construct_UClass_Ainfo_hudhint, &Ainfo_hudhint::StaticClass, TEXT("Ainfo_hudhint"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Ainfo_hudhint);
 	UPackage* Z_Construct_UPackage__Script_MMC_Bowling()
 	{
 		static UPackage* ReturnPackage = NULL;
@@ -2932,8 +3063,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x1ED7F284;
-			Guid.B = 0x38A6B7DC;
+			Guid.A = 0xB3A5057A;
+			Guid.B = 0xC2B3AE6E;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

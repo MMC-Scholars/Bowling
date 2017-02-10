@@ -144,10 +144,7 @@ Aentity_base * Aentity_base::FindEntityByName(FName targetName)
 	{
 		Aentity_base * curEntity = *ActorItr;
 		if (curEntity && curEntity->GetFName() == targetName)
-		{
 			return curEntity;
-		}
-			
 	}
 	return nullptr;
 }

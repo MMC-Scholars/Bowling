@@ -5367,6 +5367,23 @@ declare class prop_rotator_pivoted extends prop_rotator {
 	static C(Other: UObject): prop_rotator_pivoted;
 }
 
+declare class info_hudhint extends Actor { 
+	onScreenMessage: string;
+	displayTime: number;
+	displayColor: Color;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): info_hudhint;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): info_hudhint;
+	setColor(newColor: Color): void;
+	displayMessage(): void;
+	static displayHintByName(hintName: string,WorldContextObject: UObject): void;
+	static C(Other: UObject): info_hudhint;
+}
+
 declare class FlipbookEditorSettings extends UObject { 
 	BackgroundColor: Color;
 	bShowGridByDefault: boolean;
@@ -7544,60 +7561,32 @@ declare class ORPHANED_DATA_ONLY_DmgTypeBP_Environmental_C_1 {
 	static C(Other: UObject): ORPHANED_DATA_ONLY_DmgTypeBP_Environmental_C_1;
 }
 
-declare class TRASHCLASS_LevelEditorOverview_2 { 
+declare class TRASHCLASS_LevelEditorAttract_2 { 
 	constructor();
 	constructor(Outer: UObject);
-	static Load(ResourceName: string): TRASHCLASS_LevelEditorOverview_2;
-	static Find(Outer: UObject, ResourceName: string): TRASHCLASS_LevelEditorOverview_2;
+	static Load(ResourceName: string): TRASHCLASS_LevelEditorAttract_2;
+	static Find(Outer: UObject, ResourceName: string): TRASHCLASS_LevelEditorAttract_2;
 	static StaticClass: any;
 	static GetClassObject(): UClass;
-	static GetDefaultObject(): TRASHCLASS_LevelEditorOverview_2;
+	static GetDefaultObject(): TRASHCLASS_LevelEditorAttract_2;
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TRASHCLASS_LevelEditorOverview_2;
-	static C(Other: UObject): TRASHCLASS_LevelEditorOverview_2;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TRASHCLASS_LevelEditorAttract_2;
+	static C(Other: UObject): TRASHCLASS_LevelEditorAttract_2;
 }
 
-declare class TRASHCLASS_LevelEditorAttract_3 { 
+declare class ORPHANED_DATA_ONLY_LevelEditorAttract_C_3 { 
 	constructor();
 	constructor(Outer: UObject);
-	static Load(ResourceName: string): TRASHCLASS_LevelEditorAttract_3;
-	static Find(Outer: UObject, ResourceName: string): TRASHCLASS_LevelEditorAttract_3;
+	static Load(ResourceName: string): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
+	static Find(Outer: UObject, ResourceName: string): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
 	static StaticClass: any;
 	static GetClassObject(): UClass;
-	static GetDefaultObject(): TRASHCLASS_LevelEditorAttract_3;
+	static GetDefaultObject(): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TRASHCLASS_LevelEditorAttract_3;
-	static C(Other: UObject): TRASHCLASS_LevelEditorAttract_3;
-}
-
-declare class ORPHANED_DATA_ONLY_LevelEditorAttract_C_4 { 
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): ORPHANED_DATA_ONLY_LevelEditorAttract_C_4;
-	static Find(Outer: UObject, ResourceName: string): ORPHANED_DATA_ONLY_LevelEditorAttract_C_4;
-	static StaticClass: any;
-	static GetClassObject(): UClass;
-	static GetDefaultObject(): ORPHANED_DATA_ONLY_LevelEditorAttract_C_4;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): ORPHANED_DATA_ONLY_LevelEditorAttract_C_4;
-	static C(Other: UObject): ORPHANED_DATA_ONLY_LevelEditorAttract_C_4;
-}
-
-declare class TRASHCLASS_BlueprintEditorTutorial_5 { 
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): TRASHCLASS_BlueprintEditorTutorial_5;
-	static Find(Outer: UObject, ResourceName: string): TRASHCLASS_BlueprintEditorTutorial_5;
-	static StaticClass: any;
-	static GetClassObject(): UClass;
-	static GetDefaultObject(): TRASHCLASS_BlueprintEditorTutorial_5;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TRASHCLASS_BlueprintEditorTutorial_5;
-	static C(Other: UObject): TRASHCLASS_BlueprintEditorTutorial_5;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
+	static C(Other: UObject): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
 }
 
 declare var Context : JavascriptContext;

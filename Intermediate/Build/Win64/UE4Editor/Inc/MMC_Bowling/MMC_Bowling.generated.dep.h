@@ -38,3 +38,6 @@
 #ifndef MMC_BOWLING_prop_rotator_pivoted_generated_h
 	#include "prop_rotator_pivoted.h"
 #endif
+#ifndef MMC_BOWLING_info_hudhint_generated_h
+	#include "info_hudhint.h"
+#endif

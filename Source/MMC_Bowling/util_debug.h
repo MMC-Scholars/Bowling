@@ -26,10 +26,10 @@ private:
 	static const FColor WARNING_COLOR;
 	static const FColor FATAL_COLOR;
 
+public:
 	//Hidden helper function for actually printing a message on the screen
 	static void PrintMessage(FString message, float timeToDisplay, FColor color);
 
-public:
 	//Prints a message for a very short amount of time - ideal for frame-by-frame
 	UFUNCTION(BlueprintCallable, Category = "Debug")
 		static void PrintBlurp(FString message);

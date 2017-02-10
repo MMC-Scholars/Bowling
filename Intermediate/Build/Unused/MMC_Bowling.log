@@ -1,19 +1,20 @@
-﻿  Creating makefile for MMC_BowlingEditor (working set of source files changed)
-  Performing full C++ include scan (no include cache file)
+﻿  Performing full C++ include scan (no include cache file)
   Parsing headers for MMC_BowlingEditor
-    Running UnrealHeaderTool "C:\Users\jfrees\Documents\Unreal Projects\MMC_Bowling\MMC_Bowling.uproject" "C:\Users\jfrees\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\MMC_BowlingEditor\Development\MMC_BowlingEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
-  Reflection code generated for MMC_BowlingEditor in 3.4663115 seconds
-  Performing 11 actions (4 in parallel)
-  prop_rotator_pivoted.cpp
+    Running UnrealHeaderTool "C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\MMC_Bowling.uproject" "C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\MMC_BowlingEditor\Development\MMC_BowlingEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
+  Reflection code generated for MMC_BowlingEditor in 2.6590591 seconds
+  Performing 13 actions (4 in parallel)
   prop_worldbutton.cpp
-  prop_rotator.cpp
   MMC_Bowling.generated.cpp
-  prop_move_base.cpp
+  prop_rotator_pivoted.cpp
+  util_debug.cpp
   prop_movelinear.cpp
+  prop_move_base.cpp
+  prop_rotator.cpp
   entity_launcher.cpp
+  info_hudhint.cpp
   entity_base.cpp
   bowling_system.cpp
   bowling_pin.cpp
-  [11/11] Link UE4Editor-MMC_Bowling.dll
-     Creating library C:\Users\jfrees\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.lib and object C:\Users\jfrees\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.exp
-  Total build time: 47.49 seconds
+  [13/13] Link UE4Editor-MMC_Bowling.dll
+     Creating library C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.lib and object C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.exp
+  Total build time: 9.27 seconds

@@ -5119,21 +5119,6 @@ declare class UdpMessagingSettings extends UObject {
 	static C(Other: UObject): UdpMessagingSettings;
 }
 
-declare class info_target extends Actor { 
-	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
-	static StaticClass: any;
-	static GetClassObject(): UClass;
-	static GetDefaultObject(): info_target;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): info_target;
-	GetTransformToActor(fromActor: Actor): Transform;
-	static GetTargetAtOrigin(WorldContextObject: UObject): info_target;
-	GetOffsetToActor(fromActor: Actor): Vector;
-	static FindTargetByName(targetName?: string,WorldContextObject?: UObject): {targetName: string, $: info_target};
-	static C(Other: UObject): info_target;
-}
-
 declare class util_debug extends Actor { 
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
@@ -5147,6 +5132,21 @@ declare class util_debug extends Actor {
 	static PrintFatal(message: string): void;
 	static PrintBlurp(message: string): void;
 	static C(Other: UObject): util_debug;
+}
+
+declare class info_target extends Actor { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): info_target;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): info_target;
+	GetTransformToActor(fromActor: Actor): Transform;
+	static GetTargetAtOrigin(WorldContextObject: UObject): info_target;
+	GetOffsetToActor(fromActor: Actor): Vector;
+	static FindTargetByName(targetName?: string,WorldContextObject?: UObject): {targetName: string, $: info_target};
+	static C(Other: UObject): info_target;
 }
 
 declare class entity_base extends Actor { 
@@ -5167,10 +5167,11 @@ declare class entity_base extends Actor {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): entity_base;
-	Use(): void;
+	Use(caller: Actor): boolean;
 	TeleportToTarget(): void;
 	ResetWorldTransform(): void;
-	OnUse(): void;
+	OnUseIgnored(caller: Actor): void;
+	OnUse(caller: Actor): void;
 	OnKilled(): void;
 	GetTransformToActor(fromActor: Actor): Transform;
 	GetOffsetToActor(fromActor: Actor): Vector;
@@ -5197,6 +5198,7 @@ declare class bowling_pin extends entity_base {
 	OnRaiseAndLower(): void;
 	OnEndResetAndLower(): void;
 	OnEndRaiseAndLower(): void;
+	static GetPinClosestToTarget(targetName: string,WorldContextObject: UObject): bowling_pin;
 	static C(Other: UObject): bowling_pin;
 }
 
@@ -5224,6 +5226,7 @@ declare class bowling_system extends Actor {
 	GetStringScoreOfFrame(frameNumber: number,type: ScoreType): string;
 	GetScoreOfFrame(frameNumber: number,type: ScoreType): number;
 	GetNumberOfCurrentFrame(): number;
+	GetFallenPinCount(): number;
 	GetEndgameType(): EndgameType;
 	GetAbsoluteScore(): number;
 	GameIsOver(): boolean;
@@ -5249,7 +5252,7 @@ declare class entity_launcher extends entity_base {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): entity_launcher;
-	Use(): void;
+	Use(caller: Actor): boolean;
 	setProjectile(newProjectileName: string): void;
 	setLaunchDirectionTarget(nameOfNewTarget: string): void;
 	setLaunchDirection(newDirection: Vector): void;
@@ -5271,7 +5274,7 @@ declare class prop_move_base extends entity_base {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_move_base;
-	Use(): void;
+	Use(caller: Actor): boolean;
 	Toggle(): void;
 	SetSpeed(newSpeed: number): void;
 	SetPosition(lerp: number): void;
@@ -5305,7 +5308,7 @@ declare class prop_movelinear extends prop_move_base {
 	static GetDefaultSubobjectByName(Name: string): UObject;
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): prop_movelinear;
-	Use(): void;
+	Use(caller: Actor): boolean;
 	SetSpeed(newSpeed: number): void;
 	SetQuarterPeriod(newPeriod: number): void;
 	SetPosition(lerp: number): void;
@@ -5365,6 +5368,29 @@ declare class prop_rotator_pivoted extends prop_rotator {
 	SetPosition(lerp: number): void;
 	GetTarget(): info_target;
 	static C(Other: UObject): prop_rotator_pivoted;
+}
+
+declare class worldui_base extends entity_base { 
+	bFocusOnLook: boolean;
+	bActivateOnLook: boolean;
+	bUseOnLook: boolean;
+	bActivateOnUse: boolean;
+	bUseOnActivate: boolean;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): worldui_base;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): worldui_base;
+	Use(caller: Actor): boolean;
+	OnLook(caller: Actor): void;
+	OnFocus(caller: Actor): void;
+	OnActivate(caller: Actor): void;
+	Look(caller: Actor): void;
+	Focus(caller: Actor): void;
+	Activate(caller: Actor): void;
+	static C(Other: UObject): worldui_base;
 }
 
 declare class info_hudhint extends Actor { 

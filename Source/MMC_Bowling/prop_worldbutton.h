@@ -43,7 +43,7 @@ public:
 		bool bDontMoveOnPress = true;
 
 	//overrides for opening, to check if we even can move the button
-	void Use() override;
+	bool Use(AActor * caller) override;
 
 
 private:

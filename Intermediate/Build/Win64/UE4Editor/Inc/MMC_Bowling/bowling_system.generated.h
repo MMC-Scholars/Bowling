@@ -107,6 +107,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execGetFallenPinCount) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(int32*)Z_Param__Result=this->GetFallenPinCount(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execWaitingForFirstThrow) \
 	{ \
 		P_FINISH; \
@@ -207,6 +215,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		this->CalculateScore(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetFallenPinCount) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(int32*)Z_Param__Result=this->GetFallenPinCount(); \
 		P_NATIVE_END; \
 	} \
  \

@@ -173,6 +173,18 @@ bool Abowling_system::WaitingForFirstThrow()
 	return ((!gameover) && curFrame.GetThrowScore(1) == NOT_THROWN);
 }
 
+int Abowling_system::GetFallenPinCount() const
+{
+	int pinCount = 0;
+	for (TActorIterator<Abowling_pin> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		Abowling_pin * curPin = *ActorItr;
+		if (curPin && curPin->isInGame && curPin->didFall)
+			pinCount++;
+	}
+	return pinCount;
+}
+
 //Counts the fallen bowling pins, and calculates the score for the current frame.
 //calls for the handling of the strike count and strike/spare bonuses
 //calls for the re-counting of absoluteScore's

@@ -104,11 +104,16 @@ void Aentity_base::PostEditChangeProperty(FPropertyChangedEvent& PropertyChanged
 #endif
 
 //All-purpose extensible use function
-void Aentity_base::Use()
+bool Aentity_base::Use(AActor * caller)
 {
 	if (bIgnoreUse)
-		return;
-	OnUse();
+	{
+		OnUseIgnored(caller);
+		return false;
+	}
+		
+	OnUse(caller);
+	return true;
 }
 
 //Stops all movement and teleports object to its orginal position; ignores local offset
@@ -122,14 +127,18 @@ void Aentity_base::ResetWorldTransform()
 }
 
 //Given a name, finds the actor in the world. Can return nullptr
-AActor * Aentity_base::FindActorByName(FName targetName, UObject * WorldContextObject)
+AActor * Aentity_base::FindActorByName(FName targetName, UObject const * const WorldContextObject)
 {
-	UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject);
-	for (TActorIterator<AActor> ActorItr(World); ActorItr; ++ActorItr)
+	if (WorldContextObject)
 	{
-		AActor * curActor = *ActorItr;
-		if (curActor && curActor->GetFName() == targetName)
-			return curActor;
+		UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject);
+		for (TActorIterator<AActor> ActorItr(World); ActorItr; ++ActorItr)
+		{
+			AActor * curActor = *ActorItr;
+			if (curActor && curActor->GetFName() == targetName)
+				return curActor;
+		}
+		printWarning(FString("Failed to fine actor ") + targetName.ToString());
 	}
 	return nullptr;
 }
@@ -146,6 +155,7 @@ Aentity_base * Aentity_base::FindEntityByName(FName targetName)
 		if (curEntity && curEntity->GetFName() == targetName)
 			return curEntity;
 	}
+	printWarning(FString("Failed to fine entity ") + targetName.ToString());
 	return nullptr;
 }
 

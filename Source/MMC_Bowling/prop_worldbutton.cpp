@@ -37,10 +37,15 @@ void Aprop_worldbutton::Press()
 }
 
 //overrides for opening, to check if we even can move the button
-void Aprop_worldbutton::Use()
+bool Aprop_worldbutton::Use(AActor * caller)
 {
-	if (!bIgnoreUse)
+	if (bIgnoreUse)
+	{
 		Press();
-	OnUse();
+		return false;
+	}
+
+	OnUse(caller);
+	return true;
 }
 

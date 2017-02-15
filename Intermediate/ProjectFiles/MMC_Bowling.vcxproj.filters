@@ -35,43 +35,10 @@
     <Filter Include="Source\MMC_Bowling">
       <UniqueIdentifier>{BC676979-353A-4D81-BFAE-FF29A49D6C24}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\MMC_Bowling\bowling_frame.cpp">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_frame.h">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MMC_Bowling\bowling_pin.cpp">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_pin.h">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_shared.h">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MMC_Bowling\bowling_system.cpp">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_system.h">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\MMC_Bowling\entity_base.cpp">
       <Filter>Source\MMC_Bowling</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MMC_Bowling\entity_base.h">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MMC_Bowling\entity_launcher.cpp">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MMC_Bowling\entity_launcher.h">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MMC_Bowling\info_target.cpp">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MMC_Bowling\info_target.h">
       <Filter>Source\MMC_Bowling</Filter>
     </ClInclude>
     <None Include="..\..\Source\MMC_Bowling\MMC_Bowling.Build.cs">
@@ -116,21 +83,77 @@
     <ClInclude Include="..\..\Source\MMC_Bowling\prop_worldbutton.h">
       <Filter>Source\MMC_Bowling</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\MMC_Bowling\util_debug.cpp">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MMC_Bowling\util_debug.h">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\MMC_Bowling\worldui_base.cpp">
+      <Filter>Source\MMC_Bowling</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MMC_Bowling\info_hudhint.cpp">
-      <Filter>Source\MMC_Bowling</Filter>
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\info_target.cpp">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\util_debug.cpp">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\bowling_frame.cpp">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\bowling_pin.cpp">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\bowling_system.cpp">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\entity_launcher.cpp">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\filter_base.cpp">
+      <Filter>Source\MMC_Bowling\filter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\MMC_Bowling\info_hudhint.h">
+    <ClInclude Include="..\..\Source\MMC_Bowling\worldui_base.h">
       <Filter>Source\MMC_Bowling</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\info_hudhint.h">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\info_target.h">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\util_debug.h">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_frame.h">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_pin.h">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_shared.h">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_system.h">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\entity_launcher.h">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\filter_base.h">
+      <Filter>Source\MMC_Bowling\filter</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\MMC_Bowling\util">
+      <UniqueIdentifier>{87f4564d-17cd-4c27-a445-ea8743fb5d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MMC_Bowling\bowling">
+      <UniqueIdentifier>{8459af89-a5e8-4821-83f5-45cc5a3723bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MMC_Bowling\filter">
+      <UniqueIdentifier>{9c3b1f2f-a2a0-42c3-859e-be0e2c15d2b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -5393,6 +5393,38 @@ declare class worldui_base extends entity_base {
 	static C(Other: UObject): worldui_base;
 }
 
+declare type FilterMode = string | symbol;
+declare var FilterMode = { Normal:'Normal',Inverted:'Inverted',Random:'Random', };
+declare type FilterType = string | symbol;
+declare var FilterType = { ByClass:'ByClass',ByName:'ByName',ByTag:'ByTag',ByIsVisible:'ByIsVisible',ByIsSolid:'ByIsSolid',ByIsPhysicsSimulated:'ByIsPhysicsSimulated', };
+declare class filter_base extends Actor { 
+	mode: FilterMode;
+	filterType: FilterType;
+	filterByClassParemeter: UnrealEngineClass;
+	filterByTextParameter: string;
+	subFilterName: string;
+	randomFilterBias: number;
+	bGeneratePassFailEvents: boolean;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): filter_base;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): filter_base;
+	OnPass(passedActor: Actor): void;
+	OnFail(failedActor: Actor): void;
+	static FilterActorRandomlyByFilterName(filterMe: Actor,filterName: string): boolean;
+	FilterActorRandomly(filterMe: Actor): boolean;
+	static FilterActorByFilterName(filterMe: Actor,filterName: string): boolean;
+	static FilterActorArrayRandomlyByFilterName(filterMe: Actor[],filterName: string): Actor[];
+	FilterActorArrayRandomly(filterMe: Actor[]): Actor[];
+	static FilterActorArrayByFilterName(filterMe: Actor[],filterName: string): Actor[];
+	FilterActorArray(filterMe: Actor[]): Actor[];
+	FilterActor(filterMe: Actor): boolean;
+	static C(Other: UObject): filter_base;
+}
+
 declare class info_hudhint extends Actor { 
 	onScreenMessage: string;
 	displayTime: number;

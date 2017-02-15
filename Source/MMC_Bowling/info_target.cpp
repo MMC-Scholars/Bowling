@@ -61,6 +61,7 @@ FVector Ainfo_target::GetOffsetToActor(AActor *fromActor)
 	if (fromActor)
 		return (fromActor->GetActorLocation()) - (this->GetActorLocation());
 	else
+		printWarning("Failed to find get offset to actor");
 		return (FVector::ZeroVector);
 }
 

@@ -8,6 +8,8 @@ Purpose: a simple actor-derived classes which essentially gives a name to a poin
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "MMC_Shared.h"
+#include "util_debug.h"
 #include "info_target.generated.h"
 
 UCLASS()

@@ -102,11 +102,16 @@ void Aentity_launcher::launchProjectileLinear(bool teleportBeforeLaunch, bool ad
 }
 
 //Override for this entity_base is used - will launch the projectile, teleporting without old velocity
-void Aentity_launcher::Use()
+bool Aentity_launcher::Use(AActor * caller)
 {
-	if (!bIgnoreUse)
-		launchProjectile(true, false);//teleports and does not keep old velocity
-	OnUse();
+	if (bIgnoreUse) {
+		OnUseIgnored(caller);
+		return false;
+	}
+	
+	launchProjectile(true, false);//teleports and does not keep old velocity
+	OnUse(caller);
+	return true;
 }
 
 void Aentity_launcher::launchProjectileAngular(bool teleportBeforeLaunch, bool addToCurrentVelocity)

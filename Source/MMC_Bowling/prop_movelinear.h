@@ -49,7 +49,7 @@ private:
 public:
 	//Override for entity_base use - calls for toggling the door
 	UFUNCTION(BlueprintCallable, Category = "prop_movelinear")
-		virtual void Use() override;
+		virtual bool Use(AActor * caller) override;
 
 
 	//TODO override for when the door hits something

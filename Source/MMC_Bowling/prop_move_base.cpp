@@ -118,11 +118,16 @@ void Aprop_move_base::Toggle()
 }
 
 //Override for entity_base use - calls for toggling the door
-void Aprop_move_base::Use()
+bool Aprop_move_base::Use(AActor * caller)
 {
-	if (!bIgnoreUse)
-		Toggle();
-	OnUse();
+	if (bIgnoreUse)
+	{
+		OnUseIgnored(caller);
+		return false;
+	}
+	Toggle();
+	OnUse(caller);
+	return true;
 }
 
 //Stops the door's current movement

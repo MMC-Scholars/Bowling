@@ -84,7 +84,7 @@ public:
 
 	//Override for this entity_base is used - will launch the projectile, teleporting without old velocity
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
-		virtual void Use() override;
+		virtual bool Use(AActor * caller) override;
 
 
 	/*

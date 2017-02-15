@@ -9,31 +9,29 @@
 #include "MMC_Bowling.generated.dep.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCode1MMC_Bowling() {}
+FName MMC_BOWLING_OnActivate = FName(TEXT("OnActivate"));
 FName MMC_BOWLING_OnChangePosition = FName(TEXT("OnChangePosition"));
 FName MMC_BOWLING_OnClosed = FName(TEXT("OnClosed"));
 FName MMC_BOWLING_OnEndRaiseAndLower = FName(TEXT("OnEndRaiseAndLower"));
 FName MMC_BOWLING_OnEndResetAndLower = FName(TEXT("OnEndResetAndLower"));
+FName MMC_BOWLING_OnFail = FName(TEXT("OnFail"));
+FName MMC_BOWLING_OnFocus = FName(TEXT("OnFocus"));
 FName MMC_BOWLING_OnFullyClosed = FName(TEXT("OnFullyClosed"));
 FName MMC_BOWLING_OnFullyOpened = FName(TEXT("OnFullyOpened"));
 FName MMC_BOWLING_OnGameover = FName(TEXT("OnGameover"));
 FName MMC_BOWLING_OnKilled = FName(TEXT("OnKilled"));
 FName MMC_BOWLING_OnLaunch = FName(TEXT("OnLaunch"));
+FName MMC_BOWLING_OnLook = FName(TEXT("OnLook"));
 FName MMC_BOWLING_OnOpened = FName(TEXT("OnOpened"));
+FName MMC_BOWLING_OnPass = FName(TEXT("OnPass"));
 FName MMC_BOWLING_OnPressed = FName(TEXT("OnPressed"));
 FName MMC_BOWLING_OnRaiseAndLower = FName(TEXT("OnRaiseAndLower"));
 FName MMC_BOWLING_OnResetAndLower = FName(TEXT("OnResetAndLower"));
 FName MMC_BOWLING_OnSpare = FName(TEXT("OnSpare"));
 FName MMC_BOWLING_OnStrike = FName(TEXT("OnStrike"));
 FName MMC_BOWLING_OnUse = FName(TEXT("OnUse"));
+FName MMC_BOWLING_OnUseIgnored = FName(TEXT("OnUseIgnored"));
 FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
-	void Ainfo_target::StaticRegisterNativesAinfo_target()
-	{
-		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "FindTargetByName",(Native)&Ainfo_target::execFindTargetByName);
-		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetOffsetToActor",(Native)&Ainfo_target::execGetOffsetToActor);
-		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTargetAtOrigin",(Native)&Ainfo_target::execGetTargetAtOrigin);
-		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTransformToActor",(Native)&Ainfo_target::execGetTransformToActor);
-	}
-	IMPLEMENT_CLASS(Ainfo_target, 1960245805);
 	void Autil_debug::StaticRegisterNativesAutil_debug()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintBlurp",(Native)&Autil_debug::execPrintBlurp);
@@ -42,13 +40,29 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Autil_debug::StaticClass(), "PrintWarning",(Native)&Autil_debug::execPrintWarning);
 	}
 	IMPLEMENT_CLASS(Autil_debug, 3573796949);
+	void Ainfo_target::StaticRegisterNativesAinfo_target()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "FindTargetByName",(Native)&Ainfo_target::execFindTargetByName);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetOffsetToActor",(Native)&Ainfo_target::execGetOffsetToActor);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTargetAtOrigin",(Native)&Ainfo_target::execGetTargetAtOrigin);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTransformToActor",(Native)&Ainfo_target::execGetTransformToActor);
+	}
+	IMPLEMENT_CLASS(Ainfo_target, 1960245805);
 	void Aentity_base::OnKilled()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnKilled),NULL);
 	}
-	void Aentity_base::OnUse()
+	void Aentity_base::OnUse(AActor* caller)
 	{
-		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnUse),NULL);
+		entity_base_eventOnUse_Parms Parms;
+		Parms.caller=caller;
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnUse),&Parms);
+	}
+	void Aentity_base::OnUseIgnored(AActor* caller)
+	{
+		entity_base_eventOnUseIgnored_Parms Parms;
+		Parms.caller=caller;
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnUseIgnored),&Parms);
 	}
 	void Aentity_base::StaticRegisterNativesAentity_base()
 	{
@@ -61,7 +75,7 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "TeleportToTarget",(Native)&Aentity_base::execTeleportToTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "Use",(Native)&Aentity_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_base, 3363322174);
+	IMPLEMENT_CLASS(Aentity_base, 3651764715);
 	void Abowling_pin::OnEndRaiseAndLower()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnEndRaiseAndLower),NULL);
@@ -80,10 +94,11 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 	}
 	void Abowling_pin::StaticRegisterNativesAbowling_pin()
 	{
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "GetPinClosestToTarget",(Native)&Abowling_pin::execGetPinClosestToTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "RaiseAndLower",(Native)&Abowling_pin::execRaiseAndLower);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "ResetAndLower",(Native)&Abowling_pin::execResetAndLower);
 	}
-	IMPLEMENT_CLASS(Abowling_pin, 1197030189);
+	IMPLEMENT_CLASS(Abowling_pin, 871343087);
 static class UEnum* EndgameType_StaticEnum()
 {
 	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
@@ -126,6 +141,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GameIsOver",(Native)&Abowling_system::execGameIsOver);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetAbsoluteScore",(Native)&Abowling_system::execGetAbsoluteScore);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetEndgameType",(Native)&Abowling_system::execGetEndgameType);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetFallenPinCount",(Native)&Abowling_system::execGetFallenPinCount);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetNumberOfCurrentFrame",(Native)&Abowling_system::execGetNumberOfCurrentFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetScoreOfFrame",(Native)&Abowling_system::execGetScoreOfFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetStringScoreOfFrame",(Native)&Abowling_system::execGetStringScoreOfFrame);
@@ -135,7 +151,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "ResetGame",(Native)&Abowling_system::execResetGame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "WaitingForFirstThrow",(Native)&Abowling_system::execWaitingForFirstThrow);
 	}
-	IMPLEMENT_CLASS(Abowling_system, 2438728010);
+	IMPLEMENT_CLASS(Abowling_system, 1727935783);
 	void Aentity_launcher::OnLaunch(FVector newVelocity)
 	{
 		entity_launcher_eventOnLaunch_Parms Parms;
@@ -152,7 +168,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setProjectile",(Native)&Aentity_launcher::execsetProjectile);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "Use",(Native)&Aentity_launcher::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_launcher, 1423844586);
+	IMPLEMENT_CLASS(Aentity_launcher, 1400217238);
 	void Aprop_move_base::OnChangePosition(float deltaLerp)
 	{
 		prop_move_base_eventOnChangePosition_Parms Parms;
@@ -196,7 +212,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Toggle",(Native)&Aprop_move_base::execToggle);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Use",(Native)&Aprop_move_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_move_base, 4237260955);
+	IMPLEMENT_CLASS(Aprop_move_base, 2326160689);
 	void Aprop_movelinear::StaticRegisterNativesAprop_movelinear()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_movelinear::execGetEstimatedTravelTime);
@@ -207,7 +223,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetSpeed",(Native)&Aprop_movelinear::execSetSpeed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Use",(Native)&Aprop_movelinear::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_movelinear, 3926802408);
+	IMPLEMENT_CLASS(Aprop_movelinear, 1736514538);
 	void Aprop_worldbutton::OnPressed()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnPressed),NULL);
@@ -216,7 +232,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_worldbutton::StaticClass(), "Press",(Native)&Aprop_worldbutton::execPress);
 	}
-	IMPLEMENT_CLASS(Aprop_worldbutton, 3427247638);
+	IMPLEMENT_CLASS(Aprop_worldbutton, 2816748312);
 	void Aprop_rotator::StaticRegisterNativesAprop_rotator()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "IsClosed",(Native)&Aprop_rotator::execIsClosed);
@@ -225,7 +241,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetPosition",(Native)&Aprop_rotator::execSetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetSpeed",(Native)&Aprop_rotator::execSetSpeed);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator, 351535145);
+	IMPLEMENT_CLASS(Aprop_rotator, 525102873);
 	void Aprop_rotator_pivoted::StaticRegisterNativesAprop_rotator_pivoted()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "GetTarget",(Native)&Aprop_rotator_pivoted::execGetTarget);
@@ -233,7 +249,81 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTarget",(Native)&Aprop_rotator_pivoted::execSetTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 3026682505);
+	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 3335351794);
+	void Aworldui_base::OnActivate(AActor* caller)
+	{
+		worldui_base_eventOnActivate_Parms Parms;
+		Parms.caller=caller;
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnActivate),&Parms);
+	}
+	void Aworldui_base::OnFocus(AActor* caller)
+	{
+		worldui_base_eventOnFocus_Parms Parms;
+		Parms.caller=caller;
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnFocus),&Parms);
+	}
+	void Aworldui_base::OnLook(AActor* caller)
+	{
+		worldui_base_eventOnLook_Parms Parms;
+		Parms.caller=caller;
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnLook),&Parms);
+	}
+	void Aworldui_base::StaticRegisterNativesAworldui_base()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_base::StaticClass(), "Activate",(Native)&Aworldui_base::execActivate);
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_base::StaticClass(), "Focus",(Native)&Aworldui_base::execFocus);
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_base::StaticClass(), "Look",(Native)&Aworldui_base::execLook);
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_base::StaticClass(), "Use",(Native)&Aworldui_base::execUse);
+	}
+	IMPLEMENT_CLASS(Aworldui_base, 1079758084);
+static class UEnum* FilterMode_StaticEnum()
+{
+	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
+	static class UEnum* Singleton = NULL;
+	if (!Singleton)
+	{
+		extern MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_FilterMode();
+		Singleton = GetStaticEnum(Z_Construct_UEnum_MMC_Bowling_FilterMode, Z_Construct_UPackage__Script_MMC_Bowling(), TEXT("FilterMode"));
+	}
+	return Singleton;
+}
+static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterMode(FilterMode_StaticEnum, TEXT("/Script/MMC_Bowling"), TEXT("FilterMode"), false, nullptr, nullptr);
+static class UEnum* FilterType_StaticEnum()
+{
+	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
+	static class UEnum* Singleton = NULL;
+	if (!Singleton)
+	{
+		extern MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_FilterType();
+		Singleton = GetStaticEnum(Z_Construct_UEnum_MMC_Bowling_FilterType, Z_Construct_UPackage__Script_MMC_Bowling(), TEXT("FilterType"));
+	}
+	return Singleton;
+}
+static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_StaticEnum, TEXT("/Script/MMC_Bowling"), TEXT("FilterType"), false, nullptr, nullptr);
+	void Afilter_base::OnFail(const AActor* failedActor) const
+	{
+		filter_base_eventOnFail_Parms Parms;
+		Parms.failedActor=failedActor;
+		const_cast<Afilter_base*>(this)->ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnFail),&Parms);
+	}
+	void Afilter_base::OnPass(const AActor* passedActor) const
+	{
+		filter_base_eventOnPass_Parms Parms;
+		Parms.passedActor=passedActor;
+		const_cast<Afilter_base*>(this)->ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnPass),&Parms);
+	}
+	void Afilter_base::StaticRegisterNativesAfilter_base()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Afilter_base::StaticClass(), "FilterActor",(Native)&Afilter_base::execFilterActor);
+		FNativeFunctionRegistrar::RegisterFunction(Afilter_base::StaticClass(), "FilterActorArray",(Native)&Afilter_base::execFilterActorArray);
+		FNativeFunctionRegistrar::RegisterFunction(Afilter_base::StaticClass(), "FilterActorArrayByFilterName",(Native)&Afilter_base::execFilterActorArrayByFilterName);
+		FNativeFunctionRegistrar::RegisterFunction(Afilter_base::StaticClass(), "FilterActorArrayRandomly",(Native)&Afilter_base::execFilterActorArrayRandomly);
+		FNativeFunctionRegistrar::RegisterFunction(Afilter_base::StaticClass(), "FilterActorArrayRandomlyByFilterName",(Native)&Afilter_base::execFilterActorArrayRandomlyByFilterName);
+		FNativeFunctionRegistrar::RegisterFunction(Afilter_base::StaticClass(), "FilterActorByFilterName",(Native)&Afilter_base::execFilterActorByFilterName);
+		FNativeFunctionRegistrar::RegisterFunction(Afilter_base::StaticClass(), "FilterActorRandomly",(Native)&Afilter_base::execFilterActorRandomly);
+		FNativeFunctionRegistrar::RegisterFunction(Afilter_base::StaticClass(), "FilterActorRandomlyByFilterName",(Native)&Afilter_base::execFilterActorRandomlyByFilterName);
+	}
+	IMPLEMENT_CLASS(Afilter_base, 4147218397);
 	void Ainfo_hudhint::StaticRegisterNativesAinfo_hudhint()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Ainfo_hudhint::StaticClass(), "displayHintByName",(Native)&Ainfo_hudhint::execdisplayHintByName);
@@ -243,27 +333,27 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	IMPLEMENT_CLASS(Ainfo_hudhint, 1160347698);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
+	ENGINE_API class UClass* Z_Construct_UClass_AActor();
 	COREUOBJECT_API class UClass* Z_Construct_UClass_UObject_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FVector();
 	ENGINE_API class UClass* Z_Construct_UClass_AActor_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FTransform();
-	ENGINE_API class UClass* Z_Construct_UClass_AActor();
 	ENGINE_API class UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FColor();
 
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetOffsetToActor();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTransformToActor();
-	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target_NoRegister();
-	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetOffsetToActor();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTransformToActor();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_CalculateHealth();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_FindActorByName();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_FindEntityByName();
@@ -271,11 +361,13 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_GetTransformToActor();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_OnKilled();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_OnUse();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_OnUseIgnored();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_ResetWorldTransform();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_TeleportToTarget();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aentity_base_Use();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_base_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_base();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_GetPinClosestToTarget();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_OnEndRaiseAndLower();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_OnEndResetAndLower();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_pin_OnRaiseAndLower();
@@ -290,6 +382,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GameIsOver();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetAbsoluteScore();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetEndgameType();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetFallenPinCount();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetScoreOfFrame();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame();
@@ -361,12 +454,166 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_rotator_pivoted_SetTargetByName();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_base_Activate();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_base_Focus();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_base_Look();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_base_OnActivate();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_base_OnFocus();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_base_OnLook();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_base_Use();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aworldui_base_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aworldui_base();
+	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_FilterMode();
+	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_FilterType();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActor();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActorArray();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActorArrayByFilterName();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActorArrayRandomly();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActorArrayRandomlyByFilterName();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActorByFilterName();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActorRandomly();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActorRandomlyByFilterName();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_OnFail();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_OnPass();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Afilter_base_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Afilter_base();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_hudhint_displayHintByName();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_hudhint_displayMessage();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_hudhint_setColor();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_hudhint_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_hudhint();
 	MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp()
+	{
+		struct util_debug_eventPrintBlurp_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintBlurp"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintBlurp_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintBlurp_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a message for a very short amount of time - ideal for frame-by-frame"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal()
+	{
+		struct util_debug_eventPrintFatal_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintFatal"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintFatal_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintFatal_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a eye-catching long-lasting red error message to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage()
+	{
+		struct util_debug_eventPrintMessage_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintMessage"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintMessage_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintMessage_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a generic message to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning()
+	{
+		struct util_debug_eventPrintWarning_Parms
+		{
+			FString message;
+		};
+		UObject* Outer=Z_Construct_UClass_Autil_debug();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintWarning"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintWarning_Parms));
+			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintWarning_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a warning to the screen"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Autil_debug_NoRegister()
+	{
+		return Autil_debug::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Autil_debug()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_AActor();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Autil_debug::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintBlurp());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintFatal());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintMessage());
+				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintWarning());
+
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintBlurp(), "PrintBlurp"); // 2777870075
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintFatal(), "PrintFatal"); // 2564934558
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintMessage(), "PrintMessage"); // 3716680404
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintWarning(), "PrintWarning"); // 2247278385
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("util_debug.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Autil_debug(Z_Construct_UClass_Autil_debug, &Autil_debug::StaticClass, TEXT("Autil_debug"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Autil_debug);
 	UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName()
 	{
 		struct info_target_eventFindTargetByName_Parms
@@ -508,137 +755,6 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Ainfo_target(Z_Construct_UClass_Ainfo_target, &Ainfo_target::StaticClass, TEXT("Ainfo_target"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Ainfo_target);
-	UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp()
-	{
-		struct util_debug_eventPrintBlurp_Parms
-		{
-			FString message;
-		};
-		UObject* Outer=Z_Construct_UClass_Autil_debug();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintBlurp"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintBlurp_Parms));
-			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintBlurp_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a message for a very short amount of time - ideal for frame-by-frame"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal()
-	{
-		struct util_debug_eventPrintFatal_Parms
-		{
-			FString message;
-		};
-		UObject* Outer=Z_Construct_UClass_Autil_debug();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintFatal"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintFatal_Parms));
-			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintFatal_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a eye-catching long-lasting red error message to the screen"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Autil_debug_PrintMessage()
-	{
-		struct util_debug_eventPrintMessage_Parms
-		{
-			FString message;
-		};
-		UObject* Outer=Z_Construct_UClass_Autil_debug();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintMessage"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintMessage_Parms));
-			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintMessage_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a generic message to the screen"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UFunction* Z_Construct_UFunction_Autil_debug_PrintWarning()
-	{
-		struct util_debug_eventPrintWarning_Parms
-		{
-			FString message;
-		};
-		UObject* Outer=Z_Construct_UClass_Autil_debug();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PrintWarning"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(util_debug_eventPrintWarning_Parms));
-			UProperty* NewProp_message = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("message"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(message, util_debug_eventPrintWarning_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Debug"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Prints a warning to the screen"));
-#endif
-		}
-		return ReturnFunction;
-	}
-	UClass* Z_Construct_UClass_Autil_debug_NoRegister()
-	{
-		return Autil_debug::StaticClass();
-	}
-	UClass* Z_Construct_UClass_Autil_debug()
-	{
-		static UClass* OuterClass = NULL;
-		if (!OuterClass)
-		{
-			Z_Construct_UClass_AActor();
-			Z_Construct_UPackage__Script_MMC_Bowling();
-			OuterClass = Autil_debug::StaticClass();
-			if (!(OuterClass->ClassFlags & CLASS_Constructed))
-			{
-				UObjectForceRegistration(OuterClass);
-				OuterClass->ClassFlags |= 0x20900080;
-
-				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintBlurp());
-				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintFatal());
-				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintMessage());
-				OuterClass->LinkChild(Z_Construct_UFunction_Autil_debug_PrintWarning());
-
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintBlurp(), "PrintBlurp"); // 2777870075
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintFatal(), "PrintFatal"); // 2564934558
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintMessage(), "PrintMessage"); // 3716680404
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Autil_debug_PrintWarning(), "PrintWarning"); // 2247278385
-				OuterClass->StaticLink();
-#if WITH_METADATA
-				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
-				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("util_debug.h"));
-				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("util_debug.h"));
-#endif
-			}
-		}
-		check(OuterClass->GetClass());
-		return OuterClass;
-	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_Autil_debug(Z_Construct_UClass_Autil_debug, &Autil_debug::StaticClass, TEXT("Autil_debug"), false, nullptr, nullptr, nullptr);
-	DEFINE_VTABLE_PTR_HELPER_CTOR(Autil_debug);
 	UFunction* Z_Construct_UFunction_Aentity_base_CalculateHealth()
 	{
 		struct entity_base_eventCalculateHealth_Parms
@@ -667,7 +783,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		struct entity_base_eventFindActorByName_Parms
 		{
 			FName targetName;
-			UObject* WorldContextObject;
+			const UObject* WorldContextObject;
 			AActor* ReturnValue;
 		};
 		UObject* Outer=Z_Construct_UClass_Aentity_base();
@@ -676,7 +792,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		{
 			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindActorByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(entity_base_eventFindActorByName_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, entity_base_eventFindActorByName_Parms), 0x0010000000000580, Z_Construct_UClass_AActor_NoRegister());
-			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, entity_base_eventFindActorByName_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, entity_base_eventFindActorByName_Parms), 0x0010000000000082, Z_Construct_UClass_UObject_NoRegister());
 			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, entity_base_eventFindActorByName_Parms), 0x0010000000000080);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
@@ -685,6 +801,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_base"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a name, finds the actor in the world. Can return nullptr"));
+			MetaData->SetValue(NewProp_WorldContextObject, TEXT("NativeConst"), TEXT(""));
 #endif
 		}
 		return ReturnFunction;
@@ -787,7 +904,8 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnUse"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnUse"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535, sizeof(entity_base_eventOnUse_Parms));
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, entity_base_eventOnUse_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
@@ -795,6 +913,25 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_base"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Extensible use event. Called at the end of Use() function"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aentity_base_OnUseIgnored()
+	{
+		UObject* Outer=Z_Construct_UClass_Aentity_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnUseIgnored"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535, sizeof(entity_base_eventOnUseIgnored_Parms));
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, entity_base_eventOnUseIgnored_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("entity_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("entity_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Extensible use event. Called if Use() is called but bIgnoreUse is true"));
 #endif
 		}
 		return ReturnFunction;
@@ -836,11 +973,19 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	}
 	UFunction* Z_Construct_UFunction_Aentity_base_Use()
 	{
+		struct entity_base_eventUse_Parms
+		{
+			AActor* caller;
+			bool ReturnValue;
+		};
 		UObject* Outer=Z_Construct_UClass_Aentity_base();
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(entity_base_eventUse_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, entity_base_eventUse_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, entity_base_eventUse_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, entity_base_eventUse_Parms), sizeof(bool), true);
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, entity_base_eventUse_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
@@ -876,6 +1021,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_GetTransformToActor());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_OnKilled());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_OnUse());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_OnUseIgnored());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_ResetWorldTransform());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_TeleportToTarget());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aentity_base_Use());
@@ -897,15 +1043,16 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_EntityModel = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("EntityModel"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(EntityModel, Aentity_base), 0x00100000000a001d, Z_Construct_UClass_UStaticMeshComponent_NoRegister());
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_CalculateHealth(), "CalculateHealth"); // 1065234854
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_FindActorByName(), "FindActorByName"); // 2157352796
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_FindActorByName(), "FindActorByName"); // 4144993811
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_FindEntityByName(), "FindEntityByName"); // 208547384
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_GetOffsetToActor(), "GetOffsetToActor"); // 375072237
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_GetTransformToActor(), "GetTransformToActor"); // 930593073
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnKilled(), "OnKilled"); // 4091202877
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnUse(), "OnUse"); // 2646314901
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnUse(), "OnUse"); // 1327113930
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnUseIgnored(), "OnUseIgnored"); // 2819711334
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_ResetWorldTransform(), "ResetWorldTransform"); // 718441037
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_TeleportToTarget(), "TeleportToTarget"); // 1571348077
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_Use(), "Use"); // 1225976626
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_Use(), "Use"); // 3452921415
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
@@ -949,6 +1096,32 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Aentity_base(Z_Construct_UClass_Aentity_base, &Aentity_base::StaticClass, TEXT("Aentity_base"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Aentity_base);
+	UFunction* Z_Construct_UFunction_Abowling_pin_GetPinClosestToTarget()
+	{
+		struct bowling_pin_eventGetPinClosestToTarget_Parms
+		{
+			FName targetName;
+			UObject* WorldContextObject;
+			Abowling_pin* ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Abowling_pin();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetPinClosestToTarget"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(bowling_pin_eventGetPinClosestToTarget_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, bowling_pin_eventGetPinClosestToTarget_Parms), 0x0010000000000580, Z_Construct_UClass_Abowling_pin_NoRegister());
+			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, bowling_pin_eventGetPinClosestToTarget_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, bowling_pin_eventGetPinClosestToTarget_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_pin"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_pin.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_Abowling_pin_OnEndRaiseAndLower()
 	{
 		UObject* Outer=Z_Construct_UClass_Abowling_pin();
@@ -1071,6 +1244,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UObjectForceRegistration(OuterClass);
 				OuterClass->ClassFlags |= 0x20900080;
 
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_GetPinClosestToTarget());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_OnEndRaiseAndLower());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_OnEndResetAndLower());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_pin_OnRaiseAndLower());
@@ -1084,6 +1258,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(isInGame, Abowling_pin, bool);
 				UProperty* NewProp_isInGame = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("isInGame"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(isInGame, Abowling_pin), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(isInGame, Abowling_pin), sizeof(bool), true);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_GetPinClosestToTarget(), "GetPinClosestToTarget"); // 3382962484
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_OnEndRaiseAndLower(), "OnEndRaiseAndLower"); // 3323806831
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_OnEndResetAndLower(), "OnEndResetAndLower"); // 2596535927
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_pin_OnRaiseAndLower(), "OnRaiseAndLower"); // 4084718408
@@ -1255,6 +1430,29 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Blueprint-able accesor for the most recently calculated EndgameType"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_system_GetFallenPinCount()
+	{
+		struct bowling_system_eventGetFallenPinCount_Parms
+		{
+			int32 ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetFallenPinCount"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(bowling_system_eventGetFallenPinCount_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(ReturnValue, bowling_system_eventGetFallenPinCount_Parms), 0x0010000000000580);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Gets the number of fallen pins. Does NOT do scoring calculations."));
 #endif
 		}
 		return ReturnFunction;
@@ -1509,6 +1707,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GameIsOver());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetAbsoluteScore());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetEndgameType());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetFallenPinCount());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetScoreOfFrame());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame());
@@ -1528,6 +1727,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GameIsOver(), "GameIsOver"); // 12576064
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetAbsoluteScore(), "GetAbsoluteScore"); // 590655694
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetEndgameType(), "GetEndgameType"); // 2538102629
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetFallenPinCount(), "GetFallenPinCount"); // 3263675764
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame(), "GetNumberOfCurrentFrame"); // 2100713436
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetScoreOfFrame(), "GetScoreOfFrame"); // 398721981
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame(), "GetStringScoreOfFrame"); // 678360621
@@ -1725,11 +1925,19 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	UFunction* Z_Construct_UFunction_Aentity_launcher_Use()
 	{
+		struct entity_launcher_eventUse_Parms
+		{
+			AActor* caller;
+			bool ReturnValue;
+		};
 		UObject* Outer=Z_Construct_UClass_Aentity_launcher();
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(entity_launcher_eventUse_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, entity_launcher_eventUse_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, entity_launcher_eventUse_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, entity_launcher_eventUse_Parms), sizeof(bool), true);
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, entity_launcher_eventUse_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
@@ -1789,7 +1997,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_setLaunchDirection(), "setLaunchDirection"); // 2814116322
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_setLaunchDirectionTarget(), "setLaunchDirectionTarget"); // 84901878
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_setProjectile(), "setProjectile"); // 2985890431
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_Use(), "Use"); // 3625434670
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_launcher_Use(), "Use"); // 2344943976
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
@@ -2219,11 +2427,19 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	UFunction* Z_Construct_UFunction_Aprop_move_base_Use()
 	{
+		struct prop_move_base_eventUse_Parms
+		{
+			AActor* caller;
+			bool ReturnValue;
+		};
 		UObject* Outer=Z_Construct_UClass_Aprop_move_base();
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(prop_move_base_eventUse_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, prop_move_base_eventUse_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, prop_move_base_eventUse_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, prop_move_base_eventUse_Parms), sizeof(bool), true);
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, prop_move_base_eventUse_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
@@ -2298,7 +2514,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_SetPosition(), "SetPosition"); // 4079918239
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_SetSpeed(), "SetSpeed"); // 2272760046
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_Toggle(), "Toggle"); // 2711509171
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_Use(), "Use"); // 815257682
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_Use(), "Use"); // 964935260
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
@@ -2460,11 +2676,19 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	UFunction* Z_Construct_UFunction_Aprop_movelinear_Use()
 	{
+		struct prop_movelinear_eventUse_Parms
+		{
+			AActor* caller;
+			bool ReturnValue;
+		};
 		UObject* Outer=Z_Construct_UClass_Aprop_movelinear();
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(prop_movelinear_eventUse_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, prop_movelinear_eventUse_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, prop_movelinear_eventUse_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, prop_movelinear_eventUse_Parms), sizeof(bool), true);
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, prop_movelinear_eventUse_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
@@ -2513,7 +2737,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_SetPosition(), "SetPosition"); // 105577727
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_SetQuarterPeriod(), "SetQuarterPeriod"); // 1219161321
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_SetSpeed(), "SetSpeed"); // 346388491
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Use(), "Use"); // 3674887593
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_movelinear_Use(), "Use"); // 1320191935
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
@@ -2937,6 +3161,641 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Aprop_rotator_pivoted(Z_Construct_UClass_Aprop_rotator_pivoted, &Aprop_rotator_pivoted::StaticClass, TEXT("Aprop_rotator_pivoted"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Aprop_rotator_pivoted);
+	UFunction* Z_Construct_UFunction_Aworldui_base_Activate()
+	{
+		struct worldui_base_eventActivate_Parms
+		{
+			AActor* caller;
+		};
+		UObject* Outer=Z_Construct_UClass_Aworldui_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Activate"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(worldui_base_eventActivate_Parms));
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, worldui_base_eventActivate_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("worldui_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Called to activate the main-purpose function of the worldui_base, ex. quit the game, call something else"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_base_Focus()
+	{
+		struct worldui_base_eventFocus_Parms
+		{
+			AActor* caller;
+		};
+		UObject* Outer=Z_Construct_UClass_Aworldui_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Focus"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(worldui_base_eventFocus_Parms));
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, worldui_base_eventFocus_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("worldui_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Highlights this worldui_base in some way, to make the user notice it or 'select' it"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_base_Look()
+	{
+		struct worldui_base_eventLook_Parms
+		{
+			AActor* caller;
+		};
+		UObject* Outer=Z_Construct_UClass_Aworldui_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Look"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(worldui_base_eventLook_Parms));
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, worldui_base_eventLook_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("worldui_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("The headset's BP class will implement the tracing and calling of this\nActivated when the player looks at this worldui_base"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_base_OnActivate()
+	{
+		UObject* Outer=Z_Construct_UClass_Aworldui_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnActivate"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535, sizeof(worldui_base_eventOnActivate_Parms));
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, worldui_base_eventOnActivate_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("worldui_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Blueprint-extensible event called at the end of Activate()"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_base_OnFocus()
+	{
+		UObject* Outer=Z_Construct_UClass_Aworldui_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnFocus"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535, sizeof(worldui_base_eventOnFocus_Parms));
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, worldui_base_eventOnFocus_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("worldui_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Blueprint-extensible event called at the end of Focus()"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_base_OnLook()
+	{
+		UObject* Outer=Z_Construct_UClass_Aworldui_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnLook"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535, sizeof(worldui_base_eventOnLook_Parms));
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, worldui_base_eventOnLook_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("worldui_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Blueprint-extensible event called at the end of Look()"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_base_Use()
+	{
+		struct worldui_base_eventUse_Parms
+		{
+			AActor* caller;
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aworldui_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Use"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(worldui_base_eventUse_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, worldui_base_eventUse_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, worldui_base_eventUse_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, worldui_base_eventUse_Parms), sizeof(bool), true);
+			UProperty* NewProp_caller = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("caller"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(caller, worldui_base_eventUse_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("worldui_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Override for the entity_base parent function"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Aworldui_base_NoRegister()
+	{
+		return Aworldui_base::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Aworldui_base()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_Aentity_base();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Aworldui_base::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_base_Activate());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_base_Focus());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_base_Look());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_base_OnActivate());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_base_OnFocus());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_base_OnLook());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_base_Use());
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bUseOnActivate, Aworldui_base, bool);
+				UProperty* NewProp_bUseOnActivate = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bUseOnActivate"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bUseOnActivate, Aworldui_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bUseOnActivate, Aworldui_base), sizeof(bool), true);
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bActivateOnUse, Aworldui_base, bool);
+				UProperty* NewProp_bActivateOnUse = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bActivateOnUse"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bActivateOnUse, Aworldui_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bActivateOnUse, Aworldui_base), sizeof(bool), true);
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bUseOnLook, Aworldui_base, bool);
+				UProperty* NewProp_bUseOnLook = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bUseOnLook"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bUseOnLook, Aworldui_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bUseOnLook, Aworldui_base), sizeof(bool), true);
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bActivateOnLook, Aworldui_base, bool);
+				UProperty* NewProp_bActivateOnLook = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bActivateOnLook"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bActivateOnLook, Aworldui_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bActivateOnLook, Aworldui_base), sizeof(bool), true);
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bFocusOnLook, Aworldui_base, bool);
+				UProperty* NewProp_bFocusOnLook = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bFocusOnLook"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bFocusOnLook, Aworldui_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bFocusOnLook, Aworldui_base), sizeof(bool), true);
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_base_Activate(), "Activate"); // 1696294716
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_base_Focus(), "Focus"); // 2333751129
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_base_Look(), "Look"); // 3987229140
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_base_OnActivate(), "OnActivate"); // 99012357
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_base_OnFocus(), "OnFocus"); // 2130631861
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_base_OnLook(), "OnLook"); // 1770762662
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_base_Use(), "Use"); // 3170178041
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("worldui_base.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+				MetaData->SetValue(NewProp_bUseOnActivate, TEXT("Category"), TEXT("worldui_base"));
+				MetaData->SetValue(NewProp_bUseOnActivate, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+				MetaData->SetValue(NewProp_bActivateOnUse, TEXT("Category"), TEXT("worldui_base"));
+				MetaData->SetValue(NewProp_bActivateOnUse, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+				MetaData->SetValue(NewProp_bUseOnLook, TEXT("Category"), TEXT("worldui_base"));
+				MetaData->SetValue(NewProp_bUseOnLook, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+				MetaData->SetValue(NewProp_bActivateOnLook, TEXT("Category"), TEXT("worldui_base"));
+				MetaData->SetValue(NewProp_bActivateOnLook, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+				MetaData->SetValue(NewProp_bFocusOnLook, TEXT("Category"), TEXT("worldui_base"));
+				MetaData->SetValue(NewProp_bFocusOnLook, TEXT("ModuleRelativePath"), TEXT("worldui_base.h"));
+				MetaData->SetValue(NewProp_bFocusOnLook, TEXT("ToolTip"), TEXT("Booleans for the different functions interacting with each other"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Aworldui_base(Z_Construct_UClass_Aworldui_base, &Aworldui_base::StaticClass, TEXT("Aworldui_base"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Aworldui_base);
+	UEnum* Z_Construct_UEnum_MMC_Bowling_FilterMode()
+	{
+		UPackage* Outer=Z_Construct_UPackage__Script_MMC_Bowling();
+		extern uint32 Get_Z_Construct_UEnum_MMC_Bowling_FilterMode_CRC();
+		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("FilterMode"), 0, Get_Z_Construct_UEnum_MMC_Bowling_FilterMode_CRC(), false);
+		if (!ReturnEnum)
+		{
+			ReturnEnum = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterMode"), RF_Public|RF_Transient|RF_MarkAsNative) UEnum(FObjectInitializer());
+			TArray<TPair<FName, uint8>> EnumNames;
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("Normal")), 0));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("Inverted")), 1));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("Random")), 2));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("FilterMode_MAX")), 3));
+			ReturnEnum->SetEnums(EnumNames, UEnum::ECppForm::Regular);
+			ReturnEnum->CppType = TEXT("FilterMode");
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnEnum->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnEnum, TEXT("BlueprintType"), TEXT("true"));
+			MetaData->SetValue(ReturnEnum, TEXT("Inverted.DisplayName"), TEXT("Inverted"));
+			MetaData->SetValue(ReturnEnum, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnEnum, TEXT("Normal.DisplayName"), TEXT("Normal"));
+			MetaData->SetValue(ReturnEnum, TEXT("Random.DisplayName"), TEXT("Random"));
+#endif
+		}
+		return ReturnEnum;
+	}
+	uint32 Get_Z_Construct_UEnum_MMC_Bowling_FilterMode_CRC() { return 449321380U; }
+	UEnum* Z_Construct_UEnum_MMC_Bowling_FilterType()
+	{
+		UPackage* Outer=Z_Construct_UPackage__Script_MMC_Bowling();
+		extern uint32 Get_Z_Construct_UEnum_MMC_Bowling_FilterType_CRC();
+		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("FilterType"), 0, Get_Z_Construct_UEnum_MMC_Bowling_FilterType_CRC(), false);
+		if (!ReturnEnum)
+		{
+			ReturnEnum = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterType"), RF_Public|RF_Transient|RF_MarkAsNative) UEnum(FObjectInitializer());
+			TArray<TPair<FName, uint8>> EnumNames;
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("ByClass")), 0));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("ByName")), 1));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("ByTag")), 2));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("ByIsVisible")), 3));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("ByIsSolid")), 4));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("ByIsPhysicsSimulated")), 5));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("FilterType_MAX")), 6));
+			ReturnEnum->SetEnums(EnumNames, UEnum::ECppForm::Regular);
+			ReturnEnum->CppType = TEXT("FilterType");
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnEnum->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnEnum, TEXT("BlueprintType"), TEXT("true"));
+			MetaData->SetValue(ReturnEnum, TEXT("ByClass.DisplayName"), TEXT("ByClass"));
+			MetaData->SetValue(ReturnEnum, TEXT("ByIsPhysicsSimulated.DisplayName"), TEXT("ByIsPhysicsSimulated"));
+			MetaData->SetValue(ReturnEnum, TEXT("ByIsSolid.DisplayName"), TEXT("ByIsSolid"));
+			MetaData->SetValue(ReturnEnum, TEXT("ByIsVisible.DisplayName"), TEXT("ByIsVisible"));
+			MetaData->SetValue(ReturnEnum, TEXT("ByName.DisplayName"), TEXT("ByName"));
+			MetaData->SetValue(ReturnEnum, TEXT("ByTag.DisplayName"), TEXT("ByTag"));
+			MetaData->SetValue(ReturnEnum, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+#endif
+		}
+		return ReturnEnum;
+	}
+	uint32 Get_Z_Construct_UEnum_MMC_Bowling_FilterType_CRC() { return 2306809868U; }
+	UFunction* Z_Construct_UFunction_Afilter_base_FilterActor()
+	{
+		struct filter_base_eventFilterActor_Parms
+		{
+			const AActor* filterMe;
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(filter_base_eventFilterActor_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, filter_base_eventFilterActor_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, filter_base_eventFilterActor_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, filter_base_eventFilterActor_Parms), sizeof(bool), true);
+			UProperty* NewProp_filterMe = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(filterMe, filter_base_eventFilterActor_Parms), 0x0010000000000082, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Checks if an actor would pass this filter"));
+			MetaData->SetValue(NewProp_filterMe, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_FilterActorArray()
+	{
+		struct filter_base_eventFilterActorArray_Parms
+		{
+			TArray<AActor*> filterMe;
+			TArray<AActor*> ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterActorArray"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54420401, 65535, sizeof(filter_base_eventFilterActorArray_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(ReturnValue, filter_base_eventFilterActorArray_Parms), 0x0010000000000580);
+			UProperty* NewProp_ReturnValue_Inner = new(EC_InternalUseOnlyConstructor, NewProp_ReturnValue, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000, Z_Construct_UClass_AActor_NoRegister());
+			UProperty* NewProp_filterMe = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(filterMe, filter_base_eventFilterActorArray_Parms), 0x0010000008000182);
+			UProperty* NewProp_filterMe_Inner = new(EC_InternalUseOnlyConstructor, NewProp_filterMe, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("MEMBER FUNCTIONS\n//Filters an array through this filter"));
+			MetaData->SetValue(NewProp_filterMe, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_FilterActorArrayByFilterName()
+	{
+		struct filter_base_eventFilterActorArrayByFilterName_Parms
+		{
+			TArray<AActor*> filterMe;
+			FName filterName;
+			TArray<AActor*> ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterActorArrayByFilterName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04422401, 65535, sizeof(filter_base_eventFilterActorArrayByFilterName_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(ReturnValue, filter_base_eventFilterActorArrayByFilterName_Parms), 0x0010000000000580);
+			UProperty* NewProp_ReturnValue_Inner = new(EC_InternalUseOnlyConstructor, NewProp_ReturnValue, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000, Z_Construct_UClass_AActor_NoRegister());
+			UProperty* NewProp_filterName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(filterName, filter_base_eventFilterActorArrayByFilterName_Parms), 0x0010000000000082);
+			UProperty* NewProp_filterMe = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(filterMe, filter_base_eventFilterActorArrayByFilterName_Parms), 0x0010000008000182);
+			UProperty* NewProp_filterMe_Inner = new(EC_InternalUseOnlyConstructor, NewProp_filterMe, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("STATIC FUNCTIONS\n//Given an array of actors and the name of a filter, returns the filtered array of actors"));
+			MetaData->SetValue(NewProp_filterName, TEXT("NativeConst"), TEXT(""));
+			MetaData->SetValue(NewProp_filterMe, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_FilterActorArrayRandomly()
+	{
+		struct filter_base_eventFilterActorArrayRandomly_Parms
+		{
+			TArray<AActor*> filterMe;
+			TArray<AActor*> ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterActorArrayRandomly"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54420401, 65535, sizeof(filter_base_eventFilterActorArrayRandomly_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(ReturnValue, filter_base_eventFilterActorArrayRandomly_Parms), 0x0010000000000580);
+			UProperty* NewProp_ReturnValue_Inner = new(EC_InternalUseOnlyConstructor, NewProp_ReturnValue, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000, Z_Construct_UClass_AActor_NoRegister());
+			UProperty* NewProp_filterMe = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(filterMe, filter_base_eventFilterActorArrayRandomly_Parms), 0x0010000008000182);
+			UProperty* NewProp_filterMe_Inner = new(EC_InternalUseOnlyConstructor, NewProp_filterMe, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Randomly filters an array through this filter"));
+			MetaData->SetValue(NewProp_filterMe, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_FilterActorArrayRandomlyByFilterName()
+	{
+		struct filter_base_eventFilterActorArrayRandomlyByFilterName_Parms
+		{
+			TArray<AActor*> filterMe;
+			FName filterName;
+			TArray<AActor*> ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterActorArrayRandomlyByFilterName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04422401, 65535, sizeof(filter_base_eventFilterActorArrayRandomlyByFilterName_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(ReturnValue, filter_base_eventFilterActorArrayRandomlyByFilterName_Parms), 0x0010000000000580);
+			UProperty* NewProp_ReturnValue_Inner = new(EC_InternalUseOnlyConstructor, NewProp_ReturnValue, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000, Z_Construct_UClass_AActor_NoRegister());
+			UProperty* NewProp_filterName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(filterName, filter_base_eventFilterActorArrayRandomlyByFilterName_Parms), 0x0010000000000082);
+			UProperty* NewProp_filterMe = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(filterMe, filter_base_eventFilterActorArrayRandomlyByFilterName_Parms), 0x0010000008000182);
+			UProperty* NewProp_filterMe_Inner = new(EC_InternalUseOnlyConstructor, NewProp_filterMe, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Randomly filters an array of actors using the specified filter's random filter"));
+			MetaData->SetValue(NewProp_filterName, TEXT("NativeConst"), TEXT(""));
+			MetaData->SetValue(NewProp_filterMe, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_FilterActorByFilterName()
+	{
+		struct filter_base_eventFilterActorByFilterName_Parms
+		{
+			const AActor* filterMe;
+			FName filterName;
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterActorByFilterName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(filter_base_eventFilterActorByFilterName_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, filter_base_eventFilterActorByFilterName_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, filter_base_eventFilterActorByFilterName_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, filter_base_eventFilterActorByFilterName_Parms), sizeof(bool), true);
+			UProperty* NewProp_filterName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(filterName, filter_base_eventFilterActorByFilterName_Parms), 0x0010000000000082);
+			UProperty* NewProp_filterMe = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(filterMe, filter_base_eventFilterActorByFilterName_Parms), 0x0010000000000082, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given an actor and the name of a filter, returns true if the actor passes the filter, false otherwise"));
+			MetaData->SetValue(NewProp_filterName, TEXT("NativeConst"), TEXT(""));
+			MetaData->SetValue(NewProp_filterMe, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_FilterActorRandomly()
+	{
+		struct filter_base_eventFilterActorRandomly_Parms
+		{
+			const AActor* filterMe;
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterActorRandomly"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(filter_base_eventFilterActorRandomly_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, filter_base_eventFilterActorRandomly_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, filter_base_eventFilterActorRandomly_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, filter_base_eventFilterActorRandomly_Parms), sizeof(bool), true);
+			UProperty* NewProp_filterMe = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(filterMe, filter_base_eventFilterActorRandomly_Parms), 0x0010000000000082, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Checks if an actor would pass this filter randomly"));
+			MetaData->SetValue(NewProp_filterMe, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_FilterActorRandomlyByFilterName()
+	{
+		struct filter_base_eventFilterActorRandomlyByFilterName_Parms
+		{
+			const AActor* filterMe;
+			FName filterName;
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FilterActorRandomlyByFilterName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(filter_base_eventFilterActorRandomlyByFilterName_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, filter_base_eventFilterActorRandomlyByFilterName_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, filter_base_eventFilterActorRandomlyByFilterName_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, filter_base_eventFilterActorRandomlyByFilterName_Parms), sizeof(bool), true);
+			UProperty* NewProp_filterName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(filterName, filter_base_eventFilterActorRandomlyByFilterName_Parms), 0x0010000000000082);
+			UProperty* NewProp_filterMe = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("filterMe"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(filterMe, filter_base_eventFilterActorRandomlyByFilterName_Parms), 0x0010000000000082, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given an actor and the name of a filter, returns true if the actor passes the filter, false otherwise"));
+			MetaData->SetValue(NewProp_filterName, TEXT("NativeConst"), TEXT(""));
+			MetaData->SetValue(NewProp_filterMe, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_OnFail()
+	{
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnFail"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x48020800, 65535, sizeof(filter_base_eventOnFail_Parms));
+			UProperty* NewProp_failedActor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("failedActor"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(failedActor, filter_base_eventOnFail_Parms), 0x0010000000000082, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(NewProp_failedActor, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Afilter_base_OnPass()
+	{
+		UObject* Outer=Z_Construct_UClass_Afilter_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnPass"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x48020800, 65535, sizeof(filter_base_eventOnPass_Parms));
+			UProperty* NewProp_passedActor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("passedActor"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(passedActor, filter_base_eventOnPass_Parms), 0x0010000000000082, Z_Construct_UClass_AActor_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("filter_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("IMPLEMENTABLE BP EVENTS\n//Called whenever an actor or actor-array-element passes this filter"));
+			MetaData->SetValue(NewProp_passedActor, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Afilter_base_NoRegister()
+	{
+		return Afilter_base::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Afilter_base()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_AActor();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Afilter_base::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_FilterActor());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_FilterActorArray());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_FilterActorArrayByFilterName());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_FilterActorArrayRandomly());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_FilterActorArrayRandomlyByFilterName());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_FilterActorByFilterName());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_FilterActorRandomly());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_FilterActorRandomlyByFilterName());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_OnFail());
+				OuterClass->LinkChild(Z_Construct_UFunction_Afilter_base_OnPass());
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bGeneratePassFailEvents, Afilter_base, bool);
+				UProperty* NewProp_bGeneratePassFailEvents = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bGeneratePassFailEvents"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bGeneratePassFailEvents, Afilter_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bGeneratePassFailEvents, Afilter_base), sizeof(bool), true);
+				UProperty* NewProp_randomFilterBias = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("randomFilterBias"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(randomFilterBias, Afilter_base), 0x0010000000000005);
+				UProperty* NewProp_subFilterName = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("subFilterName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(subFilterName, Afilter_base), 0x0010000000000005);
+				UProperty* NewProp_filterByTextParameter = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("filterByTextParameter"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(filterByTextParameter, Afilter_base), 0x0010000000000005);
+				UProperty* NewProp_filterByClassParemeter = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("filterByClassParemeter"), RF_Public|RF_Transient|RF_MarkAsNative) UClassProperty(CPP_PROPERTY_BASE(filterByClassParemeter, Afilter_base), 0x0010000000000005, Z_Construct_UClass_UObject_NoRegister(), UClass::StaticClass());
+				UProperty* NewProp_filterType = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("filterType"), RF_Public|RF_Transient|RF_MarkAsNative) UByteProperty(CPP_PROPERTY_BASE(filterType, Afilter_base), 0x0010000000000005, Z_Construct_UEnum_MMC_Bowling_FilterType());
+				UProperty* NewProp_mode = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("mode"), RF_Public|RF_Transient|RF_MarkAsNative) UByteProperty(CPP_PROPERTY_BASE(mode, Afilter_base), 0x0010000000000005, Z_Construct_UEnum_MMC_Bowling_FilterMode());
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_FilterActor(), "FilterActor"); // 2261099769
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_FilterActorArray(), "FilterActorArray"); // 2024743751
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_FilterActorArrayByFilterName(), "FilterActorArrayByFilterName"); // 4175001070
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_FilterActorArrayRandomly(), "FilterActorArrayRandomly"); // 1678546924
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_FilterActorArrayRandomlyByFilterName(), "FilterActorArrayRandomlyByFilterName"); // 699063157
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_FilterActorByFilterName(), "FilterActorByFilterName"); // 1947983318
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_FilterActorRandomly(), "FilterActorRandomly"); // 1890460639
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_FilterActorRandomlyByFilterName(), "FilterActorRandomlyByFilterName"); // 1864902335
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_OnFail(), "OnFail"); // 237595757
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Afilter_base_OnPass(), "OnPass"); // 1292756085
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(NewProp_bGeneratePassFailEvents, TEXT("Category"), TEXT("filter_base"));
+				MetaData->SetValue(NewProp_bGeneratePassFailEvents, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(NewProp_bGeneratePassFailEvents, TEXT("ToolTip"), TEXT("Whether or not to generate pass/fail events"));
+				MetaData->SetValue(NewProp_randomFilterBias, TEXT("Category"), TEXT("filter_base"));
+				MetaData->SetValue(NewProp_randomFilterBias, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(NewProp_randomFilterBias, TEXT("ToolTip"), TEXT("Proportion of tests that pass. 0 is none, 1 is all"));
+				MetaData->SetValue(NewProp_randomFilterBias, TEXT("UIMax"), TEXT("1.0"));
+				MetaData->SetValue(NewProp_randomFilterBias, TEXT("UIMin"), TEXT("0.0"));
+				MetaData->SetValue(NewProp_subFilterName, TEXT("Category"), TEXT("filter_base"));
+				MetaData->SetValue(NewProp_subFilterName, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(NewProp_subFilterName, TEXT("ToolTip"), TEXT("If specified, actors will also have to pass this other filter in order to pass this filter"));
+				MetaData->SetValue(NewProp_filterByTextParameter, TEXT("Category"), TEXT("filter_base"));
+				MetaData->SetValue(NewProp_filterByTextParameter, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(NewProp_filterByTextParameter, TEXT("ToolTip"), TEXT("If filterType is ByName or ByTag, this is used to to test actors"));
+				MetaData->SetValue(NewProp_filterByClassParemeter, TEXT("Category"), TEXT("filter_base"));
+				MetaData->SetValue(NewProp_filterByClassParemeter, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(NewProp_filterByClassParemeter, TEXT("ToolTip"), TEXT("If filterType == ByClass, tested actors must be of this class to pass"));
+				MetaData->SetValue(NewProp_filterType, TEXT("Category"), TEXT("filter_base"));
+				MetaData->SetValue(NewProp_filterType, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(NewProp_filterType, TEXT("ToolTip"), TEXT("How to filter through actors"));
+				MetaData->SetValue(NewProp_mode, TEXT("Category"), TEXT("filter_base"));
+				MetaData->SetValue(NewProp_mode, TEXT("ModuleRelativePath"), TEXT("filter_base.h"));
+				MetaData->SetValue(NewProp_mode, TEXT("ToolTip"), TEXT("MEMBER VARIABLES\n//How to treat actors who meet conditions. Normal is pass, inverted is fail, random is random. Random will override filterType"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Afilter_base(Z_Construct_UClass_Afilter_base, &Afilter_base::StaticClass, TEXT("Afilter_base"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Afilter_base);
 	UFunction* Z_Construct_UFunction_Ainfo_hudhint_displayHintByName()
 	{
 		struct info_hudhint_eventdisplayHintByName_Parms
@@ -3063,8 +3922,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0xB3A5057A;
-			Guid.B = 0xC2B3AE6E;
+			Guid.A = 0xE008A4C8;
+			Guid.B = 0x8F507D00;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

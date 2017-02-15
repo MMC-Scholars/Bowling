@@ -93,9 +93,9 @@ void Aprop_movelinear::processClose(float DeltaSeconds)
 
 
 //Override for entity_base use - calls for toggling the door
-void Aprop_movelinear::Use()
+bool Aprop_movelinear::Use(AActor * caller)
 {
-	Super::Use();
+	return Super::Use(caller);
 }
 
 

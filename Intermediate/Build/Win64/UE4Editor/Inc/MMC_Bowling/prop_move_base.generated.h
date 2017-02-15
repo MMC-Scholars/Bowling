@@ -8,6 +8,7 @@
 #include "ObjectBase.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
 #ifdef MMC_BOWLING_prop_move_base_generated_h
 #error "prop_move_base.generated.h already included, missing '#pragma once' in prop_move_base.h"
 #endif
@@ -90,9 +91,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
  \
 	DECLARE_FUNCTION(execUse) \
 	{ \
+		P_GET_OBJECT(AActor,Z_Param_caller); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		this->Use(); \
+		*(bool*)Z_Param__Result=this->Use(Z_Param_caller); \
 		P_NATIVE_END; \
 	} \
  \
@@ -207,9 +209,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
  \
 	DECLARE_FUNCTION(execUse) \
 	{ \
+		P_GET_OBJECT(AActor,Z_Param_caller); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		this->Use(); \
+		*(bool*)Z_Param__Result=this->Use(Z_Param_caller); \
 		P_NATIVE_END; \
 	} \
  \

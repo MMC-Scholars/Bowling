@@ -84,7 +84,7 @@ public:
 
 	//Override for entity_base use - calls for toggling the door
 	UFUNCTION(BlueprintCallable, Category = "prop_move_base")
-		virtual void Use() override;
+		virtual bool Use(AActor * caller) override;
 
 	//Stops the door's current movement
 	UFUNCTION(BlueprintCallable, Category = "prop_move_base")

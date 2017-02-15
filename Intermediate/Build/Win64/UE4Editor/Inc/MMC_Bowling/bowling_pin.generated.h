@@ -8,6 +8,8 @@
 #include "ObjectBase.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UObject;
+class Abowling_pin;
 #ifdef MMC_BOWLING_bowling_pin_generated_h
 #error "bowling_pin.generated.h already included, missing '#pragma once' in bowling_pin.h"
 #endif
@@ -29,6 +31,16 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_BEGIN; \
 		this->RaiseAndLower(); \
 		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetPinClosestToTarget) \
+	{ \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(Abowling_pin**)Z_Param__Result=Abowling_pin::GetPinClosestToTarget(Z_Param_targetName,Z_Param_WorldContextObject); \
+		P_NATIVE_END; \
 	}
 
 
@@ -47,6 +59,16 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		this->RaiseAndLower(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetPinClosestToTarget) \
+	{ \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(Abowling_pin**)Z_Param__Result=Abowling_pin::GetPinClosestToTarget(Z_Param_targetName,Z_Param_WorldContextObject); \
 		P_NATIVE_END; \
 	}
 

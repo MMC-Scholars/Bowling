@@ -67,9 +67,10 @@ class UObject;
  \
 	DECLARE_FUNCTION(execUse) \
 	{ \
+		P_GET_OBJECT(AActor,Z_Param_caller); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		this->Use(); \
+		*(bool*)Z_Param__Result=this->Use(Z_Param_caller); \
 		P_NATIVE_END; \
 	} \
  \
@@ -140,9 +141,10 @@ class UObject;
  \
 	DECLARE_FUNCTION(execUse) \
 	{ \
+		P_GET_OBJECT(AActor,Z_Param_caller); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		this->Use(); \
+		*(bool*)Z_Param__Result=this->Use(Z_Param_caller); \
 		P_NATIVE_END; \
 	} \
  \
@@ -164,9 +166,20 @@ class UObject;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_EVENT_PARMS
+#define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_EVENT_PARMS \
+	struct entity_base_eventOnUse_Parms \
+	{ \
+		AActor* caller; \
+	}; \
+	struct entity_base_eventOnUseIgnored_Parms \
+	{ \
+		AActor* caller; \
+	};
+
+
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnKilled;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnUse;
+extern MMC_BOWLING_API  FName MMC_BOWLING_OnUseIgnored;
 #define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_CALLBACK_WRAPPERS
 #define MMC_Bowling_Source_MMC_Bowling_entity_base_h_23_INCLASS_NO_PURE_DECLS \
 	private: \

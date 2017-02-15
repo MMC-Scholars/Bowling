@@ -95,6 +95,27 @@ bool Abowling_pin::CheckForFallen()
 	return didFall;
 }
 
+//Retrieves pointer to the bowling pin closest to the given target
+Abowling_pin * Abowling_pin::GetPinClosestToTarget(FName targetName, UObject * WorldContextObject)
+{
+	UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject);
+
+	
+	Ainfo_target * target = Ainfo_target::FindTargetByName(targetName, World);
+	Abowling_pin * closestPin = nullptr;
+	float minDistance = 1700.0f; //Bowling lane ~1500 units long
+
+	if (target)
+		for (TActorIterator<Abowling_pin> ActorItr(World); ActorItr; ++ActorItr)
+		{
+			Abowling_pin * curPin = *ActorItr;
+			float distance = target->GetOffsetToActor(curPin).Size();
+			if (distance < minDistance)
+				closestPin = curPin;
+		}
+	return closestPin;
+}
+
 //raises and then lowers the pin in a sine-wave fashion, by enabling the pin's tick
 //actual raising and lowering done inside the tick function
 void Abowling_pin::RaiseAndLower() 

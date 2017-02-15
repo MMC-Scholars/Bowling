@@ -37,6 +37,9 @@ public:
 	// Checks for significant cahnges in rotation or position
 	bool CheckForFallen();
 
+	UFUNCTION(BlueprintCallable, Category = "bowling_pin")
+		static Abowling_pin * GetPinClosestToTarget(FName targetName, UObject* WorldContextObject);
+
 	//raises and then lowers the pins
 	UFUNCTION(BlueprintCallable, Category = "bowling_pin")
 		void RaiseAndLower();

@@ -89,7 +89,7 @@ public:
 
 	//All-purpose extensible use function
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
-		virtual void Use();
+		virtual bool Use(AActor * caller);
 
 	//Whether or not to allow player to press/use. Child classes must check it themselves
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "entity_base")
@@ -97,7 +97,11 @@ public:
 
 	//Extensible use event. Called at the end of Use() function
 	UFUNCTION(BlueprintImplementableEvent, Category = "entity_base")
-		void OnUse();
+		void OnUse(AActor * caller);
+
+	//Extensible use event. Called if Use() is called but bIgnoreUse is true
+	UFUNCTION(BlueprintImplementableEvent, Category = "entity_base")
+		void OnUseIgnored(AActor * caller);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "entity_base")
 		void OnKilled();
@@ -108,7 +112,7 @@ public:
 
 	//Given a name, finds the actor in the world. Can return nullptr
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
-		static AActor *FindActorByName(FName targetName, UObject* WorldContextObject);
+		static AActor *FindActorByName(FName targetName, UObject const * const WorldContextObject);
 
 	//Given a name, finds the entity in the world. Can return nullptr so don't use without checking.
 	UFUNCTION(BlueprintCallable, Category = "entity_base")

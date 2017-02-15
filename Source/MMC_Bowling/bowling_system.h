@@ -93,6 +93,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
 		bool WaitingForFirstThrow();
 
+	//Gets the number of fallen pins. Does NOT do scoring calculations.
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		int GetFallenPinCount() const;
+
 	//Counts the fallen bowling pins, and calculates the score for the current frame.
 	//handles the strike count and strike/spare bonuses
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")

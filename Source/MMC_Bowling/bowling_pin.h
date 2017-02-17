@@ -1,3 +1,7 @@
+// This software is under partial ownership by The Ohio State University, 
+//for it is a product of student employees. For official policy, see
+//https://tco.osu.edu/wp-content/uploads/2013/09/PatentCopyrightPolicy.pdf 
+//or contact The Ohio State University's Office of Legal Affairs
 /*
 Purpose: entity-derived class which contains additional local methods for representing a bowling pin
 	ex. Checking if it has fallen down, moving up and down as if being picked up or reset down

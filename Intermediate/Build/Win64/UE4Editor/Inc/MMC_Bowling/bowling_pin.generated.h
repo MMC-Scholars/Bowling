@@ -15,7 +15,7 @@ class Abowling_pin;
 #endif
 #define MMC_BOWLING_bowling_pin_generated_h
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_RPC_WRAPPERS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execResetAndLower) \
 	{ \
@@ -44,7 +44,7 @@ class Abowling_pin;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execResetAndLower) \
 	{ \
@@ -73,13 +73,13 @@ class Abowling_pin;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_EVENT_PARMS
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_EVENT_PARMS
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnEndRaiseAndLower;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnEndResetAndLower;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnRaiseAndLower;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnResetAndLower;
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_CALLBACK_WRAPPERS
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_INCLASS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_CALLBACK_WRAPPERS
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_INCLASS_NO_PURE_DECLS \
 	private: \
 	static void StaticRegisterNativesAbowling_pin(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_pin(); \
@@ -90,7 +90,7 @@ extern MMC_BOWLING_API  FName MMC_BOWLING_OnResetAndLower;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_INCLASS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_INCLASS \
 	private: \
 	static void StaticRegisterNativesAbowling_pin(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_pin(); \
@@ -101,7 +101,7 @@ extern MMC_BOWLING_API  FName MMC_BOWLING_OnResetAndLower;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_STANDARD_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API Abowling_pin(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(Abowling_pin) \
@@ -114,7 +114,7 @@ private: \
 public:
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_ENHANCED_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API Abowling_pin(Abowling_pin&&); \
@@ -125,28 +125,28 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(Abowling_pin); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(Abowling_pin)
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_12_PROLOG \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_EVENT_PARMS
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_16_PROLOG \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_EVENT_PARMS
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_GENERATED_BODY_LEGACY \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_RPC_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_CALLBACK_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_INCLASS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_STANDARD_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_RPC_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_CALLBACK_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_INCLASS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_GENERATED_BODY \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_CALLBACK_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_INCLASS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_15_ENHANCED_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_CALLBACK_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_INCLASS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_pin_h_19_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

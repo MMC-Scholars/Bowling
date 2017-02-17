@@ -14,7 +14,7 @@ class Ainfo_target;
 #endif
 #define MMC_BOWLING_prop_rotator_pivoted_generated_h
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_RPC_WRAPPERS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execSetPosition) \
 	{ \
@@ -52,7 +52,7 @@ class Ainfo_target;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execSetPosition) \
 	{ \
@@ -90,7 +90,7 @@ class Ainfo_target;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_INCLASS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_INCLASS_NO_PURE_DECLS \
 	private: \
 	static void StaticRegisterNativesAprop_rotator_pivoted(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted(); \
@@ -101,7 +101,7 @@ class Ainfo_target;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_INCLASS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_INCLASS \
 	private: \
 	static void StaticRegisterNativesAprop_rotator_pivoted(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_rotator_pivoted(); \
@@ -112,7 +112,7 @@ class Ainfo_target;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_STANDARD_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API Aprop_rotator_pivoted(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(Aprop_rotator_pivoted) \
@@ -125,7 +125,7 @@ private: \
 public:
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_ENHANCED_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API Aprop_rotator_pivoted() { }; \
 private: \
@@ -138,23 +138,23 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(Aprop_rotator_pivoted); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(Aprop_rotator_pivoted)
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_19_PROLOG
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_GENERATED_BODY_LEGACY \
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_23_PROLOG
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_RPC_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_INCLASS \
-	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_STANDARD_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_RPC_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_INCLASS \
+	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_GENERATED_BODY \
+#define MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_INCLASS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_22_ENHANCED_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_INCLASS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_prop_rotator_pivoted_h_26_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

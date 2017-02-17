@@ -1,4 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// This software is under partial ownership by The Ohio State University, 
+//for it is a product of student employees. For official policy, see
+//https://tco.osu.edu/wp-content/uploads/2013/09/PatentCopyrightPolicy.pdf 
+//or contact The Ohio State University's Office of Legal Affairs
 
 #include "MMC_Bowling.h"
 #include "filter_base.h"
@@ -89,6 +92,9 @@ bool Afilter_base::FilterActorRandomlyByFilterName(AActor const * const filterMe
 	//return false by default
 	return false;
 }
+
+//Macro'ed implementation of finder function
+IMPLEMENT_FINDER(Afilter_base, Filter)
 
 //Filters an array through this filter
 TArray<AActor*> Afilter_base::FilterActorArray(const TArray<AActor*>& filterMe) const

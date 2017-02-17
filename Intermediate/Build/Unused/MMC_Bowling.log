@@ -1,9 +1,10 @@
-﻿  Creating makefile for MMC_BowlingEditor (working set of source files changed)
+﻿  Creating makefile for hot reloading MMC_BowlingEditor (working set of source files changed)
+  Compiling game modules for hot reload
   Parsing headers for MMC_BowlingEditor
     Running UnrealHeaderTool "C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\MMC_Bowling.uproject" "C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\MMC_BowlingEditor\Development\MMC_BowlingEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
-  Reflection code generated for MMC_BowlingEditor in 2.7796607 seconds
+  Reflection code generated for MMC_BowlingEditor in 3.3820264 seconds
   Performing 2 actions (4 in parallel)
-  filter_base.cpp
-  [2/2] Link UE4Editor-MMC_Bowling.dll
-     Creating library C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.lib and object C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.exp
-  Total build time: 12.85 seconds
+  entity_base.cpp
+  [2/2] Link UE4Editor-MMC_Bowling-4275.dll
+     Creating library C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling-4275.lib and object C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling-4275.exp
+  Total build time: 18.67 seconds

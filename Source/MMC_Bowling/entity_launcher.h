@@ -1,3 +1,7 @@
+// This software is under partial ownership by The Ohio State University, 
+//for it is a product of student employees. For official policy, see
+//https://tco.osu.edu/wp-content/uploads/2013/09/PatentCopyrightPolicy.pdf 
+//or contact The Ohio State University's Office of Legal Affairs.
 /*
 Purpose: an invisible point entity which can on command set the motion of a named entity_base projectile
 	Can control both linear and angular velocities

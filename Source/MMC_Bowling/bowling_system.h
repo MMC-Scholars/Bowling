@@ -1,3 +1,7 @@
+// This software is under partial ownership by The Ohio State University, 
+//for it is a product of student employees. For official policy, see
+//https://tco.osu.edu/wp-content/uploads/2013/09/PatentCopyrightPolicy.pdf 
+//or contact The Ohio State University's Office of Legal Affairs
 /*
 Purpose: spawnable utility class which handles all of the calculations and interactions to score a bowling game.
 	Also contains helper functions for interacting with the pins.
@@ -52,14 +56,6 @@ private:
 	//we have an array of 12 bowling frames that we'll use to score. The last 2 are only used if possible
 	TArray<bowling_frame, FDefaultAllocator> Frames;
 	#define NUMBER_OF_FRAMES 12 //this is used only to construct the array and for bounds checking
-
-	//we can't define references to uninitialized frames
-	//bowling_frame& lastFrame		= Frames[Frames.size() - 1];
-	//bowling_frame& scdLastFrame		= Frames[Frames.size() - 2];
-	//bowling_frame& lastNormalFrame	= Frames[Frames.size() - 3];
-
-	// Called on BeginPlay();, assigns pins whose names are given to our array of pins
-	//void AssignPins(); //we'll do these in CalculateScore() instead
 
 	//checks the last frames to determine the current endgame type
 	void CalculateEndgameType();

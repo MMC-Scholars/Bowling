@@ -5414,6 +5414,7 @@ declare class filter_base extends Actor {
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): filter_base;
 	OnPass(passedActor: Actor): void;
 	OnFail(failedActor: Actor): void;
+	static FindFilterByName(targetName: string,WorldContextObject: UObject): filter_base;
 	static FilterActorRandomlyByFilterName(filterMe: Actor,filterName: string): boolean;
 	FilterActorRandomly(filterMe: Actor): boolean;
 	static FilterActorByFilterName(filterMe: Actor,filterName: string): boolean;

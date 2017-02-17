@@ -1,3 +1,7 @@
+// This software is under partial ownership by The Ohio State University, 
+//for it is a product of student employees. For official policy, see
+//https://tco.osu.edu/wp-content/uploads/2013/09/PatentCopyrightPolicy.pdf 
+//or contact The Ohio State University's Office of Legal Affairs
 /*
 Purpose: a base filter class which models a filter: An actor or 
 		array of actors comes in, fewer come out.
@@ -11,6 +15,7 @@ Purpose: a base filter class which models a filter: An actor or
 
 #include "GameFramework/Actor.h"
 #include <entity_base.h>
+#include "MMC_Shared.h"
 #include "filter_base.generated.h"
 
 //An estimation of what proportion of a filtered array will pass.
@@ -71,8 +76,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "filter_base")
 		static bool FilterActorRandomlyByFilterName(AActor const * const filterMe, const FName filterName);
 
-
-
+	//Declare macro'ed finder function
+	UFUNCTION(BlueprintCallable, Category = "filter_base")
+		static Afilter_base *FindFilterByName(FName targetName, UObject const * const WorldContextObject);
 
 	/*
 	MEMBER VARIABLES

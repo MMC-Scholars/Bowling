@@ -14,7 +14,7 @@ class AActor;
 #endif
 #define MMC_BOWLING_prop_movelinear_generated_h
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_RPC_WRAPPERS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execGetEstimatedTravelTime) \
 	{ \
@@ -77,7 +77,7 @@ class AActor;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execGetEstimatedTravelTime) \
 	{ \
@@ -140,7 +140,7 @@ class AActor;
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_INCLASS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_INCLASS_NO_PURE_DECLS \
 	private: \
 	static void StaticRegisterNativesAprop_movelinear(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_movelinear(); \
@@ -151,7 +151,7 @@ class AActor;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_INCLASS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_INCLASS \
 	private: \
 	static void StaticRegisterNativesAprop_movelinear(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Aprop_movelinear(); \
@@ -162,7 +162,7 @@ class AActor;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_STANDARD_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API Aprop_movelinear(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(Aprop_movelinear) \
@@ -175,7 +175,7 @@ private: \
 public:
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_ENHANCED_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API Aprop_movelinear(Aprop_movelinear&&); \
@@ -186,23 +186,23 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(Aprop_movelinear); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(Aprop_movelinear)
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_17_PROLOG
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_GENERATED_BODY_LEGACY \
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_21_PROLOG
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_RPC_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_INCLASS \
-	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_STANDARD_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_RPC_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_INCLASS \
+	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_GENERATED_BODY \
+#define MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_INCLASS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_20_ENHANCED_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_RPC_WRAPPERS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_INCLASS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_prop_movelinear_h_24_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

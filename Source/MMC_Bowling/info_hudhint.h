@@ -1,3 +1,7 @@
+// This software is under partial ownership by The Ohio State University, 
+//for it is a product of student employees. For official policy, see
+//https://tco.osu.edu/wp-content/uploads/2013/09/PatentCopyrightPolicy.pdf 
+//or contact The Ohio State University's Office of Legal Affairs.
 /*
 Purpose: a instantiable helper actor class which on command displays messages onto the screen.
 	A little redudant for now, but can be expanded upon with more options later, such as

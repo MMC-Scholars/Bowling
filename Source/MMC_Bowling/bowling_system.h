@@ -87,7 +87,7 @@ public:
 
 	//Returns true if the game is waiting for the user's first throw, false otherwise.
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
-		bool WaitingForFirstThrow();
+		bool WaitingForFirstThrow() const;
 
 	//Gets the number of fallen pins. Does NOT do scoring calculations.
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
@@ -99,16 +99,15 @@ public:
 		void CalculateScore();
 
 	//Given a frame number and a score type, returns the desired integer score
-	UFUNCTION(BlueprintCallable, Category = "bowling_system")
-		int GetScoreOfFrame(int frameNumber, ScoreType type);
+		int GetScoreOfFrame(int frameNumber, ScoreType type) const;
 
 	//Given a frame number and a score type, returns a string representation of the score
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
-		FString GetStringScoreOfFrame(int frameNumber, ScoreType type);
+		FString GetStringScoreOfFrame(int frameNumber, ScoreType type) const;
 
 	//Returns a string containing the scores of the all the frames
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
-		FString GetStringScoreOfGame();
+		FString GetStringScoreOfGame() const;
 
 	//Iterates through all of the pins and raises and lowers those which have not fallen
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")

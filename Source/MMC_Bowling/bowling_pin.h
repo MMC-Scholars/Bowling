@@ -20,6 +20,9 @@ class MMC_BOWLING_API Abowling_pin : public Aentity_base
 
 public:
 
+#define TOLERANCE_ANGLE		5	//How much angles need to change in order to fall
+#define TOLERANCE_LOCATION	10 //How far a pin has to move in order to "fall"
+
 	bool didFall;
 	bool isRaisingAndLowering;
 	bool isLowering;

@@ -6,4 +6,5 @@
 #pragma once
 
 #include "Engine.h"
+#include "MMC_Shared.h"
 

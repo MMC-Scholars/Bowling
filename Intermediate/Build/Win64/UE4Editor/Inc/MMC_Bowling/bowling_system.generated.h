@@ -89,16 +89,6 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
-	DECLARE_FUNCTION(execGetScoreOfFrame) \
-	{ \
-		P_GET_PROPERTY(UIntProperty,Z_Param_frameNumber); \
-		P_GET_PROPERTY(UByteProperty,Z_Param_type); \
-		P_FINISH; \
-		P_NATIVE_BEGIN; \
-		*(int32*)Z_Param__Result=this->GetScoreOfFrame(Z_Param_frameNumber,ScoreType(Z_Param_type)); \
-		P_NATIVE_END; \
-	} \
- \
 	DECLARE_FUNCTION(execCalculateScore) \
 	{ \
 		P_FINISH; \
@@ -197,16 +187,6 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		*(FString*)Z_Param__Result=this->GetStringScoreOfFrame(Z_Param_frameNumber,ScoreType(Z_Param_type)); \
-		P_NATIVE_END; \
-	} \
- \
-	DECLARE_FUNCTION(execGetScoreOfFrame) \
-	{ \
-		P_GET_PROPERTY(UIntProperty,Z_Param_frameNumber); \
-		P_GET_PROPERTY(UByteProperty,Z_Param_type); \
-		P_FINISH; \
-		P_NATIVE_BEGIN; \
-		*(int32*)Z_Param__Result=this->GetScoreOfFrame(Z_Param_frameNumber,ScoreType(Z_Param_type)); \
 		P_NATIVE_END; \
 	} \
  \

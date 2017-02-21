@@ -47,14 +47,15 @@ void Abowling_system::Tick(float DeltaTime)
 //checks the last frames to determine the current endgame type
 void Abowling_system::CalculateEndgameType()
 {
-	bowling_frame& lastNormalFrame = Frames[Frames.Num() - 3];
-	if (frameIndex <= Frames.Num() - 3) //we're in the ninth frame or before
+	
+	if (frameIndex <= Frames.Num() - 4) //we're in the ninth frame or before
 	{
 		endgameType = Undetermined;
 		return;
 	}
-	if (frameIndex == Frames.Num() - 2) //we're in the last normal frame
+	if (frameIndex == Frames.Num() - 3) //we're in the last normal frame
 	{
+		bowling_frame& lastNormalFrame = Frames[Frames.Num() - 3];
 		if (lastNormalFrame.wasSpare) //if it was a spare
 		{
 			endgameType = SpareEnding;
@@ -169,9 +170,9 @@ void Abowling_system::ReCalculateAbsoluteScores()
 }
 
 //Returns true if the game is waiting for the user's first throw in the current frame, false otherwise.
-bool Abowling_system::WaitingForFirstThrow()
+bool Abowling_system::WaitingForFirstThrow() const
 {
-	bowling_frame& curFrame = Frames[frameIndex];
+	const bowling_frame& curFrame = Frames[frameIndex];
 
 	return ((!gameover) && curFrame.GetThrowScore(1) == NOT_THROWN);
 }
@@ -245,7 +246,7 @@ void Abowling_system::CalculateScore()
 }
 
 //Given a frame number and a score type, returns the desired score
-int Abowling_system::GetScoreOfFrame(int frameNumber, ScoreType type)
+int Abowling_system::GetScoreOfFrame(int frameNumber, ScoreType type) const
 {
 	//we'll let blueprinters start from 1
 	//frameNumber--;
@@ -253,36 +254,68 @@ int Abowling_system::GetScoreOfFrame(int frameNumber, ScoreType type)
 	//clamp the frame number to avoid out-of-bounds errors
 	frameNumber = FMath::Clamp(frameNumber, 0, NUMBER_OF_FRAMES - 1);
 
+	const bowling_frame& curFrame = Frames[frameNumber];
+
 	if (type == FirstThrow)
-		return Frames[frameNumber].GetThrowScore(1);
+		return curFrame.GetThrowScore(1);
 	if (type == SecondThrow)
-		return Frames[frameNumber].GetThrowScore(2);
+		return curFrame.GetThrowScore(2);
 	if (type == NativeScore)
-		return Frames[frameNumber].GetNativeScore();
+		return curFrame.GetNativeScore();
 	if (type == AbsoluteNativeScore)
-		return Frames[frameNumber].GsetAbsoluteNativeScore();
+		return curFrame.GetAbsoluteNativeScore();
 	if (type == AbsoluteScore)
-		return Frames[frameNumber].GsetAbsoluteScore();
+		return curFrame.GetAbsoluteScore();
 
 	return NOT_THROWN;
 }
 
 //Given a frame number and a score type, returns a string representation of the score
-FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type)
+FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type) const
 {
 
 	int iScore = GetScoreOfFrame(frameNumber, type);
 
 	FString sScore;
 
+	const bowling_frame& frame = Frames[frameNumber];
+
+	//handle the last three frames specially
+	if (frameNumber >= NUMBER_OF_FRAMES - 3) {
+		switch (frameNumber) {
+			case (NUMBER_OF_FRAMES - 3): //tenth frame
+				if (type == FirstThrow && frame.wasStrike)
+					return FString("X");
+				break;
+			case (NUMBER_OF_FRAMES - 2): //eleventh frame
+				if (!Frames[frameNumber - 1].wasStrike)
+					return GetStringScoreOfFrame(frameNumber - 1, SecondThrow);
+				if (frame.wasStrike)
+					return FString("X");
+				break;
+			case(NUMBER_OF_FRAMES - 1): //final frame
+				if (endgameType == SpareEnding)
+					return GetStringScoreOfFrame(frameNumber - 1, FirstThrow);
+				if (endgameType == StrikeEnding) {
+					if (frame.wasStrike)
+						return FString("X");
+					if (iScore == 0)
+						return FString("-");
+					if (iScore == NOT_THROWN)
+						return FString(" ");
+					return FString::FromInt(iScore);
+				}
+				break;
+		}
+	}
+
 	if (type == AbsoluteScore && Frames[frameNumber].scoreIsPending)
 		sScore = FString(TEXT(" "));
-
-	else if (Frames[frameNumber].wasSpare && type == SecondThrow)
+	else if (frame.wasSpare && type == SecondThrow)
 		sScore = FString(TEXT("/"));
-	else if (Frames[frameNumber].wasStrike && type == SecondThrow)
+	else if (frame.wasStrike && type == SecondThrow)
 		sScore = FString(TEXT("X"));
-	else if (Frames[frameNumber].wasStrike && type == FirstThrow)
+	else if (frame.wasStrike && type == FirstThrow)
 		sScore = FString(TEXT(" ")); //if a frame was a strike, we put in a space for the first throw's spot and put the X in the second throw spot instead
 	else if (iScore == 0 && type == AbsoluteScore)
 		sScore = FString(TEXT("--"));
@@ -297,7 +330,7 @@ FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type)
 }
 
 //Returns a string containing the scores of the all the frames
-FString Abowling_system::GetStringScoreOfGame()
+FString Abowling_system::GetStringScoreOfGame() const
 {
 	FString sScore = FString(TEXT(""));
 

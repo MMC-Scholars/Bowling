@@ -1,8 +1,8 @@
 {
 	"Changelist" : 3172292,
-	"BuildId" : "6365a826-3c49-4042-8b58-2024148a14f5",
+	"BuildId" : "26ec14e8-b5ec-45c1-8f44-713c56f66612",
 	"Modules" : 
 	{
-		"MMC_Bowling" : "UE4Editor-MMC_Bowling-4275.dll"
+		"MMC_Bowling" : "UE4Editor-MMC_Bowling.dll"
 	}
 }

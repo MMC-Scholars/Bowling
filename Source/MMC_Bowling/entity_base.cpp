@@ -147,7 +147,7 @@ AActor * Aentity_base::FindActorByName(FName targetName, UObject const * const W
 }
 
 //Given a name, finds the entity in the world. Can return nullptr
-Aentity_base * Aentity_base::FindEntityByName(FName targetName)
+Aentity_base * Aentity_base::FindEntityByName(FName targetName) const
 {
 	if (targetName == FName("None"))
 		return nullptr;
@@ -163,7 +163,7 @@ Aentity_base * Aentity_base::FindEntityByName(FName targetName)
 }
 
 //Given an actor, returns the transform from this target to the given actor
-FTransform Aentity_base::GetTransformToActor(AActor *fromActor)
+FTransform Aentity_base::GetTransformToActor(AActor *fromActor) const
 {
 	if (fromActor)
 	{
@@ -174,7 +174,7 @@ FTransform Aentity_base::GetTransformToActor(AActor *fromActor)
 }
 
 //Given an actor, returns the vector offset from this target to the given actor
-FVector Aentity_base::GetOffsetToActor(AActor *fromActor)
+FVector Aentity_base::GetOffsetToActor(AActor *fromActor) const
 {
 	if (fromActor)
 		return (fromActor->GetActorLocation()) - (this->GetActorLocation());

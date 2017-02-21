@@ -19,8 +19,6 @@ const FColor Autil_debug::MESSAGE_COLOR = BLURP_COLOR;
 const FColor Autil_debug::WARNING_COLOR = FColor::Yellow;
 const FColor Autil_debug::FATAL_COLOR = FColor::Blue;
 
-
-
 //Hidden helper function for actually printing a message on the screen
 void Autil_debug::PrintMessage(FString message, float timeToDisplay, FColor color)
 {

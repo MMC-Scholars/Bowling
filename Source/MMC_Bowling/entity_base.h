@@ -120,15 +120,15 @@ public:
 
 	//Given a name, finds the entity in the world. Can return nullptr so don't use without checking.
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
-		Aentity_base *FindEntityByName(FName targetName);
+		Aentity_base *FindEntityByName(FName targetName) const;
 
 	//Given an actor, returns the transform from this target to the given actor
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
-		FTransform GetTransformToActor(AActor *fromActor);
+		FTransform GetTransformToActor(AActor *fromActor) const;
 
 	//Given an actor, returns the vector offset from this target to the given actor
 	UFUNCTION(BlueprintCallable, Category = "entity_base")
-		FVector GetOffsetToActor(AActor *fromActor);
+		FVector GetOffsetToActor(AActor *fromActor) const;
 	
 
 };

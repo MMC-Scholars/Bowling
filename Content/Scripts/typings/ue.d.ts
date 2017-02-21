@@ -5224,7 +5224,6 @@ declare class bowling_system extends Actor {
 	OnGameover(): void;
 	GetStringScoreOfGame(): string;
 	GetStringScoreOfFrame(frameNumber: number,type: ScoreType): string;
-	GetScoreOfFrame(frameNumber: number,type: ScoreType): number;
 	GetNumberOfCurrentFrame(): number;
 	GetFallenPinCount(): number;
 	GetEndgameType(): EndgameType;
@@ -5391,6 +5390,18 @@ declare class worldui_base extends entity_base {
 	Focus(caller: Actor): void;
 	Activate(caller: Actor): void;
 	static C(Other: UObject): worldui_base;
+}
+
+declare class worldui_sprite extends worldui_base { 
+	sprite: BillboardComponent;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): worldui_sprite;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): worldui_sprite;
+	static C(Other: UObject): worldui_sprite;
 }
 
 declare type FilterMode = string | symbol;

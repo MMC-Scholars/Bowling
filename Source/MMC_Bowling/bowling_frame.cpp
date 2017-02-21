@@ -53,7 +53,7 @@ void bowling_frame::Throw(int amount)
 }
 
 //Given a throw number, returns the score of that throw
-int bowling_frame::GetThrowScore(int throwNumber)
+int bowling_frame::GetThrowScore(int throwNumber) const
 {
 	throwNumber = FMath::Clamp(throwNumber, 1, 2);
 	if (throwNumber == 1)
@@ -63,7 +63,7 @@ int bowling_frame::GetThrowScore(int throwNumber)
 }
 
 //returns the native score of the frame, excluding strike / spare bonus. Returns NOT_THROWN if no throws have been made.
-int bowling_frame::GetNativeScore()
+int bowling_frame::GetNativeScore() const
 {
 	return nativeScore;
 }

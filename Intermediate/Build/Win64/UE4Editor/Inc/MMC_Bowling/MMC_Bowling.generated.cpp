@@ -75,7 +75,7 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "TeleportToTarget",(Native)&Aentity_base::execTeleportToTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_base::StaticClass(), "Use",(Native)&Aentity_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_base, 3651764715);
+	IMPLEMENT_CLASS(Aentity_base, 298725948);
 	void Abowling_pin::OnEndRaiseAndLower()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnEndRaiseAndLower),NULL);
@@ -98,7 +98,7 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "RaiseAndLower",(Native)&Abowling_pin::execRaiseAndLower);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_pin::StaticClass(), "ResetAndLower",(Native)&Abowling_pin::execResetAndLower);
 	}
-	IMPLEMENT_CLASS(Abowling_pin, 871343087);
+	IMPLEMENT_CLASS(Abowling_pin, 4261216690);
 static class UEnum* EndgameType_StaticEnum()
 {
 	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
@@ -143,7 +143,6 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetEndgameType",(Native)&Abowling_system::execGetEndgameType);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetFallenPinCount",(Native)&Abowling_system::execGetFallenPinCount);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetNumberOfCurrentFrame",(Native)&Abowling_system::execGetNumberOfCurrentFrame);
-		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetScoreOfFrame",(Native)&Abowling_system::execGetScoreOfFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetStringScoreOfFrame",(Native)&Abowling_system::execGetStringScoreOfFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetStringScoreOfGame",(Native)&Abowling_system::execGetStringScoreOfGame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "RaiseAndLowerUnfallenPins",(Native)&Abowling_system::execRaiseAndLowerUnfallenPins);
@@ -151,7 +150,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "ResetGame",(Native)&Abowling_system::execResetGame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "WaitingForFirstThrow",(Native)&Abowling_system::execWaitingForFirstThrow);
 	}
-	IMPLEMENT_CLASS(Abowling_system, 1727935783);
+	IMPLEMENT_CLASS(Abowling_system, 3824057156);
 	void Aentity_launcher::OnLaunch(FVector newVelocity)
 	{
 		entity_launcher_eventOnLaunch_Parms Parms;
@@ -168,7 +167,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "setProjectile",(Native)&Aentity_launcher::execsetProjectile);
 		FNativeFunctionRegistrar::RegisterFunction(Aentity_launcher::StaticClass(), "Use",(Native)&Aentity_launcher::execUse);
 	}
-	IMPLEMENT_CLASS(Aentity_launcher, 1400217238);
+	IMPLEMENT_CLASS(Aentity_launcher, 3896930353);
 	void Aprop_move_base::OnChangePosition(float deltaLerp)
 	{
 		prop_move_base_eventOnChangePosition_Parms Parms;
@@ -212,7 +211,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Toggle",(Native)&Aprop_move_base::execToggle);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Use",(Native)&Aprop_move_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_move_base, 2326160689);
+	IMPLEMENT_CLASS(Aprop_move_base, 2568055967);
 	void Aprop_movelinear::StaticRegisterNativesAprop_movelinear()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_movelinear::execGetEstimatedTravelTime);
@@ -223,7 +222,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetSpeed",(Native)&Aprop_movelinear::execSetSpeed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Use",(Native)&Aprop_movelinear::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_movelinear, 1736514538);
+	IMPLEMENT_CLASS(Aprop_movelinear, 1736417528);
 	void Aprop_worldbutton::OnPressed()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnPressed),NULL);
@@ -232,7 +231,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_worldbutton::StaticClass(), "Press",(Native)&Aprop_worldbutton::execPress);
 	}
-	IMPLEMENT_CLASS(Aprop_worldbutton, 2816748312);
+	IMPLEMENT_CLASS(Aprop_worldbutton, 2118849983);
 	void Aprop_rotator::StaticRegisterNativesAprop_rotator()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "IsClosed",(Native)&Aprop_rotator::execIsClosed);
@@ -241,7 +240,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetPosition",(Native)&Aprop_rotator::execSetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetSpeed",(Native)&Aprop_rotator::execSetSpeed);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator, 525102873);
+	IMPLEMENT_CLASS(Aprop_rotator, 531813387);
 	void Aprop_rotator_pivoted::StaticRegisterNativesAprop_rotator_pivoted()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "GetTarget",(Native)&Aprop_rotator_pivoted::execGetTarget);
@@ -249,7 +248,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTarget",(Native)&Aprop_rotator_pivoted::execSetTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 3335351794);
+	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 3554294372);
 	void Aworldui_base::OnActivate(AActor* caller)
 	{
 		worldui_base_eventOnActivate_Parms Parms;
@@ -275,7 +274,11 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aworldui_base::StaticClass(), "Look",(Native)&Aworldui_base::execLook);
 		FNativeFunctionRegistrar::RegisterFunction(Aworldui_base::StaticClass(), "Use",(Native)&Aworldui_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aworldui_base, 1079758084);
+	IMPLEMENT_CLASS(Aworldui_base, 2920272320);
+	void Aworldui_sprite::StaticRegisterNativesAworldui_sprite()
+	{
+	}
+	IMPLEMENT_CLASS(Aworldui_sprite, 367200799);
 static class UEnum* FilterMode_StaticEnum()
 {
 	extern MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
@@ -341,6 +344,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FTransform();
 	ENGINE_API class UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FRotator();
+	ENGINE_API class UClass* Z_Construct_UClass_UBillboardComponent_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FColor();
 
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp();
@@ -385,7 +389,6 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetEndgameType();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetFallenPinCount();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame();
-	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetScoreOfFrame();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetStringScoreOfGame();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_OnGameover();
@@ -464,6 +467,8 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_base_Use();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aworldui_base_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aworldui_base();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aworldui_sprite_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aworldui_sprite();
 	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_FilterMode();
 	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_FilterType();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Afilter_base_FilterActor();
@@ -819,7 +824,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindEntityByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(entity_base_eventFindEntityByName_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindEntityByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(entity_base_eventFindEntityByName_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, entity_base_eventFindEntityByName_Parms), 0x0010000000000580, Z_Construct_UClass_Aentity_base_NoRegister());
 			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, entity_base_eventFindEntityByName_Parms), 0x0010000000000080);
 			ReturnFunction->Bind();
@@ -844,7 +849,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetOffsetToActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04820401, 65535, sizeof(entity_base_eventGetOffsetToActor_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetOffsetToActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54820401, 65535, sizeof(entity_base_eventGetOffsetToActor_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(ReturnValue, entity_base_eventGetOffsetToActor_Parms), 0x0010000000000580, Z_Construct_UScriptStruct_FVector());
 			UProperty* NewProp_fromActor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("fromActor"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(fromActor, entity_base_eventGetOffsetToActor_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
 			ReturnFunction->Bind();
@@ -869,7 +874,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetTransformToActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04820401, 65535, sizeof(entity_base_eventGetTransformToActor_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetTransformToActor"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54820401, 65535, sizeof(entity_base_eventGetTransformToActor_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(ReturnValue, entity_base_eventGetTransformToActor_Parms), 0x0010000000000580, Z_Construct_UScriptStruct_FTransform());
 			UProperty* NewProp_fromActor = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("fromActor"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(fromActor, entity_base_eventGetTransformToActor_Parms), 0x0010000000000080, Z_Construct_UClass_AActor_NoRegister());
 			ReturnFunction->Bind();
@@ -1046,9 +1051,9 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_CalculateHealth(), "CalculateHealth"); // 1065234854
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_FindActorByName(), "FindActorByName"); // 4144993811
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_FindEntityByName(), "FindEntityByName"); // 208547384
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_GetOffsetToActor(), "GetOffsetToActor"); // 375072237
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_GetTransformToActor(), "GetTransformToActor"); // 930593073
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_FindEntityByName(), "FindEntityByName"); // 2802059885
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_GetOffsetToActor(), "GetOffsetToActor"); // 2046881981
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_GetTransformToActor(), "GetTransformToActor"); // 2709958221
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnKilled(), "OnKilled"); // 4091202877
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnUse(), "OnUse"); // 1327113930
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aentity_base_OnUseIgnored(), "OnUseIgnored"); // 2819711334
@@ -1482,33 +1487,6 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		}
 		return ReturnFunction;
 	}
-	UFunction* Z_Construct_UFunction_Abowling_system_GetScoreOfFrame()
-	{
-		struct bowling_system_eventGetScoreOfFrame_Parms
-		{
-			int32 frameNumber;
-			TEnumAsByte<ScoreType> type;
-			int32 ReturnValue;
-		};
-		UObject* Outer=Z_Construct_UClass_Abowling_system();
-		static UFunction* ReturnFunction = NULL;
-		if (!ReturnFunction)
-		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetScoreOfFrame"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(bowling_system_eventGetScoreOfFrame_Parms));
-			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(ReturnValue, bowling_system_eventGetScoreOfFrame_Parms), 0x0010000000000580);
-			UProperty* NewProp_type = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("type"), RF_Public|RF_Transient|RF_MarkAsNative) UByteProperty(CPP_PROPERTY_BASE(type, bowling_system_eventGetScoreOfFrame_Parms), 0x0010000000000080, Z_Construct_UEnum_MMC_Bowling_ScoreType());
-			UProperty* NewProp_frameNumber = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("frameNumber"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(frameNumber, bowling_system_eventGetScoreOfFrame_Parms), 0x0010000000000080);
-			ReturnFunction->Bind();
-			ReturnFunction->StaticLink();
-#if WITH_METADATA
-			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
-			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
-			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
-			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a frame number and a score type, returns the desired integer score"));
-#endif
-		}
-		return ReturnFunction;
-	}
 	UFunction* Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame()
 	{
 		struct bowling_system_eventGetStringScoreOfFrame_Parms
@@ -1521,7 +1499,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetStringScoreOfFrame"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(bowling_system_eventGetStringScoreOfFrame_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetStringScoreOfFrame"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(bowling_system_eventGetStringScoreOfFrame_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(ReturnValue, bowling_system_eventGetStringScoreOfFrame_Parms), 0x0010000000000580);
 			UProperty* NewProp_type = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("type"), RF_Public|RF_Transient|RF_MarkAsNative) UByteProperty(CPP_PROPERTY_BASE(type, bowling_system_eventGetStringScoreOfFrame_Parms), 0x0010000000000080, Z_Construct_UEnum_MMC_Bowling_ScoreType());
 			UProperty* NewProp_frameNumber = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("frameNumber"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(frameNumber, bowling_system_eventGetStringScoreOfFrame_Parms), 0x0010000000000080);
@@ -1546,7 +1524,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetStringScoreOfGame"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(bowling_system_eventGetStringScoreOfGame_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetStringScoreOfGame"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(bowling_system_eventGetStringScoreOfGame_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(ReturnValue, bowling_system_eventGetStringScoreOfGame_Parms), 0x0010000000000580);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
@@ -1674,7 +1652,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("WaitingForFirstThrow"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(bowling_system_eventWaitingForFirstThrow_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("WaitingForFirstThrow"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(bowling_system_eventWaitingForFirstThrow_Parms));
 			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, bowling_system_eventWaitingForFirstThrow_Parms, bool);
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, bowling_system_eventWaitingForFirstThrow_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, bowling_system_eventWaitingForFirstThrow_Parms), sizeof(bool), true);
 			ReturnFunction->Bind();
@@ -1711,7 +1689,6 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetEndgameType());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetFallenPinCount());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame());
-				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetScoreOfFrame());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetStringScoreOfGame());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_OnGameover());
@@ -1731,16 +1708,15 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetEndgameType(), "GetEndgameType"); // 2538102629
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetFallenPinCount(), "GetFallenPinCount"); // 3263675764
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame(), "GetNumberOfCurrentFrame"); // 2100713436
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetScoreOfFrame(), "GetScoreOfFrame"); // 398721981
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame(), "GetStringScoreOfFrame"); // 678360621
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetStringScoreOfGame(), "GetStringScoreOfGame"); // 543355582
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame(), "GetStringScoreOfFrame"); // 3772681617
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetStringScoreOfGame(), "GetStringScoreOfGame"); // 2512105137
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnGameover(), "OnGameover"); // 1342974699
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnSpare(), "OnSpare"); // 221301318
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnStrike(), "OnStrike"); // 1087848634
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_RaiseAndLowerUnfallenPins(), "RaiseAndLowerUnfallenPins"); // 2442404868
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_ResetAndLowerAllPins(), "ResetAndLowerAllPins"); // 2936856938
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_ResetGame(), "ResetGame"); // 3011393608
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow(), "WaitingForFirstThrow"); // 3910171566
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_WaitingForFirstThrow(), "WaitingForFirstThrow"); // 374122224
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
@@ -3383,6 +3359,44 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Aworldui_base(Z_Construct_UClass_Aworldui_base, &Aworldui_base::StaticClass, TEXT("Aworldui_base"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Aworldui_base);
+	UClass* Z_Construct_UClass_Aworldui_sprite_NoRegister()
+	{
+		return Aworldui_sprite::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Aworldui_sprite()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_Aworldui_base();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Aworldui_sprite::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_sprite = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("sprite"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(sprite, Aworldui_sprite), 0x001000000008001d, Z_Construct_UClass_UBillboardComponent_NoRegister());
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("worldui_sprite.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("worldui_sprite.h"));
+				MetaData->SetValue(NewProp_sprite, TEXT("Category"), TEXT("worldui_sprite"));
+				MetaData->SetValue(NewProp_sprite, TEXT("EditInline"), TEXT("true"));
+				MetaData->SetValue(NewProp_sprite, TEXT("ModuleRelativePath"), TEXT("worldui_sprite.h"));
+				MetaData->SetValue(NewProp_sprite, TEXT("ToolTip"), TEXT("Rendered billboard component"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Aworldui_sprite(Z_Construct_UClass_Aworldui_sprite, &Aworldui_sprite::StaticClass, TEXT("Aworldui_sprite"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Aworldui_sprite);
 	UEnum* Z_Construct_UEnum_MMC_Bowling_FilterMode()
 	{
 		UPackage* Outer=Z_Construct_UPackage__Script_MMC_Bowling();
@@ -3954,8 +3968,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x6AE4DEB2;
-			Guid.B = 0x552DB47B;
+			Guid.A = 0xED6CDEC6;
+			Guid.B = 0xF1091EBA;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

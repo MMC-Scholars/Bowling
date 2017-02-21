@@ -85,9 +85,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\MMC_Bowling\worldui_base.cpp">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\MMC_Bowling\info_hudhint.cpp">
       <Filter>Source\MMC_Bowling\util</Filter>
     </ClCompile>
@@ -112,11 +109,14 @@
     <ClCompile Include="..\..\Source\MMC_Bowling\filter_base.cpp">
       <Filter>Source\MMC_Bowling\filter</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\worldui_base.cpp">
+      <Filter>Source\MMC_Bowling\worldui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\worldui_sprite.cpp">
+      <Filter>Source\MMC_Bowling\worldui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\MMC_Bowling\worldui_base.h">
-      <Filter>Source\MMC_Bowling</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\MMC_Bowling\info_hudhint.h">
       <Filter>Source\MMC_Bowling\util</Filter>
     </ClInclude>
@@ -144,6 +144,12 @@
     <ClInclude Include="..\..\Source\MMC_Bowling\filter_base.h">
       <Filter>Source\MMC_Bowling\filter</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\worldui_sprite.h">
+      <Filter>Source\MMC_Bowling\worldui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\worldui_base.h">
+      <Filter>Source\MMC_Bowling\worldui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\MMC_Bowling\util">
@@ -154,6 +160,9 @@
     </Filter>
     <Filter Include="Source\MMC_Bowling\filter">
       <UniqueIdentifier>{9c3b1f2f-a2a0-42c3-859e-be0e2c15d2b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MMC_Bowling\worldui">
+      <UniqueIdentifier>{f5bc3d21-4937-414a-8a3a-09c90b379731}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

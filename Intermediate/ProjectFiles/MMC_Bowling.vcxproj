@@ -408,8 +408,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\MMC_Bowling\filter_base.cpp" />
     <ClCompile Include="..\..\Source\MMC_Bowling\worldui_base.cpp" />
+    <ClCompile Include="..\..\Source\MMC_Bowling\worldui_sprite.cpp" />
     <ClInclude Include="..\..\Source\MMC_Bowling\filter_base.h" />
     <ClInclude Include="..\..\Source\MMC_Bowling\worldui_base.h" />
+    <ClInclude Include="..\..\Source\MMC_Bowling\worldui_sprite.h" />
     <None Include="..\..\MMC_Bowling.uproject" />
     <None Include="..\..\Source\MMC_Bowling.Target.cs" />
     <None Include="..\..\Source\MMC_BowlingEditor.Target.cs" />

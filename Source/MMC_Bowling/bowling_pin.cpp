@@ -91,9 +91,11 @@ bool Abowling_pin::CheckForFallen()
 		didFall = false;
 		return false; //never register as falling twice in a row
 	}
-	if (FMath::Abs(GetActorRotation().Roll - FMath::Abs(OriginalRotation.Roll)) > 5)
+	if (FMath::Abs(GetActorRotation().Roll - FMath::Abs(OriginalRotation.Roll)) > TOLERANCE_ANGLE)
 		didFall = true;
-	if (FMath::Abs(GetActorRotation().Pitch - FMath::Abs(OriginalRotation.Pitch)) > 5)
+	if (FMath::Abs(GetActorRotation().Pitch - FMath::Abs(OriginalRotation.Pitch)) > TOLERANCE_ANGLE)
+		didFall = true;
+	if ((GetActorLocation() - OriginalLocation).Size() > TOLERANCE_LOCATION)
 		didFall = true;
 	return didFall;
 }
@@ -112,9 +114,14 @@ Abowling_pin * Abowling_pin::GetPinClosestToTarget(FName targetName, UObject * W
 		for (TActorIterator<Abowling_pin> ActorItr(World); ActorItr; ++ActorItr)
 		{
 			Abowling_pin * curPin = *ActorItr;
-			float distance = target->GetOffsetToActor(curPin).Size();
-			if (distance < minDistance)
-				closestPin = curPin;
+			if (curPin) {
+				float distance = target->GetOffsetToActor(curPin).Size();
+				if (distance < minDistance) {
+					closestPin = curPin;
+					minDistance = distance;
+				}
+					
+			}
 		}
 	return closestPin;
 }

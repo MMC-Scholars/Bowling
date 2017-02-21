@@ -58,15 +58,19 @@ public:
 	void ResetFrame();
 
 	//Given a throw number, returns the score of that throw
-	int GetThrowScore(int throwNumber);
+	int GetThrowScore(int throwNumber) const;
 
 	//Gets the number of points scored during this frame, excluding strike/spare bonus
-	int GetNativeScore();
+	int GetNativeScore() const;
 
 	//Gsets the total number of points for this frame, including strike/spare bonus 
 	int GsetAbsoluteNativeScore(int override = 0, int overrideType = OVERRIDE_TYPE_NULL);
 
+	int GetAbsoluteNativeScore(void) const { return absoluteNativeScore; }
+
 	//Gsets the total number of points for this frame, including strike/spare bonus and all previous frames.
 	//this is to be handled only by the bowling_system entity, not internally
 	int GsetAbsoluteScore(int override = 0, int overrideType = OVERRIDE_TYPE_NULL);
+
+	int GetAbsoluteScore(void) const { return absoluteScore; }
 };

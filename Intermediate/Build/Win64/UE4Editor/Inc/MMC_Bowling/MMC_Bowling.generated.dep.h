@@ -41,6 +41,9 @@
 #ifndef MMC_BOWLING_worldui_base_generated_h
 	#include "worldui_base.h"
 #endif
+#ifndef MMC_BOWLING_worldui_sprite_generated_h
+	#include "worldui_sprite.h"
+#endif
 #ifndef MMC_BOWLING_filter_base_generated_h
 	#include "filter_base.h"
 #endif

@@ -7659,6 +7659,20 @@ declare class ORPHANED_DATA_ONLY_LevelEditorAttract_C_3 {
 	static C(Other: UObject): ORPHANED_DATA_ONLY_LevelEditorAttract_C_3;
 }
 
+declare class TRASHCLASS_LevelEditorOverview_4 { 
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): TRASHCLASS_LevelEditorOverview_4;
+	static Find(Outer: UObject, ResourceName: string): TRASHCLASS_LevelEditorOverview_4;
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): TRASHCLASS_LevelEditorOverview_4;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): TRASHCLASS_LevelEditorOverview_4;
+	static C(Other: UObject): TRASHCLASS_LevelEditorOverview_4;
+}
+
 declare var Context : JavascriptContext;
 
 declare var Root : JavascriptEditorTick;

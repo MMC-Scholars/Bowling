@@ -115,6 +115,9 @@
     <ClCompile Include="..\..\Source\MMC_Bowling\worldui_sprite.cpp">
       <Filter>Source\MMC_Bowling\worldui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\bowling_highscore_t.cpp">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\MMC_Bowling\info_hudhint.h">
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\MMC_Bowling\worldui_base.h">
       <Filter>Source\MMC_Bowling\worldui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_highscore_t.h">
+      <Filter>Source\MMC_Bowling\bowling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

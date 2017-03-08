@@ -5219,17 +5219,21 @@ declare class bowling_system extends Actor {
 	ResetGame(): void;
 	ResetAndLowerAllPins(): void;
 	RaiseAndLowerUnfallenPins(): void;
-	OnStrike(): void;
+	OnStrike(count: number): void;
 	OnSpare(): void;
 	OnGameover(): void;
+	static loadScoreTable(loadedArray?: string[]): {loadedArray: string[]};
 	GetStringScoreOfGame(): string;
 	GetStringScoreOfFrame(frameNumber: number,type: ScoreType): string;
 	GetNumberOfCurrentFrame(): number;
+	GetIntScoreOfFrame(frameNumber: number,type: ScoreType): number;
 	GetFallenPinCount(): number;
 	GetEndgameType(): EndgameType;
 	GetAbsoluteScore(): number;
 	GameIsOver(): boolean;
+	static formatScoreString(rawInputString: string): string;
 	CalculateScore(): void;
+	static appendNewScore(iScore: number,playerName: string): void;
 	static C(Other: UObject): bowling_system;
 }
 

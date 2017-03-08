@@ -8,6 +8,7 @@ Purpose: This class contains common macro definitions that are utilized across
 */
 
 #pragma once
+#include "util_debug.h"
 
 //Aliases for printing debug messages to screen
 #define printBlurp(a) Autil_debug::PrintBlurp(a)

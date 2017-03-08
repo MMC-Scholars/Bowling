@@ -16,6 +16,7 @@ Purpose: spawnable utility class which handles all of the calculations and inter
 #include "GameFramework/Actor.h"
 #include "bowling_pin.h"
 #include "bowling_frame.h"
+#include "bowling_highscore_t.h"
 #include "bowling_shared.h"
 #include "bowling_system.generated.h"
 
@@ -51,7 +52,21 @@ private:
 
 	bool gameover;
 
+public:
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		static void loadScoreTable(UPARAM(ref) TArray<FString> & loadedArray);
 
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		static void appendNewScore(int iScore, FName playerName);
+
+	//The amount of spaces between a three-digit integer score and the player's name
+		#define BOWLING_SCORE_INTERSPACES 3
+
+	//Adds the necessary amount of spaces 
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		static FString formatScoreString(const FString& rawInputString);
+
+private:
 
 	//we have an array of 12 bowling frames that we'll use to score. The last 2 are only used if possible
 	TArray<bowling_frame, FDefaultAllocator> Frames;
@@ -79,9 +94,6 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 
-
-
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "bowling_system")
 		int strikeCount;
 
@@ -99,7 +111,8 @@ public:
 		void CalculateScore();
 
 	//Given a frame number and a score type, returns the desired integer score
-		int GetScoreOfFrame(int frameNumber, ScoreType type) const;
+	UFUNCTION(BlueprintCallable, Category = "bowling_system")
+		int GetIntScoreOfFrame(int frameNumber, ScoreType type) const;
 
 	//Given a frame number and a score type, returns a string representation of the score
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
@@ -123,7 +136,7 @@ public:
 
 	//Returns the total score for the game, i.e. the absolute score of the current frame.
 	UFUNCTION(BlueprintCallable, Category = "bowling_system")
-		int GetAbsoluteScore();
+		int GetAbsoluteScore() const;
 
 	//Gsets the enumerator EndGameType, either DefaultEnding, SpareEnding or StrikeEnding. If it hasn't been determined yet, returns Undetermined.
 	//UFUNCTION(BlueprintCallable, Category = "bowling_system")
@@ -138,7 +151,7 @@ public:
 		int GetNumberOfCurrentFrame();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "bowling_system")
-		void OnStrike();
+		void OnStrike(int count);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "bowling_system")
 		void OnSpare();

@@ -18,4 +18,6 @@ Aworldui_sprite::Aworldui_sprite()
 	//make sure the sprite's location is at the root's location
 	if (sprite)
 		sprite->SetWorldLocation(this->GetActorLocation());
+	else
+		printWarning("Failed to load default sprite");
 }

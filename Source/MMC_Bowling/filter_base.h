@@ -144,14 +144,6 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "filter_base")
 		void OnFail(AActor const * const failedActor) const;
-
-
-	
-
-
-
-
-
 	
 	
 };

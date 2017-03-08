@@ -131,26 +131,32 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnSpare),NULL);
 	}
-	void Abowling_system::OnStrike()
+	void Abowling_system::OnStrike(int32 count)
 	{
-		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnStrike),NULL);
+		bowling_system_eventOnStrike_Parms Parms;
+		Parms.count=count;
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnStrike),&Parms);
 	}
 	void Abowling_system::StaticRegisterNativesAbowling_system()
 	{
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "appendNewScore",(Native)&Abowling_system::execappendNewScore);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "CalculateScore",(Native)&Abowling_system::execCalculateScore);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "formatScoreString",(Native)&Abowling_system::execformatScoreString);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GameIsOver",(Native)&Abowling_system::execGameIsOver);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetAbsoluteScore",(Native)&Abowling_system::execGetAbsoluteScore);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetEndgameType",(Native)&Abowling_system::execGetEndgameType);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetFallenPinCount",(Native)&Abowling_system::execGetFallenPinCount);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetIntScoreOfFrame",(Native)&Abowling_system::execGetIntScoreOfFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetNumberOfCurrentFrame",(Native)&Abowling_system::execGetNumberOfCurrentFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetStringScoreOfFrame",(Native)&Abowling_system::execGetStringScoreOfFrame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "GetStringScoreOfGame",(Native)&Abowling_system::execGetStringScoreOfGame);
+		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "loadScoreTable",(Native)&Abowling_system::execloadScoreTable);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "RaiseAndLowerUnfallenPins",(Native)&Abowling_system::execRaiseAndLowerUnfallenPins);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "ResetAndLowerAllPins",(Native)&Abowling_system::execResetAndLowerAllPins);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "ResetGame",(Native)&Abowling_system::execResetGame);
 		FNativeFunctionRegistrar::RegisterFunction(Abowling_system::StaticClass(), "WaitingForFirstThrow",(Native)&Abowling_system::execWaitingForFirstThrow);
 	}
-	IMPLEMENT_CLASS(Abowling_system, 3824057156);
+	IMPLEMENT_CLASS(Abowling_system, 3365979077);
 	void Aentity_launcher::OnLaunch(FVector newVelocity)
 	{
 		entity_launcher_eventOnLaunch_Parms Parms;
@@ -383,14 +389,18 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_pin();
 	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_EndgameType();
 	MMC_BOWLING_API class UEnum* Z_Construct_UEnum_MMC_Bowling_ScoreType();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_appendNewScore();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_CalculateScore();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_formatScoreString();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GameIsOver();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetAbsoluteScore();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetEndgameType();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetFallenPinCount();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetIntScoreOfFrame();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_GetStringScoreOfGame();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_loadScoreTable();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_OnGameover();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_OnSpare();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Abowling_system_OnStrike();
@@ -1354,6 +1364,30 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		return ReturnEnum;
 	}
 	uint32 Get_Z_Construct_UEnum_MMC_Bowling_ScoreType_CRC() { return 3091522766U; }
+	UFunction* Z_Construct_UFunction_Abowling_system_appendNewScore()
+	{
+		struct bowling_system_eventappendNewScore_Parms
+		{
+			int32 iScore;
+			FName playerName;
+		};
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("appendNewScore"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(bowling_system_eventappendNewScore_Parms));
+			UProperty* NewProp_playerName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("playerName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(playerName, bowling_system_eventappendNewScore_Parms), 0x0010000000000080);
+			UProperty* NewProp_iScore = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("iScore"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(iScore, bowling_system_eventappendNewScore_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_Abowling_system_CalculateScore()
 	{
 		UObject* Outer=Z_Construct_UClass_Abowling_system();
@@ -1368,6 +1402,32 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Counts the fallen bowling pins, and calculates the score for the current frame.\nhandles the strike count and strike/spare bonuses"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_system_formatScoreString()
+	{
+		struct bowling_system_eventformatScoreString_Parms
+		{
+			FString rawInputString;
+			FString ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("formatScoreString"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(bowling_system_eventformatScoreString_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(ReturnValue, bowling_system_eventformatScoreString_Parms), 0x0010000000000580);
+			UProperty* NewProp_rawInputString = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("rawInputString"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(rawInputString, bowling_system_eventformatScoreString_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Adds the necessary amount of spaces"));
+			MetaData->SetValue(NewProp_rawInputString, TEXT("NativeConst"), TEXT(""));
 #endif
 		}
 		return ReturnFunction;
@@ -1405,7 +1465,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetAbsoluteScore"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(bowling_system_eventGetAbsoluteScore_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetAbsoluteScore"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(bowling_system_eventGetAbsoluteScore_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(ReturnValue, bowling_system_eventGetAbsoluteScore_Parms), 0x0010000000000580);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
@@ -1460,6 +1520,33 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Gets the number of fallen pins. Does NOT do scoring calculations."));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Abowling_system_GetIntScoreOfFrame()
+	{
+		struct bowling_system_eventGetIntScoreOfFrame_Parms
+		{
+			int32 frameNumber;
+			TEnumAsByte<ScoreType> type;
+			int32 ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetIntScoreOfFrame"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(bowling_system_eventGetIntScoreOfFrame_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(ReturnValue, bowling_system_eventGetIntScoreOfFrame_Parms), 0x0010000000000580);
+			UProperty* NewProp_type = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("type"), RF_Public|RF_Transient|RF_MarkAsNative) UByteProperty(CPP_PROPERTY_BASE(type, bowling_system_eventGetIntScoreOfFrame_Parms), 0x0010000000000080, Z_Construct_UEnum_MMC_Bowling_ScoreType());
+			UProperty* NewProp_frameNumber = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("frameNumber"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(frameNumber, bowling_system_eventGetIntScoreOfFrame_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a frame number and a score type, returns the desired integer score"));
 #endif
 		}
 		return ReturnFunction;
@@ -1537,6 +1624,29 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		}
 		return ReturnFunction;
 	}
+	UFunction* Z_Construct_UFunction_Abowling_system_loadScoreTable()
+	{
+		struct bowling_system_eventloadScoreTable_Parms
+		{
+			TArray<FString> loadedArray;
+		};
+		UObject* Outer=Z_Construct_UClass_Abowling_system();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("loadScoreTable"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04422401, 65535, sizeof(bowling_system_eventloadScoreTable_Parms));
+			UProperty* NewProp_loadedArray = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("loadedArray"), RF_Public|RF_Transient|RF_MarkAsNative) UArrayProperty(CPP_PROPERTY_BASE(loadedArray, bowling_system_eventloadScoreTable_Parms), 0x0010000008000180);
+			UProperty* NewProp_loadedArray_Inner = new(EC_InternalUseOnlyConstructor, NewProp_loadedArray, TEXT("loadedArray"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(FObjectInitializer(), EC_CppProperty, 0, 0x0000000000000000);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("bowling_system"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("bowling_system.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_Abowling_system_OnGameover()
 	{
 		UObject* Outer=Z_Construct_UClass_Abowling_system();
@@ -1577,7 +1687,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnStrike"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535);
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnStrike"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535, sizeof(bowling_system_eventOnStrike_Parms));
+			UProperty* NewProp_count = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("count"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(count, bowling_system_eventOnStrike_Parms), 0x0010000000000080);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
@@ -1683,14 +1794,18 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UObjectForceRegistration(OuterClass);
 				OuterClass->ClassFlags |= 0x20900080;
 
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_appendNewScore());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_CalculateScore());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_formatScoreString());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GameIsOver());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetAbsoluteScore());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetEndgameType());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetFallenPinCount());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetIntScoreOfFrame());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_GetStringScoreOfGame());
+				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_loadScoreTable());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_OnGameover());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_OnSpare());
 				OuterClass->LinkChild(Z_Construct_UFunction_Abowling_system_OnStrike());
@@ -1702,17 +1817,21 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_strikeCount = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("strikeCount"), RF_Public|RF_Transient|RF_MarkAsNative) UUnsizedIntProperty(CPP_PROPERTY_BASE(strikeCount, Abowling_system), 0x0010000000020015);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_appendNewScore(), "appendNewScore"); // 4223406114
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_CalculateScore(), "CalculateScore"); // 4293280036
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_formatScoreString(), "formatScoreString"); // 3549890515
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GameIsOver(), "GameIsOver"); // 12576064
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetAbsoluteScore(), "GetAbsoluteScore"); // 590655694
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetAbsoluteScore(), "GetAbsoluteScore"); // 112552043
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetEndgameType(), "GetEndgameType"); // 2538102629
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetFallenPinCount(), "GetFallenPinCount"); // 3263675764
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetIntScoreOfFrame(), "GetIntScoreOfFrame"); // 3141931100
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetNumberOfCurrentFrame(), "GetNumberOfCurrentFrame"); // 2100713436
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetStringScoreOfFrame(), "GetStringScoreOfFrame"); // 3772681617
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_GetStringScoreOfGame(), "GetStringScoreOfGame"); // 2512105137
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_loadScoreTable(), "loadScoreTable"); // 2056634768
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnGameover(), "OnGameover"); // 1342974699
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnSpare(), "OnSpare"); // 221301318
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnStrike(), "OnStrike"); // 1087848634
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_OnStrike(), "OnStrike"); // 3245652482
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_RaiseAndLowerUnfallenPins(), "RaiseAndLowerUnfallenPins"); // 2442404868
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_ResetAndLowerAllPins(), "ResetAndLowerAllPins"); // 2936856938
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Abowling_system_ResetGame(), "ResetGame"); // 3011393608
@@ -3968,8 +4087,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0xED6CDEC6;
-			Guid.B = 0xF1091EBA;
+			Guid.A = 0xE2D61969;
+			Guid.B = 0x3D7F56B7;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

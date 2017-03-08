@@ -13,7 +13,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define MMC_BOWLING_bowling_system_generated_h
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_RPC_WRAPPERS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execGameIsOver) \
 	{ \
@@ -89,6 +89,16 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execGetIntScoreOfFrame) \
+	{ \
+		P_GET_PROPERTY(UIntProperty,Z_Param_frameNumber); \
+		P_GET_PROPERTY(UByteProperty,Z_Param_type); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(int32*)Z_Param__Result=this->GetIntScoreOfFrame(Z_Param_frameNumber,ScoreType(Z_Param_type)); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execCalculateScore) \
 	{ \
 		P_FINISH; \
@@ -111,10 +121,38 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_BEGIN; \
 		*(bool*)Z_Param__Result=this->WaitingForFirstThrow(); \
 		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execformatScoreString) \
+	{ \
+		P_GET_PROPERTY(UStrProperty,Z_Param_rawInputString); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FString*)Z_Param__Result=Abowling_system::formatScoreString(Z_Param_rawInputString); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execappendNewScore) \
+	{ \
+		P_GET_PROPERTY(UIntProperty,Z_Param_iScore); \
+		P_GET_PROPERTY(UNameProperty,Z_Param_playerName); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		Abowling_system::appendNewScore(Z_Param_iScore,Z_Param_playerName); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execloadScoreTable) \
+	{ \
+		P_GET_TARRAY_REF(FString,Z_Param_Out_loadedArray); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		Abowling_system::loadScoreTable(Z_Param_Out_loadedArray); \
+		P_NATIVE_END; \
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_RPC_WRAPPERS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execGameIsOver) \
 	{ \
@@ -190,6 +228,16 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execGetIntScoreOfFrame) \
+	{ \
+		P_GET_PROPERTY(UIntProperty,Z_Param_frameNumber); \
+		P_GET_PROPERTY(UByteProperty,Z_Param_type); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(int32*)Z_Param__Result=this->GetIntScoreOfFrame(Z_Param_frameNumber,ScoreType(Z_Param_type)); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execCalculateScore) \
 	{ \
 		P_FINISH; \
@@ -212,15 +260,49 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_BEGIN; \
 		*(bool*)Z_Param__Result=this->WaitingForFirstThrow(); \
 		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execformatScoreString) \
+	{ \
+		P_GET_PROPERTY(UStrProperty,Z_Param_rawInputString); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FString*)Z_Param__Result=Abowling_system::formatScoreString(Z_Param_rawInputString); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execappendNewScore) \
+	{ \
+		P_GET_PROPERTY(UIntProperty,Z_Param_iScore); \
+		P_GET_PROPERTY(UNameProperty,Z_Param_playerName); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		Abowling_system::appendNewScore(Z_Param_iScore,Z_Param_playerName); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execloadScoreTable) \
+	{ \
+		P_GET_TARRAY_REF(FString,Z_Param_Out_loadedArray); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		Abowling_system::loadScoreTable(Z_Param_Out_loadedArray); \
+		P_NATIVE_END; \
 	}
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_EVENT_PARMS
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_EVENT_PARMS \
+	struct bowling_system_eventOnStrike_Parms \
+	{ \
+		int32 count; \
+	};
+
+
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnGameover;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnSpare;
 extern MMC_BOWLING_API  FName MMC_BOWLING_OnStrike;
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_CALLBACK_WRAPPERS
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_INCLASS_NO_PURE_DECLS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_CALLBACK_WRAPPERS
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_INCLASS_NO_PURE_DECLS \
 	private: \
 	static void StaticRegisterNativesAbowling_system(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system(); \
@@ -231,7 +313,7 @@ extern MMC_BOWLING_API  FName MMC_BOWLING_OnStrike;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_INCLASS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_INCLASS \
 	private: \
 	static void StaticRegisterNativesAbowling_system(); \
 	friend MMC_BOWLING_API class UClass* Z_Construct_UClass_Abowling_system(); \
@@ -242,7 +324,7 @@ extern MMC_BOWLING_API  FName MMC_BOWLING_OnStrike;
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_STANDARD_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API Abowling_system(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(Abowling_system) \
@@ -255,7 +337,7 @@ private: \
 public:
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_ENHANCED_CONSTRUCTORS \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API Abowling_system(Abowling_system&&); \
@@ -266,28 +348,28 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(Abowling_system); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(Abowling_system)
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_43_PROLOG \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_EVENT_PARMS
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_44_PROLOG \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_EVENT_PARMS
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_GENERATED_BODY_LEGACY \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_RPC_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_CALLBACK_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_INCLASS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_STANDARD_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_RPC_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_CALLBACK_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_INCLASS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_GENERATED_BODY \
+#define MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_RPC_WRAPPERS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_CALLBACK_WRAPPERS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_INCLASS_NO_PURE_DECLS \
-	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_46_ENHANCED_CONSTRUCTORS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_RPC_WRAPPERS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_CALLBACK_WRAPPERS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_INCLASS_NO_PURE_DECLS \
+	MMC_Bowling_Source_MMC_Bowling_bowling_system_h_47_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

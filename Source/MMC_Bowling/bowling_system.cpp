@@ -22,8 +22,6 @@ Abowling_system::Abowling_system()
 
 	// Make the last frame know that it's the last one
 	lastFrame.isLast = true;
-
-
 }
 
 // Called when the game starts or when spawned
@@ -43,6 +41,46 @@ void Abowling_system::Tick(float DeltaTime)
 
 // Called on BeginPlay();, assigns pins whose names are given to our array of pins
 //void AssignPins(); //unused
+
+void Abowling_system::loadScoreTable(TArray<FString>& loadedArray) {
+	bowling_highscore_t::loadScoreTableSorted(loadedArray);
+}
+
+void Abowling_system::appendNewScore(int iScore, FName playerName) {
+	bowling_highscore_t::appendNewScore(iScore, playerName);
+}
+
+//Adds extra spaces between the integer score and player name
+//returns a new String by value
+FString Abowling_system::formatScoreString(const FString & rawInputString)
+{
+	//get local copy of input
+	FString sScore = rawInputString;
+
+	//first check that it's a valid line, otherwise we'll get out-of-bounds stuff.
+	if (bowling_highscore_t::verifyScoreLine(sScore)) {
+		int iScore = bowling_highscore_t::getScore(sScore);
+
+		//determine number of digits
+		int numDigits = 1;
+		if (iScore / 100 != 0)
+			numDigits = 3;
+		else if (iScore / 10 != 0)
+			numDigits = 2;
+
+		//get index of middle space
+		int spaceIndex = 0;
+		sScore.FindChar(' ', spaceIndex);
+
+		//finally, insert the correct number of spaces
+		int extraSpaceCount = (BOWLING_SCORE_INTERSPACES - 1) + (3-numDigits);
+		for (int i = 0; i < extraSpaceCount; i++)
+			sScore.InsertAt(spaceIndex, ' ');
+	}
+	
+	return sScore;
+}
+
 
 //checks the last frames to determine the current endgame type
 void Abowling_system::CalculateEndgameType()
@@ -72,7 +110,6 @@ void Abowling_system::CalculateEndgameType()
 			return;
 		}
 	}
-
 }
 
 //Checks the last frames to determine if the game is over
@@ -217,7 +254,7 @@ void Abowling_system::CalculateScore()
 		if (pinCount == 10)
 		{
 			strikeCount++;
-			OnStrike();
+			OnStrike(strikeCount);
 		}
 		else
 			strikeCount = 0;
@@ -233,6 +270,9 @@ void Abowling_system::CalculateScore()
 	//calculate the endgame type
 	CalculateEndgameType();
 
+	//Re-calculate the absolute scores for each frame
+	ReCalculateAbsoluteScores();
+
 	//check if the game is over
 	CheckForGameover();
 
@@ -241,12 +281,11 @@ void Abowling_system::CalculateScore()
 		frameIndex++;
 	//otherwise, 
 
-	//Re-calculate the absolute scores for each frame
-	ReCalculateAbsoluteScores();
+	
 }
 
 //Given a frame number and a score type, returns the desired score
-int Abowling_system::GetScoreOfFrame(int frameNumber, ScoreType type) const
+int Abowling_system::GetIntScoreOfFrame(int frameNumber, ScoreType type) const
 {
 	//we'll let blueprinters start from 1
 	//frameNumber--;
@@ -274,10 +313,7 @@ int Abowling_system::GetScoreOfFrame(int frameNumber, ScoreType type) const
 FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type) const
 {
 
-	int iScore = GetScoreOfFrame(frameNumber, type);
-
-	FString sScore;
-
+	int iScore = GetIntScoreOfFrame(frameNumber, type);
 	const bowling_frame& frame = Frames[frameNumber];
 
 	//handle the last three frames specially
@@ -294,8 +330,19 @@ FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type) 
 					return FString("X");
 				break;
 			case(NUMBER_OF_FRAMES - 1): //final frame
-				if (endgameType == SpareEnding)
-					return GetStringScoreOfFrame(frameNumber - 1, FirstThrow);
+				if (endgameType == SpareEnding) {
+					const bowling_frame& preFrame = Frames[frameNumber-1];
+					iScore = GetIntScoreOfFrame(frameNumber - 1, FirstThrow); //Just check it here instead of doing nasty recursion
+					
+					if (preFrame.wasStrike)
+						return FString("X");
+					if (iScore == 0)
+						return FString("-");
+					if (iScore == NOT_THROWN)
+						return FString(" ");
+					return FString::FromInt(iScore);
+				}
+					
 				if (endgameType == StrikeEnding) {
 					if (frame.wasStrike)
 						return FString("X");
@@ -308,6 +355,8 @@ FString Abowling_system::GetStringScoreOfFrame(int frameNumber, ScoreType type) 
 				break;
 		}
 	}
+
+	FString sScore;
 
 	if (type == AbsoluteScore && Frames[frameNumber].scoreIsPending)
 		sScore = FString(TEXT(" "));
@@ -409,9 +458,11 @@ void Abowling_system::ResetGame()
 }
 
 //Returns the total score for the game, i.e. the absolute score of the current frame.
-int Abowling_system::GetAbsoluteScore()
+int Abowling_system::GetAbsoluteScore() const
 {
-	return Frames[frameIndex].GsetAbsoluteScore();
+	//Clamp it to avoid the last hidden frames
+	int index = FMath::Clamp(frameIndex, 0, NUMBER_OF_FRAMES - 3);
+	return Frames[index].GetAbsoluteScore();
 }
 
 //Gsets the enumerator EndGameType, either DefaultEnding, SpareEnding or StrikeEnding. If it hasn't been determined yet, returns Undetermined.

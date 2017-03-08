@@ -406,9 +406,11 @@
     <NMakeOutput>..\..\Binaries\HTML5\MMC_Bowling-HTML5-Shipping.exe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\MMC_Bowling\bowling_highscore_t.cpp" />
     <ClCompile Include="..\..\Source\MMC_Bowling\filter_base.cpp" />
     <ClCompile Include="..\..\Source\MMC_Bowling\worldui_base.cpp" />
     <ClCompile Include="..\..\Source\MMC_Bowling\worldui_sprite.cpp" />
+    <ClInclude Include="..\..\Source\MMC_Bowling\bowling_highscore_t.h" />
     <ClInclude Include="..\..\Source\MMC_Bowling\filter_base.h" />
     <ClInclude Include="..\..\Source\MMC_Bowling\worldui_base.h" />
     <ClInclude Include="..\..\Source\MMC_Bowling\worldui_sprite.h" />

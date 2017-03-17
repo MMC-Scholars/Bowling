@@ -1,3 +1,14 @@
+// This software is under partial ownership by The Ohio State University, 
+//for it is a product of student employees. For official policy, see
+//https://tco.osu.edu/wp-content/uploads/2013/09/PatentCopyrightPolicy.pdf 
+//or contact The Ohio State University's Office of Legal Affairs
+/*
+Purpose: non-spawnable static utility class which handles file input/output
+	for scoring a game of bowling.
+
+@author Michael Trunk
+*/
+
 #include "MMC_Bowling.h"
 #include "bowling_highscore_t.h"
 
@@ -52,19 +63,27 @@ void bowling_highscore_t::sortScoreTable(TArray<FString>& scoreTable)
 		}
 	}
 
-	int max = 0;
-	int maxIndex = 0;
-	for (int i = 0; i < scoreTable.Num(); i++) {
-		//iterate through the non-sortedto get the next max
-		for (int j = i; j < scoreTable.Num(); j++) {
-			FString & curLine = scoreTable[j];//alias
-			int testMax = getScore(curLine);
-			if (testMax > max) {
-				max = testMax;
-				maxIndex = j;
-			}
+	if (scoreTable.Num() > 1)
+	{
+		int max = getScore(scoreTable[0]);
+		int maxIndex = 0;
+
+		for (int i = 0; i < scoreTable.Num() - 1; i++) {
+			//reset max and maxIndex for this next search
+			max = getScore(scoreTable[i]);
+			maxIndex = i;
+
+			//iterate through the non-sorted to get the next max
+			for (int j = i; j < scoreTable.Num(); j++) {
+				FString & curLine = scoreTable[j];//alias
+				int testMax = getScore(curLine);
+				if (testMax > max) {
+					max = testMax;
+					maxIndex = j;
+				}
+			}	
+			scoreTable.Swap(i, maxIndex);
 		}
-		scoreTable.Swap(i, maxIndex);
 	}
 }
 
@@ -119,6 +138,9 @@ bool bowling_highscore_t::verifyScoreLine(FString & lineItem)
 		printWarning(TEXT("Failed to verify score substring as an integer!"));
 		bIsValid = false;
 	}
+
+	if (!bIsValid)
+		printWarning(FString("Failed to verify score line ") + lineItem);
 
 	return bIsValid;
 }

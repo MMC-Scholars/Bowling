@@ -478,7 +478,7 @@ EndgameType Abowling_system::GetEndgameType() {
 	return endgameType;
 }
 
-//Returns the number of the current frame, 1-11
+//Returns the number of the current frame, 1-12
 int Abowling_system::GetNumberOfCurrentFrame()
 {
 	return frameIndex + 1;

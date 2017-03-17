@@ -43,7 +43,7 @@ FORCEINLINE FString getScoreTableString(const FString& filePath) {
 		}
 	}
 
-	printWarning("Could not find file for high score table!");
+	printWarning("Could not find file for high score table! Creating one...");
 	return FString(TEXT(""));
 }
 

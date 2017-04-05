@@ -39,7 +39,14 @@ public:
 
 	//Given a name, finds the target in the world.
 	UFUNCTION(BlueprintCallable, Category = "info_target")
-		static Ainfo_target *FindTargetByName( UPARAM(ref) FName &targetName, UObject* WorldContextObject);
+		static Ainfo_target *FindTargetByName( const FName targetName, const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, Category = "info_target")
+		static Ainfo_target *FindTargetNearestToLocation(const FVector worldLocation, const UObject * worldContextObject);
+
+	//For attaching extra information to the point in the world
+	UFUNCTION(BlueprintCallable, Category = "info_target")
+		virtual FString GetInfo();
 
 	//Given an actor, returns the transform from this target to the given actor
 	UFUNCTION(BlueprintCallable, Category = "info_target")

@@ -5145,7 +5145,9 @@ declare class info_target extends Actor {
 	GetTransformToActor(fromActor: Actor): Transform;
 	static GetTargetAtOrigin(WorldContextObject: UObject): info_target;
 	GetOffsetToActor(fromActor: Actor): Vector;
-	static FindTargetByName(targetName?: string,WorldContextObject?: UObject): {targetName: string, $: info_target};
+	GetInfo(): string;
+	static FindTargetNearestToLocation(worldLocation: Vector,worldContextObject: UObject): info_target;
+	static FindTargetByName(targetName: string,WorldContextObject: UObject): info_target;
 	static C(Other: UObject): info_target;
 }
 
@@ -5270,6 +5272,9 @@ declare class prop_move_base extends entity_base {
 	bIsLocked: boolean;
 	movementSpeed: number;
 	delayBeforeReset: number;
+	openSound: SoundCue;
+	bPlaySoundOnOpen: boolean;
+	audioComponent: AudioComponent;
 	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
 	static StaticClass: any;
 	static GetClassObject(): UClass;
@@ -5296,6 +5301,7 @@ declare class prop_move_base extends entity_base {
 	IsClosed(): boolean;
 	GetPosition(): number;
 	GetEstimatedTravelTime(): number;
+	static FindMoveBaseByName(targetName: string,WorldContextObject: UObject): prop_move_base;
 	Close(): void;
 	static C(Other: UObject): prop_move_base;
 }
@@ -5456,6 +5462,39 @@ declare class info_hudhint extends Actor {
 	displayMessage(): void;
 	static displayHintByName(hintName: string,WorldContextObject: UObject): void;
 	static C(Other: UObject): info_hudhint;
+}
+
+declare class info_target_character extends info_target { 
+	info: string;
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): info_target_character;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): info_target_character;
+	GetInfo(): string;
+	static AppendNearestCharacterTarget(worldLocation: Vector,appendedString?: string,worldContextObject?: UObject): {appendedString: string};
+	static C(Other: UObject): info_target_character;
+}
+
+declare class worldui_text extends TextRenderActor { 
+	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): worldui_text;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): worldui_text;
+	OnTextChanged(): void;
+	OnEnter(): void;
+	Enter(loadedString?: string): {loadedString: string};
+	Clear(): void;
+	BackSpace(): void;
+	AppendFromTargetLocation(targetLocation: Vector,loadedString?: string): {loadedString: string};
+	AppendFromTarget(target: info_target,loadedString?: string): {loadedString: string};
+	Append(suffix: string,loadedString?: string): {loadedString: string};
+	static C(Other: UObject): worldui_text;
 }
 
 declare class FlipbookEditorSettings extends UObject { 

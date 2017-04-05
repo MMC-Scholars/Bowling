@@ -30,7 +30,6 @@ void Aprop_movelinear::BeginPlay()
 // Called every frame
 void Aprop_movelinear::Tick(float DeltaSeconds)
 {
-	
 	Super::Tick(DeltaSeconds);
 }
 

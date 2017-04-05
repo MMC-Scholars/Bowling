@@ -84,8 +84,4 @@ public:
 
 	//Extracts an integer score from a line in the score table
 	static int getScore(const FString& lineItem);
-
-	
-
-
 };

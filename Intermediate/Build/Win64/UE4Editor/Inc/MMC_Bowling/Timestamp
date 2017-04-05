@@ -5,6 +5,7 @@ C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\entity_
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\filter_base.h
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\info_hudhint.h
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\info_target.h
+C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\info_target_character.h
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\prop_movelinear.h
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\prop_move_base.h
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\prop_rotator.h
@@ -13,3 +14,4 @@ C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\prop_wo
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\util_debug.h
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\worldui_base.h
 C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\worldui_sprite.h
+C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Source\MMC_Bowling\worldui_text.h

@@ -38,13 +38,31 @@ class Ainfo_target;
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execGetInfo) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FString*)Z_Param__Result=this->GetInfo(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execFindTargetNearestToLocation) \
+	{ \
+		P_GET_STRUCT(FVector,Z_Param_worldLocation); \
+		P_GET_OBJECT(UObject,Z_Param_worldContextObject); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(Ainfo_target**)Z_Param__Result=Ainfo_target::FindTargetNearestToLocation(Z_Param_worldLocation,Z_Param_worldContextObject); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execFindTargetByName) \
 	{ \
-		P_GET_PROPERTY_REF(UNameProperty,Z_Param_Out_targetName); \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
 		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		*(Ainfo_target**)Z_Param__Result=Ainfo_target::FindTargetByName(Z_Param_Out_targetName,Z_Param_WorldContextObject); \
+		*(Ainfo_target**)Z_Param__Result=Ainfo_target::FindTargetByName(Z_Param_targetName,Z_Param_WorldContextObject); \
 		P_NATIVE_END; \
 	} \
  \
@@ -78,13 +96,31 @@ class Ainfo_target;
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execGetInfo) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FString*)Z_Param__Result=this->GetInfo(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execFindTargetNearestToLocation) \
+	{ \
+		P_GET_STRUCT(FVector,Z_Param_worldLocation); \
+		P_GET_OBJECT(UObject,Z_Param_worldContextObject); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(Ainfo_target**)Z_Param__Result=Ainfo_target::FindTargetNearestToLocation(Z_Param_worldLocation,Z_Param_worldContextObject); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execFindTargetByName) \
 	{ \
-		P_GET_PROPERTY_REF(UNameProperty,Z_Param_Out_targetName); \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
 		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		*(Ainfo_target**)Z_Param__Result=Ainfo_target::FindTargetByName(Z_Param_Out_targetName,Z_Param_WorldContextObject); \
+		*(Ainfo_target**)Z_Param__Result=Ainfo_target::FindTargetByName(Z_Param_targetName,Z_Param_WorldContextObject); \
 		P_NATIVE_END; \
 	} \
  \

@@ -118,6 +118,12 @@
     <ClCompile Include="..\..\Source\MMC_Bowling\bowling_highscore_t.cpp">
       <Filter>Source\MMC_Bowling\bowling</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\info_target_character.cpp">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MMC_Bowling\worldui_text.cpp">
+      <Filter>Source\MMC_Bowling\worldui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\MMC_Bowling\info_hudhint.h">
@@ -155,6 +161,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\MMC_Bowling\bowling_highscore_t.h">
       <Filter>Source\MMC_Bowling\bowling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\info_target_character.h">
+      <Filter>Source\MMC_Bowling\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MMC_Bowling\worldui_text.h">
+      <Filter>Source\MMC_Bowling\worldui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

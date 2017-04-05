@@ -50,3 +50,9 @@
 #ifndef MMC_BOWLING_info_hudhint_generated_h
 	#include "info_hudhint.h"
 #endif
+#ifndef MMC_BOWLING_info_target_character_generated_h
+	#include "info_target_character.h"
+#endif
+#ifndef MMC_BOWLING_worldui_text_generated_h
+	#include "worldui_text.h"
+#endif

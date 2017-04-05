@@ -8,6 +8,8 @@
 #include "ObjectBase.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UObject;
+class Aprop_move_base;
 class AActor;
 #ifdef MMC_BOWLING_prop_move_base_generated_h
 #error "prop_move_base.generated.h already included, missing '#pragma once' in prop_move_base.h"
@@ -15,6 +17,16 @@ class AActor;
 #define MMC_BOWLING_prop_move_base_generated_h
 
 #define MMC_Bowling_Source_MMC_Bowling_prop_move_base_h_23_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execFindMoveBaseByName) \
+	{ \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(Aprop_move_base**)Z_Param__Result=Aprop_move_base::FindMoveBaseByName(Z_Param_targetName,Z_Param_WorldContextObject); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execIsMoving) \
 	{ \
@@ -133,6 +145,16 @@ class AActor;
 
 
 #define MMC_Bowling_Source_MMC_Bowling_prop_move_base_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execFindMoveBaseByName) \
+	{ \
+		P_GET_PROPERTY(UNameProperty,Z_Param_targetName); \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(Aprop_move_base**)Z_Param__Result=Aprop_move_base::FindMoveBaseByName(Z_Param_targetName,Z_Param_WorldContextObject); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execIsMoving) \
 	{ \

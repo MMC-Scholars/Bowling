@@ -14,6 +14,7 @@ FName MMC_BOWLING_OnChangePosition = FName(TEXT("OnChangePosition"));
 FName MMC_BOWLING_OnClosed = FName(TEXT("OnClosed"));
 FName MMC_BOWLING_OnEndRaiseAndLower = FName(TEXT("OnEndRaiseAndLower"));
 FName MMC_BOWLING_OnEndResetAndLower = FName(TEXT("OnEndResetAndLower"));
+FName MMC_BOWLING_OnEnter = FName(TEXT("OnEnter"));
 FName MMC_BOWLING_OnFail = FName(TEXT("OnFail"));
 FName MMC_BOWLING_OnFocus = FName(TEXT("OnFocus"));
 FName MMC_BOWLING_OnFullyClosed = FName(TEXT("OnFullyClosed"));
@@ -29,6 +30,7 @@ FName MMC_BOWLING_OnRaiseAndLower = FName(TEXT("OnRaiseAndLower"));
 FName MMC_BOWLING_OnResetAndLower = FName(TEXT("OnResetAndLower"));
 FName MMC_BOWLING_OnSpare = FName(TEXT("OnSpare"));
 FName MMC_BOWLING_OnStrike = FName(TEXT("OnStrike"));
+FName MMC_BOWLING_OnTextChanged = FName(TEXT("OnTextChanged"));
 FName MMC_BOWLING_OnUse = FName(TEXT("OnUse"));
 FName MMC_BOWLING_OnUseIgnored = FName(TEXT("OnUseIgnored"));
 FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
@@ -43,11 +45,13 @@ FName MMC_BOWLING_OnUseLocked = FName(TEXT("OnUseLocked"));
 	void Ainfo_target::StaticRegisterNativesAinfo_target()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "FindTargetByName",(Native)&Ainfo_target::execFindTargetByName);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "FindTargetNearestToLocation",(Native)&Ainfo_target::execFindTargetNearestToLocation);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetInfo",(Native)&Ainfo_target::execGetInfo);
 		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetOffsetToActor",(Native)&Ainfo_target::execGetOffsetToActor);
 		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTargetAtOrigin",(Native)&Ainfo_target::execGetTargetAtOrigin);
 		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target::StaticClass(), "GetTransformToActor",(Native)&Ainfo_target::execGetTransformToActor);
 	}
-	IMPLEMENT_CLASS(Ainfo_target, 1960245805);
+	IMPLEMENT_CLASS(Ainfo_target, 3487043369);
 	void Aentity_base::OnKilled()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnKilled),NULL);
@@ -203,6 +207,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	void Aprop_move_base::StaticRegisterNativesAprop_move_base()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Close",(Native)&Aprop_move_base::execClose);
+		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "FindMoveBaseByName",(Native)&Aprop_move_base::execFindMoveBaseByName);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_move_base::execGetEstimatedTravelTime);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "GetPosition",(Native)&Aprop_move_base::execGetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "IsClosed",(Native)&Aprop_move_base::execIsClosed);
@@ -217,7 +222,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Toggle",(Native)&Aprop_move_base::execToggle);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_move_base::StaticClass(), "Use",(Native)&Aprop_move_base::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_move_base, 2568055967);
+	IMPLEMENT_CLASS(Aprop_move_base, 2684363391);
 	void Aprop_movelinear::StaticRegisterNativesAprop_movelinear()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "GetEstimatedTravelTime",(Native)&Aprop_movelinear::execGetEstimatedTravelTime);
@@ -228,7 +233,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "SetSpeed",(Native)&Aprop_movelinear::execSetSpeed);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_movelinear::StaticClass(), "Use",(Native)&Aprop_movelinear::execUse);
 	}
-	IMPLEMENT_CLASS(Aprop_movelinear, 1736417528);
+	IMPLEMENT_CLASS(Aprop_movelinear, 459859586);
 	void Aprop_worldbutton::OnPressed()
 	{
 		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnPressed),NULL);
@@ -237,7 +242,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_worldbutton::StaticClass(), "Press",(Native)&Aprop_worldbutton::execPress);
 	}
-	IMPLEMENT_CLASS(Aprop_worldbutton, 2118849983);
+	IMPLEMENT_CLASS(Aprop_worldbutton, 4036938409);
 	void Aprop_rotator::StaticRegisterNativesAprop_rotator()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "IsClosed",(Native)&Aprop_rotator::execIsClosed);
@@ -246,7 +251,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetPosition",(Native)&Aprop_rotator::execSetPosition);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator::StaticClass(), "SetSpeed",(Native)&Aprop_rotator::execSetSpeed);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator, 531813387);
+	IMPLEMENT_CLASS(Aprop_rotator, 1671795313);
 	void Aprop_rotator_pivoted::StaticRegisterNativesAprop_rotator_pivoted()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "GetTarget",(Native)&Aprop_rotator_pivoted::execGetTarget);
@@ -254,7 +259,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ScoreType(ScoreType_Stat
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTarget",(Native)&Aprop_rotator_pivoted::execSetTarget);
 		FNativeFunctionRegistrar::RegisterFunction(Aprop_rotator_pivoted::StaticClass(), "SetTargetByName",(Native)&Aprop_rotator_pivoted::execSetTargetByName);
 	}
-	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 3554294372);
+	IMPLEMENT_CLASS(Aprop_rotator_pivoted, 4211152584);
 	void Aworldui_base::OnActivate(AActor* caller)
 	{
 		worldui_base_eventOnActivate_Parms Parms;
@@ -341,6 +346,30 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 		FNativeFunctionRegistrar::RegisterFunction(Ainfo_hudhint::StaticClass(), "setColor",(Native)&Ainfo_hudhint::execsetColor);
 	}
 	IMPLEMENT_CLASS(Ainfo_hudhint, 1160347698);
+	void Ainfo_target_character::StaticRegisterNativesAinfo_target_character()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target_character::StaticClass(), "AppendNearestCharacterTarget",(Native)&Ainfo_target_character::execAppendNearestCharacterTarget);
+		FNativeFunctionRegistrar::RegisterFunction(Ainfo_target_character::StaticClass(), "GetInfo",(Native)&Ainfo_target_character::execGetInfo);
+	}
+	IMPLEMENT_CLASS(Ainfo_target_character, 2279484716);
+	void Aworldui_text::OnEnter()
+	{
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnEnter),NULL);
+	}
+	void Aworldui_text::OnTextChanged()
+	{
+		ProcessEvent(FindFunctionChecked(MMC_BOWLING_OnTextChanged),NULL);
+	}
+	void Aworldui_text::StaticRegisterNativesAworldui_text()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_text::StaticClass(), "Append",(Native)&Aworldui_text::execAppend);
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_text::StaticClass(), "AppendFromTarget",(Native)&Aworldui_text::execAppendFromTarget);
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_text::StaticClass(), "AppendFromTargetLocation",(Native)&Aworldui_text::execAppendFromTargetLocation);
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_text::StaticClass(), "BackSpace",(Native)&Aworldui_text::execBackSpace);
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_text::StaticClass(), "Clear",(Native)&Aworldui_text::execClear);
+		FNativeFunctionRegistrar::RegisterFunction(Aworldui_text::StaticClass(), "Enter",(Native)&Aworldui_text::execEnter);
+	}
+	IMPLEMENT_CLASS(Aworldui_text, 2807487202);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	ENGINE_API class UClass* Z_Construct_UClass_AActor();
@@ -349,9 +378,12 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 	ENGINE_API class UClass* Z_Construct_UClass_AActor_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FTransform();
 	ENGINE_API class UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
+	ENGINE_API class UClass* Z_Construct_UClass_UAudioComponent_NoRegister();
+	ENGINE_API class UClass* Z_Construct_UClass_USoundCue_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 	ENGINE_API class UClass* Z_Construct_UClass_UBillboardComponent_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FColor();
+	ENGINE_API class UClass* Z_Construct_UClass_ATextRenderActor();
 
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Autil_debug_PrintFatal();
@@ -360,6 +392,8 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Autil_debug();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetByName();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetNearestToLocation();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetInfo();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetOffsetToActor();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_GetTransformToActor();
@@ -421,6 +455,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_launcher_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aentity_launcher();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_Close();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_FindMoveBaseByName();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_GetEstimatedTravelTime();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_GetPosition();
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aprop_move_base_IsClosed();
@@ -499,6 +534,20 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_hudhint_setColor();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_hudhint_NoRegister();
 	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_hudhint();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_character_AppendNearestCharacterTarget();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Ainfo_target_character_GetInfo();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target_character_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Ainfo_target_character();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_text_Append();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_text_AppendFromTarget();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_text_AppendFromTargetLocation();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_text_BackSpace();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_text_Clear();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_text_Enter();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_text_OnEnter();
+	MMC_BOWLING_API class UFunction* Z_Construct_UFunction_Aworldui_text_OnTextChanged();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aworldui_text_NoRegister();
+	MMC_BOWLING_API class UClass* Z_Construct_UClass_Aworldui_text();
 	MMC_BOWLING_API class UPackage* Z_Construct_UPackage__Script_MMC_Bowling();
 	UFunction* Z_Construct_UFunction_Autil_debug_PrintBlurp()
 	{
@@ -636,17 +685,17 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 		struct info_target_eventFindTargetByName_Parms
 		{
 			FName targetName;
-			UObject* WorldContextObject;
+			const UObject* WorldContextObject;
 			Ainfo_target* ReturnValue;
 		};
 		UObject* Outer=Z_Construct_UClass_Ainfo_target();
 		static UFunction* ReturnFunction = NULL;
 		if (!ReturnFunction)
 		{
-			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindTargetByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04422401, 65535, sizeof(info_target_eventFindTargetByName_Parms));
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindTargetByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(info_target_eventFindTargetByName_Parms));
 			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventFindTargetByName_Parms), 0x0010000000000580, Z_Construct_UClass_Ainfo_target_NoRegister());
-			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, info_target_eventFindTargetByName_Parms), 0x0010000000000080, Z_Construct_UClass_UObject_NoRegister());
-			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, info_target_eventFindTargetByName_Parms), 0x0010000008000180);
+			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, info_target_eventFindTargetByName_Parms), 0x0010000000000082, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, info_target_eventFindTargetByName_Parms), 0x0010000000000082);
 			ReturnFunction->Bind();
 			ReturnFunction->StaticLink();
 #if WITH_METADATA
@@ -654,6 +703,59 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
 			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
 			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Given a name, finds the target in the world."));
+			MetaData->SetValue(NewProp_WorldContextObject, TEXT("NativeConst"), TEXT(""));
+			MetaData->SetValue(NewProp_targetName, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Ainfo_target_FindTargetNearestToLocation()
+	{
+		struct info_target_eventFindTargetNearestToLocation_Parms
+		{
+			FVector worldLocation;
+			const UObject* worldContextObject;
+			Ainfo_target* ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_target();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindTargetNearestToLocation"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04822401, 65535, sizeof(info_target_eventFindTargetNearestToLocation_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventFindTargetNearestToLocation_Parms), 0x0010000000000580, Z_Construct_UClass_Ainfo_target_NoRegister());
+			UProperty* NewProp_worldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("worldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(worldContextObject, info_target_eventFindTargetNearestToLocation_Parms), 0x0010000000000082, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_worldLocation = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("worldLocation"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(worldLocation, info_target_eventFindTargetNearestToLocation_Parms), 0x0010000000000082, Z_Construct_UScriptStruct_FVector());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
+			MetaData->SetValue(NewProp_worldContextObject, TEXT("NativeConst"), TEXT(""));
+			MetaData->SetValue(NewProp_worldLocation, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Ainfo_target_GetInfo()
+	{
+		struct info_target_eventGetInfo_Parms
+		{
+			FString ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_target();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetInfo"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(info_target_eventGetInfo_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_eventGetInfo_Parms), 0x0010000000000580);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("For attaching extra information to the point in the world"));
 #endif
 		}
 		return ReturnFunction;
@@ -751,11 +853,15 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_FilterType(FilterType_St
 				OuterClass->ClassFlags |= 0x20900080;
 
 				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_FindTargetByName());
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_FindTargetNearestToLocation());
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetInfo());
 				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetOffsetToActor());
 				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin());
 				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_GetTransformToActor());
 
-				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_FindTargetByName(), "FindTargetByName"); // 2072071650
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_FindTargetByName(), "FindTargetByName"); // 27372757
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_FindTargetNearestToLocation(), "FindTargetNearestToLocation"); // 3587774580
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetInfo(), "GetInfo"); // 694423028
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetOffsetToActor(), "GetOffsetToActor"); // 4083334231
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetTargetAtOrigin(), "GetTargetAtOrigin"); // 3003452946
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_GetTransformToActor(), "GetTransformToActor"); // 3792080477
@@ -2155,6 +2261,34 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		}
 		return ReturnFunction;
 	}
+	UFunction* Z_Construct_UFunction_Aprop_move_base_FindMoveBaseByName()
+	{
+		struct prop_move_base_eventFindMoveBaseByName_Parms
+		{
+			FName targetName;
+			const UObject* WorldContextObject;
+			Aprop_move_base* ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Aprop_move_base();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("FindMoveBaseByName"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04022401, 65535, sizeof(prop_move_base_eventFindMoveBaseByName_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(ReturnValue, prop_move_base_eventFindMoveBaseByName_Parms), 0x0010000000000580, Z_Construct_UClass_Aprop_move_base_NoRegister());
+			UProperty* NewProp_WorldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("WorldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WorldContextObject, prop_move_base_eventFindMoveBaseByName_Parms), 0x0010000000000082, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_targetName = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetName"), RF_Public|RF_Transient|RF_MarkAsNative) UNameProperty(CPP_PROPERTY_BASE(targetName, prop_move_base_eventFindMoveBaseByName_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("prop_move_base"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("prop_move_base.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Finder function"));
+			MetaData->SetValue(NewProp_WorldContextObject, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_Aprop_move_base_GetEstimatedTravelTime()
 	{
 		struct prop_move_base_eventGetEstimatedTravelTime_Parms
@@ -2566,6 +2700,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->ClassFlags |= 0x20900080;
 
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_Close());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_FindMoveBaseByName());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_GetEstimatedTravelTime());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_GetPosition());
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_IsClosed());
@@ -2587,12 +2722,17 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->LinkChild(Z_Construct_UFunction_Aprop_move_base_Use());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_audioComponent = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("audioComponent"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(audioComponent, Aprop_move_base), 0x001000000008000d, Z_Construct_UClass_UAudioComponent_NoRegister());
+				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bPlaySoundOnOpen, Aprop_move_base, bool);
+				UProperty* NewProp_bPlaySoundOnOpen = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bPlaySoundOnOpen"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bPlaySoundOnOpen, Aprop_move_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bPlaySoundOnOpen, Aprop_move_base), sizeof(bool), true);
+				UProperty* NewProp_openSound = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("openSound"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(openSound, Aprop_move_base), 0x0010000000000005, Z_Construct_UClass_USoundCue_NoRegister());
 				UProperty* NewProp_delayBeforeReset = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("delayBeforeReset"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(delayBeforeReset, Aprop_move_base), 0x0010000000000005);
 				UProperty* NewProp_movementSpeed = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("movementSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(movementSpeed, Aprop_move_base), 0x0010000000000015);
 				CPP_BOOL_PROPERTY_BITMASK_STRUCT(bIsLocked, Aprop_move_base, bool);
 				UProperty* NewProp_bIsLocked = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("bIsLocked"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bIsLocked, Aprop_move_base), 0x0010000000000005, CPP_BOOL_PROPERTY_BITMASK(bIsLocked, Aprop_move_base), sizeof(bool), true);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_Close(), "Close"); // 2947266904
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_FindMoveBaseByName(), "FindMoveBaseByName"); // 2519548413
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_GetEstimatedTravelTime(), "GetEstimatedTravelTime"); // 1033403312
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_GetPosition(), "GetPosition"); // 1368212732
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aprop_move_base_IsClosed(), "IsClosed"); // 2756519875
@@ -2617,6 +2757,15 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
 				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("prop_move_base.h"));
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("prop_move_base.h"));
+				MetaData->SetValue(NewProp_audioComponent, TEXT("Category"), TEXT("prop_move_base"));
+				MetaData->SetValue(NewProp_audioComponent, TEXT("EditInline"), TEXT("true"));
+				MetaData->SetValue(NewProp_audioComponent, TEXT("ModuleRelativePath"), TEXT("prop_move_base.h"));
+				MetaData->SetValue(NewProp_audioComponent, TEXT("ToolTip"), TEXT("Sound emitter which becomes attached to this entity"));
+				MetaData->SetValue(NewProp_bPlaySoundOnOpen, TEXT("Category"), TEXT("prop_move_base"));
+				MetaData->SetValue(NewProp_bPlaySoundOnOpen, TEXT("ModuleRelativePath"), TEXT("prop_move_base.h"));
+				MetaData->SetValue(NewProp_openSound, TEXT("Category"), TEXT("prop_move_base"));
+				MetaData->SetValue(NewProp_openSound, TEXT("ModuleRelativePath"), TEXT("prop_move_base.h"));
+				MetaData->SetValue(NewProp_openSound, TEXT("ToolTip"), TEXT("Sound system"));
 				MetaData->SetValue(NewProp_delayBeforeReset, TEXT("Category"), TEXT("prop_move_base"));
 				MetaData->SetValue(NewProp_delayBeforeReset, TEXT("ModuleRelativePath"), TEXT("prop_move_base.h"));
 				MetaData->SetValue(NewProp_movementSpeed, TEXT("Category"), TEXT("prop_move_base"));
@@ -4079,6 +4228,310 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_Ainfo_hudhint(Z_Construct_UClass_Ainfo_hudhint, &Ainfo_hudhint::StaticClass, TEXT("Ainfo_hudhint"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(Ainfo_hudhint);
+	UFunction* Z_Construct_UFunction_Ainfo_target_character_AppendNearestCharacterTarget()
+	{
+		struct info_target_character_eventAppendNearestCharacterTarget_Parms
+		{
+			FVector worldLocation;
+			FString appendedString;
+			const UObject* worldContextObject;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_target_character();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("AppendNearestCharacterTarget"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04C22401, 65535, sizeof(info_target_character_eventAppendNearestCharacterTarget_Parms));
+			UProperty* NewProp_worldContextObject = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("worldContextObject"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(worldContextObject, info_target_character_eventAppendNearestCharacterTarget_Parms), 0x0010000000000082, Z_Construct_UClass_UObject_NoRegister());
+			UProperty* NewProp_appendedString = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("appendedString"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(appendedString, info_target_character_eventAppendNearestCharacterTarget_Parms), 0x0010000008000180);
+			UProperty* NewProp_worldLocation = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("worldLocation"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(worldLocation, info_target_character_eventAppendNearestCharacterTarget_Parms), 0x0010000000000080, Z_Construct_UScriptStruct_FVector());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target_character"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target_character.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Finds the nearest info_target and if it's an info_target_characters appends its info to the given string"));
+			MetaData->SetValue(NewProp_worldContextObject, TEXT("NativeConst"), TEXT(""));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Ainfo_target_character_GetInfo()
+	{
+		struct info_target_character_eventGetInfo_Parms
+		{
+			FString ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_Ainfo_target_character();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetInfo"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020400, 65535, sizeof(info_target_character_eventGetInfo_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(ReturnValue, info_target_character_eventGetInfo_Parms), 0x0010000000000580);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("info_target"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("info_target_character.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Ainfo_target_character_NoRegister()
+	{
+		return Ainfo_target_character::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Ainfo_target_character()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_Ainfo_target();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Ainfo_target_character::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_character_AppendNearestCharacterTarget());
+				OuterClass->LinkChild(Z_Construct_UFunction_Ainfo_target_character_GetInfo());
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_info = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("info"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(info, Ainfo_target_character), 0x0010000000000005);
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_character_AppendNearestCharacterTarget(), "AppendNearestCharacterTarget"); // 2608424779
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Ainfo_target_character_GetInfo(), "GetInfo"); // 32272777
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("info_target_character.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("info_target_character.h"));
+				MetaData->SetValue(NewProp_info, TEXT("Category"), TEXT("info_target_character"));
+				MetaData->SetValue(NewProp_info, TEXT("ModuleRelativePath"), TEXT("info_target_character.h"));
+				MetaData->SetValue(NewProp_info, TEXT("ToolTip"), TEXT("For attaching extra information to the point in the world"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Ainfo_target_character(Z_Construct_UClass_Ainfo_target_character, &Ainfo_target_character::StaticClass, TEXT("Ainfo_target_character"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Ainfo_target_character);
+	UFunction* Z_Construct_UFunction_Aworldui_text_Append()
+	{
+		struct worldui_text_eventAppend_Parms
+		{
+			FString suffix;
+			FString loadedString;
+		};
+		UObject* Outer=Z_Construct_UClass_Aworldui_text();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Append"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04420401, 65535, sizeof(worldui_text_eventAppend_Parms));
+			UProperty* NewProp_loadedString = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("loadedString"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(loadedString, worldui_text_eventAppend_Parms), 0x0010000008000180);
+			UProperty* NewProp_suffix = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("suffix"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(suffix, worldui_text_eventAppend_Parms), 0x0010000000000080);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Aworldui_text"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_text_AppendFromTarget()
+	{
+		struct worldui_text_eventAppendFromTarget_Parms
+		{
+			Ainfo_target* target;
+			FString loadedString;
+		};
+		UObject* Outer=Z_Construct_UClass_Aworldui_text();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("AppendFromTarget"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04420401, 65535, sizeof(worldui_text_eventAppendFromTarget_Parms));
+			UProperty* NewProp_loadedString = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("loadedString"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(loadedString, worldui_text_eventAppendFromTarget_Parms), 0x0010000008000180);
+			UProperty* NewProp_target = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("target"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(target, worldui_text_eventAppendFromTarget_Parms), 0x0010000000000080, Z_Construct_UClass_Ainfo_target_NoRegister());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Aworldui_text"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_text_AppendFromTargetLocation()
+	{
+		struct worldui_text_eventAppendFromTargetLocation_Parms
+		{
+			FVector targetLocation;
+			FString loadedString;
+		};
+		UObject* Outer=Z_Construct_UClass_Aworldui_text();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("AppendFromTargetLocation"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04C20401, 65535, sizeof(worldui_text_eventAppendFromTargetLocation_Parms));
+			UProperty* NewProp_loadedString = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("loadedString"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(loadedString, worldui_text_eventAppendFromTargetLocation_Parms), 0x0010000008000180);
+			UProperty* NewProp_targetLocation = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("targetLocation"), RF_Public|RF_Transient|RF_MarkAsNative) UStructProperty(CPP_PROPERTY_BASE(targetLocation, worldui_text_eventAppendFromTargetLocation_Parms), 0x0010000000000080, Z_Construct_UScriptStruct_FVector());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Aworldui_text"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Finds the info_target nearest to the given location and appends its info"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_text_BackSpace()
+	{
+		UObject* Outer=Z_Construct_UClass_Aworldui_text();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("BackSpace"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Aworldui_text"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_text_Clear()
+	{
+		UObject* Outer=Z_Construct_UClass_Aworldui_text();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Clear"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Aworldui_text"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_text_Enter()
+	{
+		struct worldui_text_eventEnter_Parms
+		{
+			FString loadedString;
+		};
+		UObject* Outer=Z_Construct_UClass_Aworldui_text();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("Enter"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04420401, 65535, sizeof(worldui_text_eventEnter_Parms));
+			UProperty* NewProp_loadedString = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("loadedString"), RF_Public|RF_Transient|RF_MarkAsNative) UStrProperty(CPP_PROPERTY_BASE(loadedString, worldui_text_eventEnter_Parms), 0x0010000008000180);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Aworldui_text"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_text_OnEnter()
+	{
+		UObject* Outer=Z_Construct_UClass_Aworldui_text();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnEnter"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Aworldui_text"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Called at the end of Enter();"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_Aworldui_text_OnTextChanged()
+	{
+		UObject* Outer=Z_Construct_UClass_Aworldui_text();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("OnTextChanged"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08020800, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Aworldui_text"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Called whenever a worldui_text specific function is called. Not called on SetText(...)"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_Aworldui_text_NoRegister()
+	{
+		return Aworldui_text::StaticClass();
+	}
+	UClass* Z_Construct_UClass_Aworldui_text()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_ATextRenderActor();
+			Z_Construct_UPackage__Script_MMC_Bowling();
+			OuterClass = Aworldui_text::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_text_Append());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_text_AppendFromTarget());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_text_AppendFromTargetLocation());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_text_BackSpace());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_text_Clear());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_text_Enter());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_text_OnEnter());
+				OuterClass->LinkChild(Z_Construct_UFunction_Aworldui_text_OnTextChanged());
+
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_text_Append(), "Append"); // 2068616030
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_text_AppendFromTarget(), "AppendFromTarget"); // 3918255875
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_text_AppendFromTargetLocation(), "AppendFromTargetLocation"); // 1066353082
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_text_BackSpace(), "BackSpace"); // 200728985
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_text_Clear(), "Clear"); // 18883415
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_text_Enter(), "Enter"); // 3544010998
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_text_OnEnter(), "OnEnter"); // 1100113730
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_Aworldui_text_OnTextChanged(), "OnTextChanged"); // 2972886334
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("HideCategories"), TEXT("Collision Attachment Actor"));
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("worldui_text.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("worldui_text.h"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_Aworldui_text(Z_Construct_UClass_Aworldui_text, &Aworldui_text::StaticClass, TEXT("Aworldui_text"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(Aworldui_text);
 	UPackage* Z_Construct_UPackage__Script_MMC_Bowling()
 	{
 		static UPackage* ReturnPackage = NULL;
@@ -4087,8 +4540,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/MMC_Bowling")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0xE2D61969;
-			Guid.B = 0x3D7F56B7;
+			Guid.A = 0x86A43EC7;
+			Guid.B = 0xD7F40C7A;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

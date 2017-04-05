@@ -65,6 +65,16 @@ public:
 	//Constructor
 	Aprop_move_base();
 
+	//Sound system
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "prop_move_base")
+	USoundCue * openSound;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "prop_move_base")
+	bool bPlaySoundOnOpen = true;
+
+	//Sound emitter which becomes attached to this entity
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "prop_move_base")
+	UAudioComponent * audioComponent;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -122,6 +132,10 @@ public:
 		virtual bool IsClosing() const;
 	UFUNCTION(BlueprintCallable, Category = "prop_move_base")
 		virtual bool IsMoving() const;
+
+	//Finder function
+	UFUNCTION(BlueprintCallable, Category = "prop_move_base")
+	static Aprop_move_base *FindMoveBaseByName(FName targetName, UObject const * const WorldContextObject);
 
 	//Blueprint implementable events
 	UFUNCTION(BlueprintImplementableEvent, Category = "prop_move_base")

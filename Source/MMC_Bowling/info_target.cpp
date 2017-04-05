@@ -35,7 +35,7 @@ Ainfo_target * Ainfo_target::GetTargetAtOrigin(UObject* WorldContextObject)
 }
 
 //Given a name, finds the target in the world.
-Ainfo_target * Ainfo_target::FindTargetByName(FName &targetName, UObject* WorldContextObject)
+Ainfo_target * Ainfo_target::FindTargetByName(const FName targetName, const UObject* WorldContextObject)
 {
 	UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject);
 	for (TActorIterator<Ainfo_target> ActorItr(World); ActorItr; ++ActorItr)
@@ -45,6 +45,36 @@ Ainfo_target * Ainfo_target::FindTargetByName(FName &targetName, UObject* WorldC
 			return curTarget;
 	}
 	return nullptr;
+}
+
+Ainfo_target * Ainfo_target::FindTargetNearestToLocation(const FVector worldLocation, const UObject* worldContextObject)
+{
+	Ainfo_target * nearestTarget = (Ainfo_target*)nullptr;
+	if (worldContextObject) {
+		//declare local variables
+		UWorld* world = GEngine->GetWorldFromContextObject(worldContextObject);
+		float minDistance = FLT_MAX;
+
+		//find closest target
+		for (TActorIterator<Ainfo_target> ActorItr(world); ActorItr; ++ActorItr) {
+			Ainfo_target * curTarget = *ActorItr;
+
+			if (curTarget) {
+				float distance = FVector::Dist((curTarget->GetActorLocation() - worldLocation), FVector::ZeroVector);
+				if (distance < minDistance) {
+					minDistance = distance;
+					nearestTarget = curTarget;
+				}
+			}
+		}
+	}
+	return nearestTarget;
+}
+
+//Retrieves the extra information bound to the point. Default is empty string
+FString Ainfo_target::GetInfo()
+{
+	return FString("");
 }
 
 //Given an actor, returns the transform from this target to the given actor

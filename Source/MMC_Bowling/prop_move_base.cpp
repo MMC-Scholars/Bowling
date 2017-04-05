@@ -14,15 +14,23 @@ void Aprop_move_base::SetSpeed(float newSpeed)
 Aprop_move_base::Aprop_move_base()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	//initialize audio component
+	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComp"));
+	audioComponent->bAutoActivate = false;
+	audioComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 }
 
 void Aprop_move_base::BeginPlay()
 {
 	Super::BeginPlay();
 
-
 	//Call SetSpeed(...) to calculate the initial lerp speed or whatever else is defined
 	SetSpeed(movementSpeed);
+
+	//Attach the sound cue to the audio component
+	if(openSound)
+		audioComponent->SetSound(openSound);
 }
 
 void Aprop_move_base::Tick(float DeltaSeconds)
@@ -40,6 +48,7 @@ void Aprop_move_base::Tick(float DeltaSeconds)
 
 /*
 These next two functions and defined by child classes
+Must be defined here to comply with UnrealHeaderTool
 */
 void Aprop_move_base::processOpen(float DeltaSeconds)
 {
@@ -71,9 +80,6 @@ void Aprop_move_base::Open()
 	if (bIsOpening)
 		return;
 
-	//Call the implementable event
-	OnOpened();
-
 	//make sure we stop closing and start opening; also start waiting
 	bIsClosing = false;
 	bIsOpening = true;
@@ -82,6 +88,13 @@ void Aprop_move_base::Open()
 	if (delayBeforeReset > 0.0f)
 		bIsWaitingToClose = true; waitingTime = 0.0f;
 	//the tick function will then call for processOpen(...)
+
+	if (bPlaySoundOnOpen) {
+		audioComponent->Play();
+	}
+
+	//Call the implementable event
+	OnOpened();
 }
 
 void Aprop_move_base::Close()
@@ -96,14 +109,18 @@ void Aprop_move_base::Close()
 	if (bIsClosing)
 		return;
 
-	//Call the implementable event
-	OnClosed();
-
 	//make sure we stop opening and start closing; also stop waiting
 	bIsClosing = true;
 	bIsOpening = false;
 	bIsWaitingToClose = false; waitingTime = 0.0f;
 	//the tick function will then call for processClose(...)
+
+	if (bPlaySoundOnOpen) {
+		audioComponent->Play();
+	}
+
+	//Call the implementable event
+	OnClosed();
 }
 
 void Aprop_move_base::Toggle()
@@ -181,3 +198,5 @@ bool Aprop_move_base::IsMoving() const
 {
 	return (bIsClosing || bIsOpening);
 }
+
+IMPLEMENT_FINDER(Aprop_move_base, MoveBase)

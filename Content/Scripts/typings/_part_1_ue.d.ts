@@ -1,3 +1,96 @@
+declare type EPostCopyOperation = string | symbol;
+declare var EPostCopyOperation = { None:'None',LogicalNegateBool:'LogicalNegateBool', };
+declare class ExposedValueCopyRecord { 
+	SourceProperty: Property;
+	SourcePropertyName: string;
+	SourceSubPropertyName: string;
+	SourceArrayIndex: number;
+	DestProperty: Property;
+	DestArrayIndex: number;
+	Size: number;
+	bInstanceIsTarget: boolean;
+	PostCopyOperation: EPostCopyOperation;
+	CachedBoolSourceProperty: BoolProperty;
+	CachedBoolDestProperty: BoolProperty;
+	clone() : ExposedValueCopyRecord;
+	static C(Other: UObject): ExposedValueCopyRecord;
+}
+
+declare class ExposedValueHandler { 
+	BoundFunction: string;
+	CopyRecords: ExposedValueCopyRecord[];
+	clone() : ExposedValueHandler;
+	static C(Other: UObject): ExposedValueHandler;
+}
+
+declare class AnimNode_Base { 
+	EvaluateGraphExposedInputs: ExposedValueHandler;
+	clone() : AnimNode_Base;
+	static C(Other: UObject): AnimNode_Base;
+}
+
+declare class PoseLinkBase { 
+	LinkID: number;
+	SourceLinkID: number;
+	clone() : PoseLinkBase;
+	static C(Other: UObject): PoseLinkBase;
+}
+
+declare class PoseLink extends PoseLinkBase { 
+	clone() : PoseLink;
+	static C(Other: UObject): PoseLink;
+}
+
+declare class AnimNode_Root extends AnimNode_Base { 
+	Result: PoseLink;
+	clone() : AnimNode_Root;
+	static C(Other: UObject): AnimNode_Root;
+}
+
+declare class AnimGraphNode_Root extends AnimGraphNode_Base { 
+	UNode: AnimNode_Root;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): AnimGraphNode_Root;
+	static Find(Outer: UObject, ResourceName: string): AnimGraphNode_Root;
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): AnimGraphNode_Root;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): AnimGraphNode_Root;
+	static C(Other: UObject): AnimGraphNode_Root;
+}
+
+declare class AnimGraphNode_CustomTransitionResult extends AnimGraphNode_Root { 
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): AnimGraphNode_CustomTransitionResult;
+	static Find(Outer: UObject, ResourceName: string): AnimGraphNode_CustomTransitionResult;
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): AnimGraphNode_CustomTransitionResult;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): AnimGraphNode_CustomTransitionResult;
+	static C(Other: UObject): AnimGraphNode_CustomTransitionResult;
+}
+
+declare class AnimationCustomTransitionGraph extends AnimationGraph { 
+	MyResultNode: AnimGraphNode_CustomTransitionResult;
+	constructor();
+	constructor(Outer: UObject);
+	static Load(ResourceName: string): AnimationCustomTransitionGraph;
+	static Find(Outer: UObject, ResourceName: string): AnimationCustomTransitionGraph;
+	static StaticClass: any;
+	static GetClassObject(): UClass;
+	static GetDefaultObject(): AnimationCustomTransitionGraph;
+	static GetDefaultSubobjectByName(Name: string): UObject;
+	static SetDefaultSubobjectClass(Name: string): void;
+	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): AnimationCustomTransitionGraph;
+	static C(Other: UObject): AnimationCustomTransitionGraph;
+}
+
 declare class AnimGraphNode_StateResult extends AnimGraphNode_Root { 
 	constructor();
 	constructor(Outer: UObject);
@@ -10978,71 +11071,6 @@ declare class NavigationGraph extends NavigationData {
 	static SetDefaultSubobjectClass(Name: string): void;
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): NavigationGraph;
 	static C(Other: UObject): NavigationGraph;
-}
-
-declare type ERecastPartitioning = string | symbol;
-declare var ERecastPartitioning = { Monotone:'Monotone',Watershed:'Watershed',ChunkyMonotone:'ChunkyMonotone', };
-declare class RecastNavMesh extends NavigationData { 
-	bDrawTriangleEdges: boolean;
-	bDrawPolyEdges: boolean;
-	bDrawFilledPolys: boolean;
-	bDrawNavMeshEdges: boolean;
-	bDrawTileBounds: boolean;
-	bDrawPathCollidingGeometry: boolean;
-	bDrawTileLabels: boolean;
-	bDrawPolygonLabels: boolean;
-	bDrawDefaultPolygonCost: boolean;
-	bDrawLabelsOnPathNodes: boolean;
-	bDrawNavLinks: boolean;
-	bDrawFailedNavLinks: boolean;
-	bDrawClusters: boolean;
-	bDrawOctree: boolean;
-	bDistinctlyDrawTilesBeingBuilt: boolean;
-	bDrawNavMesh: boolean;
-	DrawOffset: number;
-	bFixedTilePoolSize: boolean;
-	TilePoolSize: number;
-	TileSizeUU: number;
-	CellSize: number;
-	CellHeight: number;
-	AgentRadius: number;
-	AgentHeight: number;
-	AgentMaxHeight: number;
-	AgentMaxSlope: number;
-	AgentMaxStepHeight: number;
-	MinRegionArea: number;
-	MergeRegionSize: number;
-	MaxSimplificationError: number;
-	MaxSimultaneousTileGenerationJobsCount: number;
-	TileNumberHardLimit: number;
-	PolyRefTileBits: number;
-	PolyRefNavPolyBits: number;
-	PolyRefSaltBits: number;
-	DefaultDrawDistance: number;
-	DefaultMaxSearchNodes: number;
-	DefaultMaxHierarchicalSearchNodes: number;
-	RegionPartitioning: ERecastPartitioning;
-	LayerPartitioning: ERecastPartitioning;
-	RegionChunkSplits: number;
-	LayerChunkSplits: number;
-	bSortNavigationAreasByCost: boolean;
-	bPerformVoxelFiltering: boolean;
-	bMarkLowHeightAreas: boolean;
-	bDoFullyAsyncNavDataGathering: boolean;
-	bUseBetterOffsetsFromCorners: boolean;
-	bUseVirtualFilters: boolean;
-	bUseVoxelCache: boolean;
-	TileSetUpdateInterval: number;
-	HeuristicScale: number;
-	VerticalDeviationFromGroundCompensation: number;
-	constructor(InWorld: World, Location?: Vector, Rotation?: Rotator);
-	static StaticClass: any;
-	static GetClassObject(): UClass;
-	static GetDefaultObject(): RecastNavMesh;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): RecastNavMesh;
-	static C(Other: UObject): RecastNavMesh;
 }
 
 declare class NavigationGraphNode extends Actor { 
@@ -22628,22 +22656,5 @@ declare class LeaderboardBlueprintLibrary extends BlueprintFunctionLibrary {
 	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): LeaderboardBlueprintLibrary;
 	static WriteLeaderboardInteger(PlayerController: PlayerController,StatName: string,StatValue: number): boolean;
 	static C(Other: UObject): LeaderboardBlueprintLibrary;
-}
-
-declare class LeaderboardFlushCallbackProxy extends UObject { 
-	OnSuccess: UnrealEngineMulticastDelegate<(SessionName: string) => void>;
-	OnFailure: UnrealEngineMulticastDelegate<(SessionName: string) => void>;
-	constructor();
-	constructor(Outer: UObject);
-	static Load(ResourceName: string): LeaderboardFlushCallbackProxy;
-	static Find(Outer: UObject, ResourceName: string): LeaderboardFlushCallbackProxy;
-	static StaticClass: any;
-	static GetClassObject(): UClass;
-	static GetDefaultObject(): LeaderboardFlushCallbackProxy;
-	static GetDefaultSubobjectByName(Name: string): UObject;
-	static SetDefaultSubobjectClass(Name: string): void;
-	static CreateDefaultSubobject(Name: string, Transient?: boolean, Required?: boolean, Abstract?: boolean): LeaderboardFlushCallbackProxy;
-	static CreateProxyObjectForFlush(PlayerController: PlayerController,SessionName: string): LeaderboardFlushCallbackProxy;
-	static C(Other: UObject): LeaderboardFlushCallbackProxy;
 }
 

@@ -4,7 +4,7 @@
 #include "worldui_text.h"
 
 void Aworldui_text::BeginPlay() {
-	Clear();
+	//Clear();
 }
 
 //also checks for capitalizing the first letter
@@ -28,7 +28,7 @@ void Aworldui_text::Append(FString suffix, FString & loadedString) {
 		return;
 
 	RText()->SetText(FText::FromString(tmp + suffix));
-	OnTextChanged();
+	//OnTextChanged();
 }
 
 //Appends the information from a given Ainfo_target
@@ -47,7 +47,7 @@ void Aworldui_text::BackSpace() {
 	if (length > 0){
 		tmp.RemoveAt(length - 1);
 		RText()->SetText(FText::FromString(tmp));
-		OnTextChanged();
+		//OnTextChanged();
 	}
 }
 
@@ -64,5 +64,5 @@ void Aworldui_text::Enter(FString & loadedString) {
 
 void Aworldui_text::Clear() {
 	RText()->SetText(FText::FromString(FString("")));
-	OnTextChanged();
+	//OnTextChanged();
 }

@@ -1,9 +1,12 @@
-﻿  Creating makefile for MMC_BowlingEditor (working set of source files changed)
+﻿  Compiling game modules for hot reload
   Parsing headers for MMC_BowlingEditor
-    Running UnrealHeaderTool "C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\MMC_Bowling.uproject" "C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\MMC_BowlingEditor\Development\MMC_BowlingEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
-  Reflection code generated for MMC_BowlingEditor in 2.55149 seconds
-  Performing 2 actions (4 in parallel)
+    Running UnrealHeaderTool "C:\Users\Public\Documents\Public Projects\MMC_Bowling\MMC_Bowling.uproject" "C:\Users\Public\Documents\Public Projects\MMC_Bowling\Intermediate\Build\Win64\MMC_BowlingEditor\Development\MMC_BowlingEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
+  Reflection code generated for MMC_BowlingEditor in 8.0548326 seconds
+  Performing 3 actions (4 in parallel)
   worldui_text.cpp
-  [2/2] Link UE4Editor-MMC_Bowling.dll
-     Creating library C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.lib and object C:\Users\mtrunk\Documents\Unreal Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling.exp
-  Total build time: 22.02 seconds
+  [2/3] Link UE4Editor-MMC_Bowling-6737.dll
+  [3/3] Link UE4Editor-MMC_Bowling-6737.lib
+     Creating library C:\Users\Public\Documents\Public Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling-6737.suppressed.lib and object C:\Users\Public\Documents\Public Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling-6737.suppressed.exp
+     Creating library C:\Users\Public\Documents\Public Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling-6737.lib and object C:\Users\Public\Documents\Public Projects\MMC_Bowling\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-MMC_Bowling-6737.exp
+  Deploying MMC_BowlingEditor Win64 Development...
+  Total build time: 87.98 seconds (Local executor: 2.36 seconds)

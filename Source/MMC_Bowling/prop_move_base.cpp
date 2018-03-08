@@ -18,7 +18,9 @@ Aprop_move_base::Aprop_move_base()
 	//initialize audio component
 	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComp"));
 	audioComponent->bAutoActivate = false;
-	audioComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+
+	audioComponent->SetupAttachment(RootComponent);
+	//	audioComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 }
 
 void Aprop_move_base::BeginPlay()

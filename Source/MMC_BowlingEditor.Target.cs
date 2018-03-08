@@ -5,21 +5,13 @@ using System.Collections.Generic;
 
 public class MMC_BowlingEditorTarget : TargetRules
 {
-	public MMC_BowlingEditorTarget(TargetInfo Target)
+	public MMC_BowlingEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
+	
+		ExtraModuleNames.Add("MMC_Bowling");
+
 	}
 
-	//
-	// TargetRules interface.
-	//
 
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.AddRange( new string[] { "MMC_Bowling" } );
-	}
 }
